@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentAnalysisBinding;
+import com.example.fithub.databinding.FragmentPiechartBinding;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class AnalysisFragment extends Fragment {
 
-    private FragmentAnalysisBinding binding;
+    private FragmentPiechartBinding binding;
 
     @Override
     public View onCreateView(
@@ -33,7 +33,7 @@ public class AnalysisFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentAnalysisBinding.inflate(inflater, container, false);
+        binding = FragmentPiechartBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
