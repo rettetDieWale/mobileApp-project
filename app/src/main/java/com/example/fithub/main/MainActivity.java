@@ -1,7 +1,8 @@
-package com.example.fithub;
+package com.example.fithub.main;
 
 import android.os.Bundle;
 
+import com.example.fithub.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
