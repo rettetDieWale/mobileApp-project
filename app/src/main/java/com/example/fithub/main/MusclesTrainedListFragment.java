@@ -22,7 +22,7 @@ public class MusclesTrainedListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_layout, container, false);
 
-        RecyclerView recyclerView=view.findViewById(R.id.layout);
+        RecyclerView recyclerView=view.findViewById(R.id.listLayout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(new ListAdapter(names));
 

@@ -6,6 +6,7 @@ import com.example.fithub.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,10 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
         FrameLayout layout = new FrameLayout(this);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        layout.setId(R.id.layout);
+        layout.setId(R.id.listLayout);
         setContentView(layout);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.layout, new MusclesTrainedListFragment()).commit();
+        FragmentManager manager = getSupportFragmentManager();
+
+        manager.beginTransaction().add(R.id.listLayout, new MusclesTrainedListFragment()).commit();
+
 
         /**
         binding = ActivityMainBinding.inflate(getLayoutInflater());
