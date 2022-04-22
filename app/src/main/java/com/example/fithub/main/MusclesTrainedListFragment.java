@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
 
-public class fragment1 extends Fragment {
+public class MusclesTrainedListFragment extends Fragment {
 
     String[] names = {"hello", "bye", "main", "joe", "give", "true", "false", "know", "list", "hello", "bye" };
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment1_layout, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_layout, container, false);
 
         RecyclerView recyclerView=view.findViewById(R.id.layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));

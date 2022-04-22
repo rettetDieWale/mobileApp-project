@@ -3,11 +3,8 @@ package com.example.fithub.main;
 import android.os.Bundle;
 
 import com.example.fithub.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -36,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         layout.setId(R.id.layout);
         setContentView(layout);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.layout, new fragment1()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.layout, new MusclesTrainedListFragment()).commit();
 
         /**
         binding = ActivityMainBinding.inflate(getLayoutInflater());
