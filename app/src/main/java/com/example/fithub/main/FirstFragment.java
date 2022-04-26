@@ -1,6 +1,5 @@
 package com.example.fithub.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,7 @@ public class FirstFragment extends Fragment {
 
 
                 NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+                        .navigate(R.id.action_FirstFragment_to_calenderFragment);
 
                 /**
                 Intent intent = new Intent(getActivity(), AnalysisActivity.class);
