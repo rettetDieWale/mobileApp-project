@@ -13,15 +13,14 @@
         <action
             android:id="@+id/action_FirstFragment_to_calenderFragment"
             app:destination="@id/calenderFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_PieChartFragment"
+            app:destination="@id/PieChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/PieChartFragment"
         android:name="com.example.fithub.main.PieChartFragment"
-        android:label="PieChartFragment" >
-        <action
-            android:id="@+id/action_PieChartFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        android:label="PieChartFragment" />
     <fragment
         android:id="@+id/calenderFragment"
         android:name="com.example.fithub.main.CalenderFragment"

@@ -59,8 +59,6 @@ public class PieChartFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                NavHostFragment.findNavController(PieChartFragment.this)
-                        .navigate(R.id.action_PieChartFragment_to_FirstFragment);
 
                 /**
                  Intent intent = new Intent(getActivity(), AnalysisActivity.class);
