@@ -20,11 +20,11 @@
     <fragment
         android:id="@+id/PieChartFragment"
         android:name="com.example.fithub.main.PieChartFragment"
-        android:label="PieChartFragment" />
+        android:label="@string/analysis_fragment_label" />
     <fragment
         android:id="@+id/calenderFragment"
         android:name="com.example.fithub.main.CalenderFragment"
-        android:label="fragment_calender"
+        android:label="@string/calendar_fragment_label"
         tools:layout="@layout/fragment_calender" >
         <action
             android:id="@+id/action_calenderFragment_to_FirstFragment"

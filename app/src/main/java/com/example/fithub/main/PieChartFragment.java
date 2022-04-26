@@ -55,18 +55,6 @@ public class PieChartFragment extends Fragment {
         chart.setData(data);
         chart.invalidate(); // refresh
 
-        binding.buttonChart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                /**
-                 Intent intent = new Intent(getActivity(), AnalysisActivity.class);
-                 startActivity(intent);
-                 **/
-            }
-        });
-
     }
 
     @Override
