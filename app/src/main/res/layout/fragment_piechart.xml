@@ -13,9 +13,10 @@
         android:layout_height="wrap_content"
         android:text="@string/analysis_text"
         android:textSize="64sp"
+        app:layout_constraintBottom_toTopOf="@+id/chart1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="33dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart1"
