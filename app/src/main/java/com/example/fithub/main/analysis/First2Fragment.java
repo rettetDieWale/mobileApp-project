@@ -1,5 +1,6 @@
 package com.example.fithub.main.analysis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirst2Binding;
+import com.example.fithub.main.MainActivity;
 
 public class First2Fragment extends Fragment {
 
@@ -33,8 +35,12 @@ public class First2Fragment extends Fragment {
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /**
                 NavHostFragment.findNavController(First2Fragment.this)
                         .navigate(R.id.action_First2Fragment_to_Second2Fragment);
+                 **/
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
