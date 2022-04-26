@@ -3,15 +3,12 @@
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Startseite</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="analysis_fragment_label">Analyse</string>
     <string name="next">Nächstes</string>
     <string name="previous">Zurück</string>
 
     <string name="home_text">HOME</string>
     <string name="analysis_text">ANALYSE</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_analysis">AnalysisActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
 </resources>

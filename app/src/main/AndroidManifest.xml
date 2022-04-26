@@ -9,11 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitHub">
-        <activity
-            android:name=".main.analysis.AnalysisActivity"
-            android:exported="false"
-            android:label="@string/title_activity_analysis"
-            android:theme="@style/Theme.FitHub.NoActionBar" />
+
         <activity
             android:name=".main.MainActivity"
             android:exported="true"

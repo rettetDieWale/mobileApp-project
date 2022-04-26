@@ -12,7 +12,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
-import com.example.fithub.main.analysis.AnalysisActivity;
 
 public class FirstFragment extends Fragment {
 
@@ -32,19 +31,18 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        binding.buttonHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                /**
+
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_PieChartFragment);
-                **/
 
-
+                /**
                 Intent intent = new Intent(getActivity(), AnalysisActivity.class);
                 startActivity(intent);
-
+                **/
             }
         });
     }
