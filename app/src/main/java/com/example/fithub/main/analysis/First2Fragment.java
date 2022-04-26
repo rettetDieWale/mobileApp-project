@@ -1,4 +1,4 @@
-package com.example.fithub.main;
+package com.example.fithub.main.analysis;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentFirstBinding;
-import com.example.fithub.main.analysis.AnalysisActivity;
+import com.example.fithub.databinding.FragmentFirst2Binding;
+import com.example.fithub.main.MainActivity;
 
-public class FirstFragment extends Fragment {
+public class First2Fragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentFirst2Binding binding;
 
     @Override
     public View onCreateView(
@@ -24,7 +24,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentFirst2Binding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -36,10 +36,10 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 /**
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                NavHostFragment.findNavController(First2Fragment.this)
+                        .navigate(R.id.action_First2Fragment_to_Second2Fragment);
                  **/
-                Intent intent = new Intent(getActivity(), AnalysisActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
         });
