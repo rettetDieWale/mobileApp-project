@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentPiechartBinding;
@@ -42,10 +43,10 @@ public class PieChartFragment extends Fragment {
         PieChart chart = (PieChart) view.findViewById(R.id.chart1);
 
         List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(18.5f, "Green"));
-        entries.add(new PieEntry(26.7f, "Yellow"));
-        entries.add(new PieEntry(24.0f, "Red"));
-        entries.add(new PieEntry(30.8f, "Blue"));
+        entries.add(new PieEntry(18.5f, "Schultern"));
+        entries.add(new PieEntry(26.7f, "Brust"));
+        entries.add(new PieEntry(24.0f, "Arme"));
+        entries.add(new PieEntry(30.8f, "Beine"));
 
         PieDataSet set = new PieDataSet(entries, "Election Results");
 
@@ -53,6 +54,20 @@ public class PieChartFragment extends Fragment {
         PieData data = new PieData(set);
         chart.setData(data);
         chart.invalidate(); // refresh
+
+        binding.buttonChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NavHostFragment.findNavController(PieChartFragment.this)
+                        .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+
+                /**
+                 Intent intent = new Intent(getActivity(), AnalysisActivity.class);
+                 startActivity(intent);
+                 **/
+            }
+        });
 
     }
 

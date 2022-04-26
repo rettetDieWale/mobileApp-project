@@ -5,8 +5,8 @@
     <string name="home_fragment_label">Startseite</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="analysis_fragment_label">Analyse</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="next">Nächstes</string>
+    <string name="previous">Zurück</string>
 
     <string name="home_text">HOME</string>
     <string name="analysis_text">ANALYSE</string>
