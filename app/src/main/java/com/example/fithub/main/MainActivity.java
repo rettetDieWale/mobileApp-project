@@ -49,12 +49,6 @@ public class MainActivity extends AppCompatActivity {
         renderAppBar();
 
         /**
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
         return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
+               || super.onOptionsItemSelected(item);
 
         /**
         //noinspection SimplifiableIfStatement
