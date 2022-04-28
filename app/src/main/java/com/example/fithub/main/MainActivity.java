@@ -87,24 +87,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-
         return NavigationUI.onNavDestinationSelected(item, navController)
                || super.onOptionsItemSelected(item);
 
-        /**
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-         **/
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+
     }
 }
