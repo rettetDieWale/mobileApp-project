@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitHub">
-
+        <activity
+            android:name=".main.calendar.CalendarActivity"
+            android:exported="false"
+            android:label="@string/title_activity_calendar"
+            android:theme="@style/Theme.FitHub.NoActionBar" />
         <activity
             android:name=".main.MainActivity"
             android:exported="true"

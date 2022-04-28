@@ -1,6 +1,5 @@
-package com.example.fithub.main;
+package com.example.fithub.main.calendar;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,14 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentCalenderBinding;
+import com.example.fithub.databinding.FragmentCalenderOverviewBinding;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CalenderOverviewFragment extends Fragment {
 
-public class CalenderFragment extends Fragment {
-
-    private FragmentCalenderBinding binding;
+    private FragmentCalenderOverviewBinding binding;
 
     @Override
     public View onCreateView(
@@ -27,7 +23,7 @@ public class CalenderFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentCalenderBinding.inflate(inflater, container, false);
+        binding = FragmentCalenderOverviewBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -39,9 +35,10 @@ public class CalenderFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                NavHostFragment.findNavController(CalenderFragment.this)
+                /**
+                NavHostFragment.findNavController(CalenderOverviewFragment.this)
                         .navigate(R.id.action_calenderFragment_to_FirstFragment);
-
+                **/
                 /**
                  Intent intent = new Intent(getActivity(), AnalysisActivity.class);
                  startActivity(intent);
