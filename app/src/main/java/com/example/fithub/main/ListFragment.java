@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
 
-public class MusclesTrainedListFragment extends Fragment {
+public class ListFragment extends Fragment {
 
     String[] names = {"hello", "bye", "main", "joe", "give", "true", "false", "know", "list", "hello", "bye" };
 

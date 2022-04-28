@@ -1,23 +1,19 @@
 <resources>
     <string name="app_name">FitHub</string>
-    <string name="action_analysis">Statistik</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="home_fragment_label">Startseite</string>
-    <string name="analysis_fragment_label">Analyse</string>
-    <string name="calendar_fragment_label">Kalender</string>
+    <!-- Strings used as activity names in manifest.xml -->
+    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_training_plan">TrainingPlanActivity</string>
 
+    <!-- Strings used for AppBar -->
+    <string name="appbar_item_name_analysis">Analyse</string>
+    <string name="appbar_title_calender">Kalender</string>
+    <string name="appbar_title_home">Startseite</string>
+    <string name="appbar_title_analysis">Analyse</string>
+
+    <!-- Strings used for fragments for navigation -->
+
+    <!-- Strings for Button Text -->
     <string name="next">Nächstes</string>
     <string name="previous">Zurück</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="calender">Kalender</string>
-    <string name="title_activity_calendar">CalendarActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="trainingplan_overview">Trainingspläne verwalten</string>
 </resources>

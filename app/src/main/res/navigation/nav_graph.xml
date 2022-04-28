@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.fithub.main.FirstFragment"
-        android:label="@string/home_fragment_label"
+        android:label="@string/appbar_title_home"
         tools:layout="@layout/fragment_first">
         <action
             android:id="@+id/action_FirstFragment_to_PieChartFragment"
@@ -17,5 +17,5 @@
     <fragment
         android:id="@+id/PieChartFragment"
         android:name="com.example.fithub.main.PieChartFragment"
-        android:label="@string/analysis_fragment_label" />
+        android:label="@string/appbar_title_analysis" />
 </navigation>
