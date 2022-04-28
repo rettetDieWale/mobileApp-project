@@ -7,6 +7,6 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.fithub.main.ListFragment"
-        android:label="ListFragment"
-        tools:layout="@layout/fragment_list_layout"/>
+        android:label="@string/appbar_title_training_plan_overview"
+        tools:layout="@layout/fragment_list_layout" />
 </navigation>

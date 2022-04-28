@@ -9,6 +9,7 @@
     <string name="appbar_title_calender">Kalender</string>
     <string name="appbar_title_home">Startseite</string>
     <string name="appbar_title_analysis">Analyse</string>
+    <string name="appbar_title_training_plan_overview">Trainingspläne verwalten</string>
 
     <!-- Strings used for fragments for navigation -->
 
