@@ -2,4 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph2" />
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/listFragment">
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.fithub.main.ListFragment"
+        android:label="ListFragment"
+        tools:layout="@layout/fragment_list_layout"/>
+</navigation>
