@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitHub">
         <activity
+            android:name=".main.trainingplan.TrainingPlanActivity"
+            android:exported="false"
+            android:label="@string/title_activity_training_plan"
+            android:theme="@style/Theme.FitHub.NoActionBar" />
+        <activity
             android:name=".main.calendar.CalendarActivity"
             android:exported="false"
             android:label="@string/title_activity_calendar"

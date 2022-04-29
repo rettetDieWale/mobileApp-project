@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentCalenderOverviewBinding;
 import com.example.fithub.main.MainActivity;
+import com.example.fithub.main.trainingplan.TrainingPlanActivity;
 
 public class CalenderOverviewFragment extends Fragment {
 
@@ -33,17 +34,20 @@ public class CalenderOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonCalender.setOnClickListener(new View.OnClickListener() {
+        binding.buttonCalenderReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /**
-                NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                        .navigate(R.id.action_calenderFragment_to_FirstFragment);
-                **/
-
                  Intent intent = new Intent(getActivity(), MainActivity.class);
                  startActivity(intent);
+
+            }
+        });
+
+        binding.buttonTrainingplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TrainingPlanActivity.class);
+                startActivity(intent);
 
             }
         });

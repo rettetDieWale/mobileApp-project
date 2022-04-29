@@ -1,5 +1,6 @@
-package com.example.fithub.main;
+package com.example.fithub.main.trainingplan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
+import com.example.fithub.databinding.FragmentListLayoutBinding;
+import com.example.fithub.main.calendar.CalendarActivity;
 
-public class MusclesTrainedListFragment extends Fragment {
+public class ListFragment extends Fragment {
+
+    private FragmentListLayoutBinding binding;
 
     String[] names = {"hello", "bye", "main", "joe", "give", "true", "false", "know", "list", "hello", "bye" };
 
@@ -27,5 +32,16 @@ public class MusclesTrainedListFragment extends Fragment {
         recyclerView.setAdapter(new ListAdapter(names));
 
         return view;
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
