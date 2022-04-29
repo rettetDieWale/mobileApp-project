@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph2"
-    app:startDestination="@id/listFragment">
+    android:label="@string/appbar_title_training_plan_overview"
+    app:startDestination="@id/trainingPlanOverview">
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.example.fithub.main.ListFragment"
+        android:id="@+id/trainingPlanOverview"
+        android:name="com.example.fithub.main.trainingplan.TrainingPlanOverview"
         android:label="@string/appbar_title_training_plan_overview"
-        tools:layout="@layout/fragment_list_layout" />
+        tools:layout="@layout/fragment_training_plan_overview" />
 </navigation>
