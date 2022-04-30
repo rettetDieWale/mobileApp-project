@@ -8,5 +8,14 @@
         android:id="@+id/calenderOverviewFragment"
         android:name="com.example.fithub.main.calendar.CalenderOverviewFragment"
         android:label="@string/appbar_title_calender"
-        tools:layout="@layout/fragment_calender_overview" />
+        tools:layout="@layout/fragment_calender_overview" >
+        <action
+            android:id="@+id/action_calendar_overview_to_training_day"
+            app:destination="@id/trainingDayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingDayFragment"
+        android:name="com.example.fithub.main.calendar.TrainingDayFragment"
+        android:label="fragment_training_day"
+        tools:layout="@layout/fragment_training_day" />
 </navigation>
