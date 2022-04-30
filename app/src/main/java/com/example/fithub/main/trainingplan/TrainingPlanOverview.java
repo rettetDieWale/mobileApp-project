@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,14 @@ public class TrainingPlanOverview extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CalendarActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        binding.buttonTrainingPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(TrainingPlanOverview.this)
+                        .navigate(R.id.action_training_plan_overview_to_training_plan);
             }
         });
 
