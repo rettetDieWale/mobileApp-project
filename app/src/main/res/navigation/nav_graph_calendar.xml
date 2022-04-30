@@ -16,6 +16,6 @@
     <fragment
         android:id="@+id/trainingDayFragment"
         android:name="com.example.fithub.main.calendar.TrainingDayFragment"
-        android:label="fragment_training_day"
+        android:label="@string/appbar_title_training_day"
         tools:layout="@layout/fragment_training_day" />
 </navigation>

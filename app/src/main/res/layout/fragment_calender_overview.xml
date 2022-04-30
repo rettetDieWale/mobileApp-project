@@ -48,7 +48,7 @@
         android:id="@+id/button_training_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/trainin_day"
+        android:text="@string/training_day"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

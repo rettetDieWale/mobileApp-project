@@ -10,15 +10,12 @@
     <string name="appbar_title_home">Startseite</string>
     <string name="appbar_title_analysis">Analyse</string>
     <string name="appbar_title_training_plan_overview">Trainingspläne verwalten</string>
-
-    <!-- Strings used for fragments for navigation -->
+    <string name="appbar_title_training_day">Trainingstag</string>
 
     <!-- Strings for Button Text -->
     <string name="next">Nächstes</string>
     <string name="previous">Zurück</string>
     <string name="trainingplan_overview">Trainingspläne verwalten</string>
-    <string name="trainin_day">Trainingstage</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="training_day">Trainingstage</string>
 
 </resources>
