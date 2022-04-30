@@ -12,6 +12,7 @@
     <string name="appbar_title_training_plan_overview">Trainingspläne verwalten</string>
     <string name="appbar_title_training_day">Trainingstag</string>
     <string name="appbar_title_training_period">Zeitraumplanung</string>
+    <string name="appbar_title_training_plan">Trainingsplan</string>
 
     <!-- Strings for Button Text -->
     <string name="next">Nächstes</string>
@@ -19,6 +20,9 @@
     <string name="trainingplan_overview">Trainingspläne verwalten</string>
     <string name="training_day">Trainingstage</string>
     <string name="training_period">Zeitraumplanung</string>
+    <string name="training_plan">Trainingsplan</string>
+    <string name="exercise">Übung</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

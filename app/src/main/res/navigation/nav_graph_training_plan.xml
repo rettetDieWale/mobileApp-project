@@ -9,5 +9,14 @@
         android:id="@+id/trainingPlanOverview"
         android:name="com.example.fithub.main.trainingplan.TrainingPlanOverview"
         android:label="@string/appbar_title_training_plan_overview"
-        tools:layout="@layout/fragment_training_plan_overview" />
+        tools:layout="@layout/fragment_training_plan_overview" >
+        <action
+            android:id="@+id/action_training_plan_overview_to_training_plan"
+            app:destination="@id/trainingPlanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingPlanFragment"
+        android:name="com.example.fithub.main.trainingplan.TrainingPlanFragment"
+        android:label="@string/appbar_title_training_plan"
+        tools:layout="@layout/fragment_training_plan" />
 </navigation>
