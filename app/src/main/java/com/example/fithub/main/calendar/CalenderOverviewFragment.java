@@ -52,6 +52,15 @@ public class CalenderOverviewFragment extends Fragment {
             }
         });
 
+        binding.buttonTrainingDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(CalenderOverviewFragment.this)
+                        .navigate(R.id.action_calendar_overview_to_training_day);
+
+            }
+        });
+
     }
 
     @Override
