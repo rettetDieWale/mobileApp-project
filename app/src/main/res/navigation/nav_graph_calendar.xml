@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_calendar_overview_to_training_day"
             app:destination="@id/trainingDayFragment" />
+        <action
+            android:id="@+id/action_calender_overview_to_training_period"
+            app:destination="@id/trainingPeriodFragment" />
     </fragment>
     <fragment
         android:id="@+id/trainingDayFragment"
         android:name="com.example.fithub.main.calendar.TrainingDayFragment"
         android:label="@string/appbar_title_training_day"
         tools:layout="@layout/fragment_training_day" />
+    <fragment
+        android:id="@+id/trainingPeriodFragment"
+        android:name="com.example.fithub.main.calendar.TrainingPeriodFragment"
+        android:label="@string/appbar_title_training_period"
+        tools:layout="@layout/fragment_training_period" />
 </navigation>
