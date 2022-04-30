@@ -1,6 +1,5 @@
 package com.example.fithub.main.trainingplan;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,14 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentFirstBinding;
+import com.example.fithub.databinding.FragmentExerciseBinding;
 import com.example.fithub.databinding.FragmentTrainingPlanBinding;
-import com.example.fithub.main.calendar.CalendarActivity;
 
+public class ExerciseFragment extends Fragment {
 
-public class TrainingPlanFragment extends Fragment {
+    private FragmentExerciseBinding binding;
 
-    private FragmentTrainingPlanBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,21 +28,12 @@ public class TrainingPlanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentTrainingPlanBinding.inflate(inflater, container, false);
+        binding = FragmentExerciseBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.buttonExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                 NavHostFragment.findNavController(TrainingPlanFragment.this)
-                 .navigate(R.id.action_training_plan_to_exercise);
-            }
-        });
     }
 
     @Override

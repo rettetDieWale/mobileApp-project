@@ -13,6 +13,7 @@
     <string name="appbar_title_training_day">Trainingstag</string>
     <string name="appbar_title_training_period">Zeitraumplanung</string>
     <string name="appbar_title_training_plan">Trainingsplan</string>
+    <string name="appbar_title_exercise">Übung 1</string>
 
     <!-- Strings for Button Text -->
     <string name="next">Nächstes</string>

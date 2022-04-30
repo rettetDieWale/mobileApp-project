@@ -18,5 +18,14 @@
         android:id="@+id/trainingPlanFragment"
         android:name="com.example.fithub.main.trainingplan.TrainingPlanFragment"
         android:label="@string/appbar_title_training_plan"
-        tools:layout="@layout/fragment_training_plan" />
+        tools:layout="@layout/fragment_training_plan" >
+        <action
+            android:id="@+id/action_training_plan_to_exercise"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.fithub.main.trainingplan.ExerciseFragment"
+        android:label="@string/appbar_title_exercise"
+        tools:layout="@layout/fragment_exercise" />
 </navigation>
