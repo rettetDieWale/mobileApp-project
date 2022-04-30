@@ -61,6 +61,14 @@ public class CalenderOverviewFragment extends Fragment {
             }
         });
 
+        binding.buttonTrainingPeriod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 NavHostFragment.findNavController(CalenderOverviewFragment.this)
+                 .navigate(R.id.action_calender_overview_to_training_period);
+            }
+        });
+
     }
 
     @Override
