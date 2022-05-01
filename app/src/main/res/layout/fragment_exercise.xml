@@ -8,7 +8,7 @@
     tools:context=".main.trainingplan.ExerciseFragment" >
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinner_exercise"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/exercise"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Templates:"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_exercise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
