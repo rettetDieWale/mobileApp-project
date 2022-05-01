@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Spinner;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentExerciseBinding;
-import com.example.fithub.databinding.FragmentTrainingPlanBinding;
 
 public class ExerciseFragment extends Fragment {
 
@@ -36,7 +34,7 @@ public class ExerciseFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) view.findViewById(R.id.spinner_exercise);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.template_array,
                 android.R.layout.simple_spinner_item);

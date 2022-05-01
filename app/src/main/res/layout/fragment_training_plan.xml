@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".main.trainingplan.TrainingPlanFragment">
 
+    <Spinner
+        android:id="@+id/spinner_training_plan"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/appbar_title_exercise"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_exercise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/button_exercise"
         android:layout_width="wrap_content"
