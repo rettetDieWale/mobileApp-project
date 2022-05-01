@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".main.trainingplan.TrainingPlanFragment">
 
+    <include
+        layout="@layout/table"
+        android:layout_width="346dp"
+        android:layout_height="660dp"
+        android:layout_marginTop="69dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_exercise"
+        app:layout_constraintVertical_bias="1.0"></include>
+
     <Spinner
         android:id="@+id/spinner_training_plan"
         android:layout_width="409dp"
@@ -25,6 +36,8 @@
         android:text="@string/exercise"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.103" />
 </androidx.constraintlayout.widget.ConstraintLayout>
