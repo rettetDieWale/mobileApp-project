@@ -16,7 +16,7 @@ public class Storage {
 
     FileOutputStream fileobj = null;
     try {
-      fileobj = context.openFileOutput(File_Name, Context.MODE_APPEND);
+      fileobj = context.openFileOutput(File_Name, Context.MODE_PRIVATE);
 
       byte[] ByteArray = Data.getBytes(); // Converts into bytes stream
 

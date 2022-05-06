@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
+import com.example.fithub.main.storage.Storage;
 
 public class FirstFragment extends Fragment {
 
@@ -27,6 +28,7 @@ public class FirstFragment extends Fragment {
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
     binding.buttonHome.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -37,6 +39,16 @@ public class FirstFragment extends Fragment {
              */
             Intent intent = new Intent(getActivity(), CalendarActivity.class);
             startActivity(intent);
+          }
+        });
+
+    binding.buttonSave.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+            Storage storage = new Storage();
+            storage.storeData(getActivity());
           }
         });
 
