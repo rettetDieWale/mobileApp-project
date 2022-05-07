@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ public class FirstFragment extends Fragment {
 
   private FragmentFirstBinding binding;
   private ProgressBar progressBar;
+  private TextView levelLabel, progressLabel;
 
   @Nullable
   @Override
@@ -41,6 +43,8 @@ public class FirstFragment extends Fragment {
   public final void initComponents(View view) {
 
     this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
+    this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
 
     view.findViewById(R.id.stored_data);
 
@@ -78,6 +82,9 @@ public class FirstFragment extends Fragment {
 
             progressBar.setMax(expBar.getMax());
             progressBar.setProgress(expBar.getProgress());
+
+            levelLabel.setText("Level 2");
+            progressLabel.setText("80/100");
           }
         });
   }
