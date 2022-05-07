@@ -3,12 +3,17 @@ package com.example.fithub.main.prototypes;
 /** Class for storing user experience data. */
 public class ExperienceBar {
 
+  /** Max experience for reaching one level. */
   private int max;
+  /** Current progress xp wise as raw integer. */
   private int progress;
+  /** Current user level * */
+  private int level;
 
-  public ExperienceBar(int max, int progress) {
+  public ExperienceBar(int max, int progress, int level) {
     this.max = max;
     this.progress = progress;
+    this.level = level;
   }
 
   public int getMax() {
@@ -25,5 +30,13 @@ public class ExperienceBar {
 
   public void setProgress(int progress) {
     this.progress = progress;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
   }
 }
