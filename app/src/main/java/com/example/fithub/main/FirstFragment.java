@@ -74,7 +74,8 @@ public class FirstFragment extends Fragment {
 
             Serializer serializer = new Serializer();
             progressBarExp pbe =
-                (progressBarExp) serializer.deserialize(getActivity(), progressBarExp.class);
+                (progressBarExp)
+                    serializer.deserialize(getActivity(), progressBarExp.class, "Demo.txt");
 
             progressBar.setMax(pbe.max);
             progressBar.setProgress(pbe.progress);

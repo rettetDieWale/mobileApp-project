@@ -16,13 +16,13 @@ public class Serializer {
    * @param context of the current activity
    * @param object to be serialized
    */
-  public void serialize(Context context, Object object) {
+  public void serialize(Context context, Object object, String filename) {
 
     this.gson = new Gson();
     String json = this.gson.toJson(object);
 
     Storage storage = new Storage();
-    storage.storeData(context, "Demo.txt", json);
+    storage.storeData(context, filename, json);
   }
 
   /**
@@ -32,10 +32,10 @@ public class Serializer {
    * @param type of class that json should be deserialized into.
    * @return
    */
-  public Object deserialize(Context context, Class<?> type) {
+  public Object deserialize(Context context, Class<?> type, String filename) {
 
     Storage storage = new Storage();
-    String data = storage.loadData(context, "Demo.txt");
+    String data = storage.loadData(context, filename);
     this.gson = new Gson();
     return this.gson.fromJson(data, type);
   }
