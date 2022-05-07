@@ -24,6 +24,7 @@ public class FirstFragment extends Fragment {
   private FragmentFirstBinding binding;
   private ProgressBar progressBar;
   private TextView levelLabel, progressLabel;
+  private ExperienceBar experienceBar;
 
   @Nullable
   @Override
@@ -49,6 +50,8 @@ public class FirstFragment extends Fragment {
     view.findViewById(R.id.stored_data);
 
     createOnClickListeners(view);
+
+    initExperienceBar();
   }
 
   /**
@@ -73,24 +76,25 @@ public class FirstFragment extends Fragment {
     storeButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View v) {
-
-            Serializer serializer = new Serializer();
-            ExperienceBar expBar =
-                (ExperienceBar)
-                    serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.txt");
-
-            progressBar.setMax(expBar.getMax());
-            progressBar.setProgress(expBar.getProgress());
-
-            levelLabel.setText("Level 2");
-            progressLabel.setText("80/100");
-          }
+          public void onClick(View v) {}
         });
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+  }
+
+  /** initializes the experience bar with saved values. */
+  public void initExperienceBar() {
+    Serializer serializer = new Serializer();
+    ExperienceBar expBar =
+        (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.txt");
+
+    progressBar.setMax(expBar.getMax());
+    progressBar.setProgress(expBar.getProgress());
+
+    levelLabel.setText("Level " + expBar.getLevel());
+    progressLabel.setText(expBar.getProgress() + "/" + expBar.getMAX_EXPERIENCE());
   }
 
   @Override
