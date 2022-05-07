@@ -18,12 +18,12 @@ public class Serializer {
    * @param context of the current activity
    * @param object to be serialized
    */
-  public void serialize(Context context, Object object, String filename) {
+  public void serialize(final Context context, final Object object, final String filename) {
 
     this.gson = new Gson();
-    String json = this.gson.toJson(object);
+    final String json = this.gson.toJson(object);
 
-    Storage storage = new Storage();
+    final Storage storage = new Storage();
     storage.storeData(context, filename, json);
   }
 
@@ -31,13 +31,13 @@ public class Serializer {
    * Deserialize objects back from json into type.
    *
    * @param context of current activity
-   * @param type of class that json should be deserialized into.
-   * @return
+   * @param type of class that json should be deserialized into
+   * @return data object or null is data is empty
    */
-  public Object deserialize(Context context, Type type, String filename) {
+  public Object deserialize(final Context context, final Type type, final String filename) {
 
-    Storage storage = new Storage();
-    String data = storage.loadData(context, filename);
+    final Storage storage = new Storage();
+    final String data = storage.loadData(context, filename);
 
     if (data.isEmpty()) {
       return null;

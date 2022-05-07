@@ -46,7 +46,7 @@ public class Storage {
    * @param fileName for destination file
    * @return data from text file as string.
    */
-  public String loadData(Context context, String fileName) {
+  public String loadData(final Context context, final String fileName) {
 
     FileInputStream fileInputStream = null;
     final StringBuilder stringBuilder = new StringBuilder();
@@ -66,7 +66,6 @@ public class Storage {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
-      stringBuilder.append("");
     }
 
     return stringBuilder.toString();

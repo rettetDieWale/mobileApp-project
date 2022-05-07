@@ -87,7 +87,7 @@ public class FirstFragment extends Fragment {
 
   /** initializes the experience bar with saved values. */
   public void initExperienceBar() {
-    Serializer serializer = new Serializer();
+    final Serializer serializer = new Serializer();
     experienceBar =
         (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.json");
 
