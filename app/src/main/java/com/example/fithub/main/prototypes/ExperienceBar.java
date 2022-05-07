@@ -45,4 +45,13 @@ public class ExperienceBar {
   public int getMAX_EXPERIENCE() {
     return MAX_EXPERIENCE;
   }
+
+  public void addExperience(int experience) {
+    progress = progress + experience;
+
+    while (progress >= MAX_EXPERIENCE) {
+      progress -= MAX_EXPERIENCE;
+      level++;
+    }
+  }
 }

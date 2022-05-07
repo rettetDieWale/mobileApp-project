@@ -24,7 +24,6 @@ public class FirstFragment extends Fragment {
   private FragmentFirstBinding binding;
   private ProgressBar progressBar;
   private TextView levelLabel, progressLabel;
-  private ExperienceBar experienceBar;
 
   @Nullable
   @Override
@@ -47,8 +46,6 @@ public class FirstFragment extends Fragment {
     this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
     this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
 
-    view.findViewById(R.id.stored_data);
-
     createOnClickListeners(view);
 
     initExperienceBar();
@@ -70,13 +67,6 @@ public class FirstFragment extends Fragment {
             Intent intent = new Intent(getActivity(), CalendarActivity.class);
             startActivity(intent);
           }
-        });
-
-    final Button storeButton = view.findViewById(R.id.button_save);
-    storeButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {}
         });
   }
 
