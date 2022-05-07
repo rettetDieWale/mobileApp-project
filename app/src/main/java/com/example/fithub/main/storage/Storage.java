@@ -13,15 +13,20 @@ import java.io.InputStreamReader;
 
 public class Storage {
 
-  public void storeData(@NonNull Context context, String fileName) {
-    String Data = "Test Data has been saved into Demo.txt";
+  /**
+   * Store data into a text file. Starts path at: data/data/app/com.example.fithub/files/
+   *
+   * @param context of the current Activity
+   * @param fileName for destination file
+   */
+  public void storeData(@NonNull final Context context, final String fileName, final String data) {
 
     FileOutputStream fileOutputStream = null;
 
     try {
       fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 
-      byte[] ByteArray = Data.getBytes();
+      byte[] ByteArray = data.getBytes();
 
       fileOutputStream.write(ByteArray);
       fileOutputStream.close();

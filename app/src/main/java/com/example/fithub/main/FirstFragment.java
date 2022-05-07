@@ -63,7 +63,7 @@ public class FirstFragment extends Fragment {
           @Override
           public void onClick(View v) {
             Storage storage = new Storage();
-            storage.storeData(getActivity(), "Demo.txt");
+            storage.storeData(getActivity(), "Demo.txt", "TESTDATA BITTE SPEICHERN");
             String data = storage.loadData(getActivity(), "Demo.txt");
 
             textview.setText(data);
