@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
+import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.storage.Serializer;
 
 public class FirstFragment extends Fragment {
@@ -40,8 +41,6 @@ public class FirstFragment extends Fragment {
   public final void initComponents(View view) {
 
     this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-    // progressBar.setMax(100);
-    // progressBar.setProgress(50);
 
     view.findViewById(R.id.stored_data);
 
@@ -73,12 +72,12 @@ public class FirstFragment extends Fragment {
           public void onClick(View v) {
 
             Serializer serializer = new Serializer();
-            progressBarExp pbe =
-                (progressBarExp)
-                    serializer.deserialize(getActivity(), progressBarExp.class, "Demo.txt");
+            ExperienceBar expBar =
+                (ExperienceBar)
+                    serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.txt");
 
-            progressBar.setMax(pbe.max);
-            progressBar.setProgress(pbe.progress);
+            progressBar.setMax(expBar.getMax());
+            progressBar.setProgress(expBar.getProgress());
           }
         });
   }
@@ -92,10 +91,4 @@ public class FirstFragment extends Fragment {
     super.onDestroyView();
     binding = null;
   }
-}
-
-/** example class for progress bar will be deleted later */
-class progressBarExp {
-  int max;
-  int progress;
 }
