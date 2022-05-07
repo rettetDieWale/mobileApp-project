@@ -24,6 +24,7 @@ public class FirstFragment extends Fragment {
   private FragmentFirstBinding binding;
   private ProgressBar progressBar;
   private TextView levelLabel, progressLabel;
+  private ExperienceBar experienceBar;
 
   @Nullable
   @Override
@@ -68,6 +69,16 @@ public class FirstFragment extends Fragment {
             startActivity(intent);
           }
         });
+
+    final Button addExperienceButton = (Button) view.findViewById(R.id.button_add_experience);
+    addExperienceButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            experienceBar.addExperience(50);
+            updateExperienceBar();
+          }
+        });
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -77,14 +88,21 @@ public class FirstFragment extends Fragment {
   /** initializes the experience bar with saved values. */
   public void initExperienceBar() {
     Serializer serializer = new Serializer();
-    ExperienceBar expBar =
+    experienceBar =
         (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.txt");
 
-    progressBar.setMax(expBar.getMax());
-    progressBar.setProgress(expBar.getProgress());
+    updateExperienceBar();
+  }
 
-    levelLabel.setText("Level " + expBar.getLevel());
-    progressLabel.setText(expBar.getProgress() + "/" + expBar.getMAX_EXPERIENCE());
+  /**
+   * Updates the experience bar graphic component. Should be called after values have been changed.
+   */
+  public void updateExperienceBar() {
+    progressBar.setMax(experienceBar.getMax());
+    progressBar.setProgress(experienceBar.getProgress());
+
+    levelLabel.setText("Level " + experienceBar.getLevel());
+    progressLabel.setText(experienceBar.getProgress() + "/" + experienceBar.getMAX_EXPERIENCE());
   }
 
   @Override
