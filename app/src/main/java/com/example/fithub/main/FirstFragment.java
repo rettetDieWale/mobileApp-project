@@ -34,6 +34,11 @@ public class FirstFragment extends Fragment {
     return view;
   }
 
+  /**
+   * Initialize components and add them to the fragment so they can be accessed in code.
+   *
+   * @param view the components where added into layout xml
+   */
   public final void initComponents(View view) {
 
     final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
@@ -45,8 +50,14 @@ public class FirstFragment extends Fragment {
     createOnClickListeners(view);
   }
 
+  /**
+   * Creates onClick listeners for buttons and initializes them.
+   *
+   * @param view the buttons where added into layout xml
+   */
   public final void createOnClickListeners(View view) {
 
+    // Buttons are not initialized in initComponents() to reduce redundant code
     final Button calendarButton = (Button) view.findViewById(R.id.button_home);
     calendarButton.setOnClickListener(
         new View.OnClickListener() {

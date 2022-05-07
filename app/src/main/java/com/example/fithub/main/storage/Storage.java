@@ -11,12 +11,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/** Storage class for loading and saving data needed by the app into local data storage. */
 public class Storage {
 
   /**
    * Store data into a text file. Starts path at: data/data/app/com.example.fithub/files/
    *
-   * @param context of the current Activity
+   * @param context of the current activity
    * @param fileName for destination file
    */
   public void storeData(@NonNull final Context context, final String fileName, final String data) {
@@ -38,6 +39,13 @@ public class Storage {
     }
   }
 
+  /**
+   * Loading data from given text file.
+   *
+   * @param context of the current Activity
+   * @param fileName for destination file
+   * @return data from text file as string.
+   */
   public String loadData(Context context, String fileName) {
 
     FileInputStream fileInputStream = null;
