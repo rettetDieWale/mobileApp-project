@@ -75,7 +75,7 @@ public class FirstFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            experienceBar.addExperience(50);
+            experienceBar.addExperience(30);
             updateExperienceBar();
           }
         });
@@ -91,18 +91,19 @@ public class FirstFragment extends Fragment {
     experienceBar =
         (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.json");
 
-    checkExperienceBarStatus();
+    // if file cant be serialized from a new exp bar needs to be created
+    if (experienceBar == null) {
+      resetExperienceBar();
+    }
     updateExperienceBar();
   }
 
   /**
-   * Checks if experience bar has been initialized before and if not create a new one. Useful when
-   * app is started the first time or save files have been deleted or corrupted.
+   * reset experience bar values. Useful when app is started the first time or save files have been
+   * deleted or corrupted.
    */
-  public void checkExperienceBarStatus() {
-    if (experienceBar == null) {
-      experienceBar = new ExperienceBar(100, 0, 0);
-    }
+  public void resetExperienceBar() {
+    experienceBar = new ExperienceBar(100, 0, 0);
   }
 
   /**
