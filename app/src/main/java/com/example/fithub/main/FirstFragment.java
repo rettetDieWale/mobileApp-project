@@ -22,6 +22,8 @@ public class FirstFragment extends Fragment {
 
   private FragmentFirstBinding binding;
 
+  private TextView textview;
+
   @Nullable
   @Override
   public View onCreateView(
@@ -29,16 +31,21 @@ public class FirstFragment extends Fragment {
 
     // binding = FragmentFirstBinding.inflate(inflater, container, false);
 
-    View view = inflater.inflate(R.layout.fragment_first, container, false);
-    Button calendarButton = (Button) view.findViewById(R.id.button_home);
+    final View view = inflater.inflate(R.layout.fragment_first, container, false);
 
-    TextView textview = view.findViewById(R.id.stored_data);
-
-    // setup progress bar final ProgressBar progressBar = (ProgressBar) final ProgressBar
-    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     progressBar.setMax(100);
     progressBar.setProgress(50);
+    textview = view.findViewById(R.id.stored_data);
 
+    createOnClickListeners(view);
+
+    return view;
+  }
+
+  public void createOnClickListeners(View view) {
+
+    final Button calendarButton = (Button) view.findViewById(R.id.button_home);
     calendarButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -48,7 +55,7 @@ public class FirstFragment extends Fragment {
           }
         });
 
-    Button storeButton = view.findViewById(R.id.button_save);
+    final Button storeButton = view.findViewById(R.id.button_save);
     storeButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -60,8 +67,6 @@ public class FirstFragment extends Fragment {
             textview.setText(data);
           }
         });
-
-    return view;
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
