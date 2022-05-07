@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
-import com.example.fithub.main.storage.Storage;
+import com.example.fithub.main.storage.Serializer;
 
 public class FirstFragment extends Fragment {
 
@@ -73,9 +73,9 @@ public class FirstFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Storage storage = new Storage();
-            storage.storeData(getActivity(), "Demo.txt", "TESTDATA BITTE SPEICHERN");
-            String data = storage.loadData(getActivity(), "Demo.txt");
+
+            Serializer serializer = new Serializer();
+            String data = serializer.serialize(getActivity());
 
             textview.setText(data);
           }
