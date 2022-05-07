@@ -28,22 +28,24 @@ public class FirstFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-    // binding = FragmentFirstBinding.inflate(inflater, container, false);
-
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
+    // binding = FragmentFirstBinding.inflate(inflater, container, false);
+    initComponents(view);
+    return view;
+  }
+
+  public final void initComponents(View view) {
 
     final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     progressBar.setMax(100);
     progressBar.setProgress(50);
+
     textview = view.findViewById(R.id.stored_data);
 
     createOnClickListeners(view);
-
-    return view;
   }
 
-  public void createOnClickListeners(View view) {
+  public final void createOnClickListeners(View view) {
 
     final Button calendarButton = (Button) view.findViewById(R.id.button_home);
     calendarButton.setOnClickListener(
