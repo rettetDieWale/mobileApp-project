@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,8 +20,7 @@ import com.example.fithub.main.storage.Serializer;
 public class FirstFragment extends Fragment {
 
   private FragmentFirstBinding binding;
-
-  private TextView textview;
+  private ProgressBar progressBar;
 
   @Nullable
   @Override
@@ -41,11 +39,11 @@ public class FirstFragment extends Fragment {
    */
   public final void initComponents(View view) {
 
-    final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-    progressBar.setMax(100);
-    progressBar.setProgress(50);
+    this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    // progressBar.setMax(100);
+    // progressBar.setProgress(50);
 
-    textview = view.findViewById(R.id.stored_data);
+    view.findViewById(R.id.stored_data);
 
     createOnClickListeners(view);
   }
@@ -75,9 +73,11 @@ public class FirstFragment extends Fragment {
           public void onClick(View v) {
 
             Serializer serializer = new Serializer();
-            String data = serializer.serialize(getActivity());
+            progressBarExp pbe =
+                (progressBarExp) serializer.deserialize(getActivity(), progressBarExp.class);
 
-            textview.setText(data);
+            progressBar.setMax(pbe.max);
+            progressBar.setProgress(pbe.progress);
           }
         });
   }
@@ -91,4 +91,10 @@ public class FirstFragment extends Fragment {
     super.onDestroyView();
     binding = null;
   }
+}
+
+/** example class for progress bar will be deleted later */
+class progressBarExp {
+  int max;
+  int progress;
 }

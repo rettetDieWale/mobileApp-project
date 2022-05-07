@@ -7,24 +7,22 @@ import com.google.gson.Gson;
 /** Class for converting objects into json format. */
 public class Serializer {
 
-  public String serialize(Context context) {
-    progressBarExp pbe = new progressBarExp();
-    pbe.max = 200;
-    pbe.progress = 60;
+  Gson gson;
 
-    Gson gson = new Gson();
-    String json = gson.toJson(pbe);
+  public void serialize(Context context, Object object) {
+
+    this.gson = new Gson();
+    String json = this.gson.toJson(object);
 
     Storage storage = new Storage();
     storage.storeData(context, "Demo.txt", json);
-    String data = storage.loadData(context, "Demo.txt");
-
-    return data;
   }
-}
 
-/** example class for progress bar will be deleted later */
-class progressBarExp {
-  int max;
-  int progress;
+  public Object deserialize(Context context, Class<?> type) {
+
+    Storage storage = new Storage();
+    String data = storage.loadData(context, "Demo.txt");
+    this.gson = new Gson();
+    return this.gson.fromJson(data, type);
+  }
 }
