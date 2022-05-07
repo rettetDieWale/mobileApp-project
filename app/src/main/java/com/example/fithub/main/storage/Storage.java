@@ -13,31 +13,42 @@ import java.io.InputStreamReader;
 
 public class Storage {
 
-  public String storeData(@NonNull Context context) {
-    String File_Name = "Demo.txt"; // gives file name
-    String Data = "Test Data has been saved into Demo.txt"; // define data
+  public void storeData(@NonNull Context context) {
+    String File_Name = "Demo.txt";
+    String Data = "Test Data has been saved into Demo.txt";
 
     FileOutputStream fileOutputStream = null;
+
+    try {
+      fileOutputStream = context.openFileOutput(File_Name, Context.MODE_PRIVATE);
+
+      byte[] ByteArray = Data.getBytes();
+
+      fileOutputStream.write(ByteArray);
+      fileOutputStream.close();
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public String loadData(Context context) {
+
+    String File_Name = "Demo.txt";
     FileInputStream fileInputStream = null;
     StringBuilder stringBuilder = new StringBuilder();
     try {
-
-      // write
-      fileOutputStream = context.openFileOutput(File_Name, Context.MODE_PRIVATE);
-
-      byte[] ByteArray = Data.getBytes(); // Converts into bytes stream
-
-      fileOutputStream.write(ByteArray); // writing to file
-      fileOutputStream.close(); // File closed
-
-      // read
       fileInputStream = context.openFileInput(File_Name);
       InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
       String line;
       while ((line = bufferedReader.readLine()) != null) {
         stringBuilder.append(line);
       }
+
       inputStreamReader.close();
 
     } catch (FileNotFoundException e) {

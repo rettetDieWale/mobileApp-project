@@ -54,7 +54,8 @@ public class FirstFragment extends Fragment {
           @Override
           public void onClick(View v) {
             Storage storage = new Storage();
-            String data = storage.storeData(getActivity());
+            storage.storeData(getActivity());
+            String data = storage.loadData(getActivity());
 
             textview.setText(data);
           }
