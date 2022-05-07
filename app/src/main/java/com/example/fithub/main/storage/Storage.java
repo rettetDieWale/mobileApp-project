@@ -26,7 +26,7 @@ public class Storage {
     try {
       fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 
-      byte[] ByteArray = data.getBytes();
+      final byte[] ByteArray = data.getBytes();
 
       fileOutputStream.write(ByteArray);
       fileOutputStream.close();
@@ -41,11 +41,11 @@ public class Storage {
   public String loadData(Context context, String fileName) {
 
     FileInputStream fileInputStream = null;
-    StringBuilder stringBuilder = new StringBuilder();
+    final StringBuilder stringBuilder = new StringBuilder();
     try {
       fileInputStream = context.openFileInput(fileName);
-      InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-      BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+      final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+      final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
       String line;
       while ((line = bufferedReader.readLine()) != null) {
