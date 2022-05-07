@@ -89,9 +89,20 @@ public class FirstFragment extends Fragment {
   public void initExperienceBar() {
     Serializer serializer = new Serializer();
     experienceBar =
-        (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.txt");
+        (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.json");
 
+    checkExperienceBarStatus();
     updateExperienceBar();
+  }
+
+  /**
+   * Checks if experience bar has been initialized before and if not create a new one. Useful when
+   * app is started the first time or save files have been deleted or corrupted.
+   */
+  public void checkExperienceBarStatus() {
+    if (experienceBar == null) {
+      experienceBar = new ExperienceBar(100, 0, 0);
+    }
   }
 
   /**

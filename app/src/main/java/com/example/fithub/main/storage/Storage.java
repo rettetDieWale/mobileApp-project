@@ -66,6 +66,7 @@ public class Storage {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
+      stringBuilder.append("");
     }
 
     return stringBuilder.toString();

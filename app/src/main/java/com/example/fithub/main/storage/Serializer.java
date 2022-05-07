@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 /** Class for converting objects into json format. */
 public class Serializer {
 
@@ -32,10 +34,15 @@ public class Serializer {
    * @param type of class that json should be deserialized into.
    * @return
    */
-  public Object deserialize(Context context, Class<?> type, String filename) {
+  public Object deserialize(Context context, Type type, String filename) {
 
     Storage storage = new Storage();
     String data = storage.loadData(context, filename);
+
+    if (data.isEmpty()) {
+      return null;
+    }
+
     this.gson = new Gson();
     return this.gson.fromJson(data, type);
   }
