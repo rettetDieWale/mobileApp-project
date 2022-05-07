@@ -24,6 +24,11 @@
     <string name="training_plan">Trainingsplan</string>
     <string name="exercise">Übung</string>
     <string name="save">Speichern</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
+
+    <!-- Strings for labels -->
+    <string name="loading">Loading data...</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

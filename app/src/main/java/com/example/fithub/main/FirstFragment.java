@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +16,15 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
+import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.storage.Serializer;
 
 public class FirstFragment extends Fragment {
 
   private FragmentFirstBinding binding;
   private ProgressBar progressBar;
+  private TextView levelLabel, progressLabel;
+  private ExperienceBar experienceBar;
 
   @Nullable
   @Override
@@ -40,12 +44,12 @@ public class FirstFragment extends Fragment {
   public final void initComponents(View view) {
 
     this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-    // progressBar.setMax(100);
-    // progressBar.setProgress(50);
-
-    view.findViewById(R.id.stored_data);
+    this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
+    this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
 
     createOnClickListeners(view);
+
+    initExperienceBar();
   }
 
   /**
@@ -66,19 +70,34 @@ public class FirstFragment extends Fragment {
           }
         });
 
-    final Button storeButton = view.findViewById(R.id.button_save);
-    storeButton.setOnClickListener(
+    final Button addExperienceButton = (Button) view.findViewById(R.id.button_add_experience);
+    addExperienceButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+            experienceBar.addExperience(30);
+            updateExperienceBar();
+          }
+        });
 
-            Serializer serializer = new Serializer();
-            progressBarExp pbe =
-                (progressBarExp)
-                    serializer.deserialize(getActivity(), progressBarExp.class, "Demo.txt");
+    final Button subtractExperienceButton =
+        (Button) view.findViewById(R.id.button_subtract_experience);
+    subtractExperienceButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            experienceBar.subtractExperience(30);
+            updateExperienceBar();
+          }
+        });
 
-            progressBar.setMax(pbe.max);
-            progressBar.setProgress(pbe.progress);
+    final Button resetExperienceButton = (Button) view.findViewById(R.id.button_reset_experience);
+    resetExperienceButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            resetExperienceBar();
+            updateExperienceBar();
           }
         });
   }
@@ -87,15 +106,44 @@ public class FirstFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
+  /** initializes the experience bar with saved values. */
+  public void initExperienceBar() {
+    final Serializer serializer = new Serializer();
+    experienceBar =
+        (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.json");
+
+    // if file cant be serialized from a new exp bar needs to be created
+    if (experienceBar == null) {
+      resetExperienceBar();
+    }
+    updateExperienceBar();
+  }
+
+  /**
+   * reset experience bar values. Useful when app is started the first time or save files have been
+   * deleted or corrupted.
+   */
+  public void resetExperienceBar() {
+    experienceBar = new ExperienceBar(100, 0, 0);
+  }
+
+  /**
+   * Updates the experience bar graphic component. Should be called after values have been changed.
+   */
+  public void updateExperienceBar() {
+    progressBar.setMax(experienceBar.getMax());
+    progressBar.setProgress(experienceBar.getProgress());
+
+    levelLabel.setText("Level " + experienceBar.getLevel());
+    progressLabel.setText(experienceBar.getProgress() + "/" + experienceBar.getMAX_EXPERIENCE());
+
+    Serializer serializer = new Serializer();
+    serializer.serialize(getActivity(), experienceBar, "Demo.json");
+  }
+
   @Override
   public void onDestroyView() {
     super.onDestroyView();
     binding = null;
   }
-}
-
-/** example class for progress bar will be deleted later */
-class progressBarExp {
-  int max;
-  int progress;
 }
