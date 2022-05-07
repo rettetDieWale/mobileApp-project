@@ -79,6 +79,27 @@ public class FirstFragment extends Fragment {
             updateExperienceBar();
           }
         });
+
+    final Button subtractExperienceButton =
+        (Button) view.findViewById(R.id.button_subtract_experience);
+    subtractExperienceButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            experienceBar.subtractExperience(30);
+            updateExperienceBar();
+          }
+        });
+
+    final Button resetExperienceButton = (Button) view.findViewById(R.id.button_reset_experience);
+    resetExperienceButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            resetExperienceBar();
+            updateExperienceBar();
+          }
+        });
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

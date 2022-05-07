@@ -49,9 +49,18 @@ public class ExperienceBar {
   public void addExperience(int experience) {
     progress = progress + experience;
 
-    while (progress >= 100) {
-      progress = progress - 100;
+    while (progress >= MAX_EXPERIENCE) {
+      progress = progress - MAX_EXPERIENCE;
       level++;
+    }
+  }
+
+  public void subtractExperience(int experience) {
+    progress = progress - experience;
+
+    while (progress <= 0) {
+      progress = progress + MAX_EXPERIENCE;
+      level--;
     }
   }
 }
