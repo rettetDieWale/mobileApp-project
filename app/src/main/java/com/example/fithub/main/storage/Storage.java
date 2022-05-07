@@ -13,14 +13,13 @@ import java.io.InputStreamReader;
 
 public class Storage {
 
-  public void storeData(@NonNull Context context) {
-    String File_Name = "Demo.txt";
+  public void storeData(@NonNull Context context, String fileName) {
     String Data = "Test Data has been saved into Demo.txt";
 
     FileOutputStream fileOutputStream = null;
 
     try {
-      fileOutputStream = context.openFileOutput(File_Name, Context.MODE_PRIVATE);
+      fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 
       byte[] ByteArray = Data.getBytes();
 
@@ -34,13 +33,12 @@ public class Storage {
     }
   }
 
-  public String loadData(Context context) {
+  public String loadData(Context context, String fileName) {
 
-    String File_Name = "Demo.txt";
     FileInputStream fileInputStream = null;
     StringBuilder stringBuilder = new StringBuilder();
     try {
-      fileInputStream = context.openFileInput(File_Name);
+      fileInputStream = context.openFileInput(fileName);
       InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
