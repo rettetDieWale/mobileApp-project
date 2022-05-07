@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
+import com.example.fithub.main.storage.Storage;
 
 public class FirstFragment extends Fragment {
 
@@ -28,15 +29,10 @@ public class FirstFragment extends Fragment {
 
     // binding = FragmentFirstBinding.inflate(inflater, container, false);
 
-    /**
-     * View view = inflater.inflate(R.layout.fragment_first, container, false); TextView textView =
-     * (TextView) view.findViewById(R.id.text_view_storage);
-     */
     View view = inflater.inflate(R.layout.fragment_first, container, false);
     Button calendarButton = (Button) view.findViewById(R.id.button_home);
 
     TextView textview = view.findViewById(R.id.stored_data);
-    textview.setText("HALLO WELT");
 
     // setup progress bar final ProgressBar progressBar = (ProgressBar) final ProgressBar
     ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
@@ -49,6 +45,18 @@ public class FirstFragment extends Fragment {
           public void onClick(View v) {
             Intent intent = new Intent(getActivity(), CalendarActivity.class);
             startActivity(intent);
+          }
+        });
+
+    Button storeButton = view.findViewById(R.id.button_save);
+    storeButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            Storage storage = new Storage();
+            String data = storage.storeData(getActivity());
+
+            textview.setText(data);
           }
         });
 

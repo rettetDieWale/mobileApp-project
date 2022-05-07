@@ -15,7 +15,7 @@ public class Storage {
 
   public String storeData(@NonNull Context context) {
     String File_Name = "Demo.txt"; // gives file name
-    String Data = "Hello!!"; // define data
+    String Data = "Test Data has been saved into Demo.txt"; // define data
 
     FileOutputStream fileOutputStream = null;
     FileInputStream fileInputStream = null;
