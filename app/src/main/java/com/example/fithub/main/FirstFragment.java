@@ -115,6 +115,9 @@ public class FirstFragment extends Fragment {
 
     levelLabel.setText("Level " + experienceBar.getLevel());
     progressLabel.setText(experienceBar.getProgress() + "/" + experienceBar.getMAX_EXPERIENCE());
+
+    Serializer serializer = new Serializer();
+    serializer.serialize(getActivity(), experienceBar, "Demo.json");
   }
 
   @Override
