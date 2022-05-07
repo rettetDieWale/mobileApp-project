@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,13 +15,12 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
-import com.example.fithub.main.storage.Storage;
+import com.example.fithub.main.storage.Serializer;
 
 public class FirstFragment extends Fragment {
 
   private FragmentFirstBinding binding;
-
-  private TextView textview;
+  private ProgressBar progressBar;
 
   @Nullable
   @Override
@@ -41,11 +39,11 @@ public class FirstFragment extends Fragment {
    */
   public final void initComponents(View view) {
 
-    final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-    progressBar.setMax(100);
-    progressBar.setProgress(50);
+    this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    // progressBar.setMax(100);
+    // progressBar.setProgress(50);
 
-    textview = view.findViewById(R.id.stored_data);
+    view.findViewById(R.id.stored_data);
 
     createOnClickListeners(view);
   }
@@ -73,11 +71,14 @@ public class FirstFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Storage storage = new Storage();
-            storage.storeData(getActivity(), "Demo.txt", "TESTDATA BITTE SPEICHERN");
-            String data = storage.loadData(getActivity(), "Demo.txt");
 
-            textview.setText(data);
+            Serializer serializer = new Serializer();
+            progressBarExp pbe =
+                (progressBarExp)
+                    serializer.deserialize(getActivity(), progressBarExp.class, "Demo.txt");
+
+            progressBar.setMax(pbe.max);
+            progressBar.setProgress(pbe.progress);
           }
         });
   }
@@ -91,4 +92,10 @@ public class FirstFragment extends Fragment {
     super.onDestroyView();
     binding = null;
   }
+}
+
+/** example class for progress bar will be deleted later */
+class progressBarExp {
+  int max;
+  int progress;
 }
