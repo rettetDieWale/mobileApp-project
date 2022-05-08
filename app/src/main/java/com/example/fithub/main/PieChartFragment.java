@@ -19,6 +19,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -43,23 +45,36 @@ public class PieChartFragment extends Fragment {
     MuscleGroupChart chartData = new MuscleGroupChart();
 
     // raw test data for testing purposes only
-    ArrayMap<String, String> testData = new ArrayMap<>();
-    testData.put("Schultern", "18.5f");
-    testData.put("Brust", "26.7f");
-    testData.put("Rücken", "10.1f");
-    testData.put("Arme", "24.0f");
-    testData.put("Beine", "30.8f");
-    testData.put("Bauch", "11.4f");
+    ArrayMap<String, String> MuscleData = new ArrayMap<>();
+    MuscleData.put("Schultern", "18.5f");
+    MuscleData.put("Brust", "26.7f");
+    MuscleData.put("Rücken", "10.1f");
+    MuscleData.put("Arme", "24.0f");
+    MuscleData.put("Beine", "30.8f");
+    MuscleData.put("Bauch", "11.4f");
 
-    // todo: sort entries by size
+    MuscleGroupChart muscleGroupChartData = new MuscleGroupChart();
+    muscleGroupChartData.addDataAll(MuscleData);
 
-    List<PieEntry> entries = new ArrayList<>();
+    List<PieEntry> pieEntries = new ArrayList<>();
 
-    for (Map.Entry<String, String> entry : testData.entrySet()) {
-      entries.add(new PieEntry(Float.parseFloat(entry.getValue()), entry.getKey()));
+    for (Map.Entry<String, String> entry : muscleGroupChartData.getAllData().entrySet()) {
+      pieEntries.add(new PieEntry(Float.parseFloat(entry.getValue()), entry.getKey()));
     }
 
-    PieDataSet set = new PieDataSet(entries, "Muskelgruppen trainiert");
+    Collections.sort(
+        pieEntries,
+        new Comparator<Object>() {
+          @Override
+          public int compare(Object a1, Object a2) {
+            PieEntry pe1 = (PieEntry) a1;
+            PieEntry pe2 = (PieEntry) a2;
+            // sorting descending so biggest value starts on right side of the donut chart
+            return Float.compare(pe2.getValue(), pe1.getValue());
+          }
+        });
+
+    PieDataSet set = new PieDataSet(pieEntries, "Muskelgruppen trainiert");
     chart.setEntryLabelColor(Color.BLACK);
 
     int[] Colors = {
