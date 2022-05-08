@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentPiechartBinding;
+import com.example.fithub.main.prototypes.MuscleGroupChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -22,6 +23,7 @@ import java.util.List;
 public class PieChartFragment extends Fragment {
 
   private FragmentPiechartBinding binding;
+  private PieChart chart;
 
   @Override
   public View onCreateView(
@@ -34,7 +36,9 @@ public class PieChartFragment extends Fragment {
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    PieChart chart = (PieChart) view.findViewById(R.id.chart1);
+    chart = (PieChart) view.findViewById(R.id.chart1);
+
+    MuscleGroupChart chartData = new MuscleGroupChart();
 
     // todo: sort entrys by size
 
@@ -59,7 +63,7 @@ public class PieChartFragment extends Fragment {
     };
 
     set.setColors(Colors);
-    PieData data = new PieData(set);
+    final PieData data = new PieData(set);
     chart.setData(data);
     chart.invalidate(); // refresh
   }
