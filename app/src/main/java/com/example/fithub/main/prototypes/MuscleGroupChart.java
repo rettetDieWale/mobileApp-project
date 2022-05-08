@@ -23,6 +23,15 @@ public class MuscleGroupChart {
   }
 
   /**
+   * Add a complete list to replace current data.
+   *
+   * @param data that replaces list.
+   */
+  public void addDataAll(Map<String, String> data) {
+    muscleGroupData = data;
+  }
+
+  /**
    * Get data from the muscle group structure.
    *
    * @param key data is saved under
@@ -30,5 +39,14 @@ public class MuscleGroupChart {
    */
   public float getData(String key) {
     return Float.parseFloat(muscleGroupData.get(key));
+  }
+
+  /**
+   * Get data of all entrys inside the structure.
+   *
+   * @return data as Map
+   */
+  public Map<String, String> getAllData() {
+    return muscleGroupData;
   }
 }
