@@ -17,14 +17,17 @@ public class Serializer {
    *
    * @param context of the current activity
    * @param object to be serialized
+   * @param filename filename as savefile object
    */
-  public void serialize(final Context context, final Object object, final String filename) {
+  public void serialize(final Context context, final Object object, final Savefile filename) {
+
+    final String path = filename.toString();
 
     this.gson = new Gson();
     final String json = this.gson.toJson(object);
 
     final Storage storage = new Storage();
-    storage.storeData(context, filename, json);
+    storage.storeData(context, path, json);
   }
 
   /**
@@ -32,12 +35,15 @@ public class Serializer {
    *
    * @param context of current activity
    * @param type of class that json should be deserialized into
-   * @return data object or null is data is empty
+   * @param filename filename as savefile object
+   * @return data object or null if data is empty
    */
-  public Object deserialize(final Context context, final Type type, final String filename) {
+  public Object deserialize(final Context context, final Type type, final Savefile filename) {
+
+    final String path = filename.toString();
 
     final Storage storage = new Storage();
-    final String data = storage.loadData(context, filename);
+    final String data = storage.loadData(context, path);
 
     if (data.isEmpty()) {
       return null;
