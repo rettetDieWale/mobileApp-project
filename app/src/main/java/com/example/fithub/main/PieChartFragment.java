@@ -2,6 +2,7 @@ package com.example.fithub.main;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PieChartFragment extends Fragment {
 
@@ -40,15 +42,22 @@ public class PieChartFragment extends Fragment {
 
     MuscleGroupChart chartData = new MuscleGroupChart();
 
-    // todo: sort entrys by size
+    // raw test data for testing purposes only
+    ArrayMap<String, String> testData = new ArrayMap<>();
+    testData.put("Schultern", "18.5f");
+    testData.put("Brust", "26.7f");
+    testData.put("Rücken", "10.1f");
+    testData.put("Arme", "24.0f");
+    testData.put("Beine", "30.8f");
+    testData.put("Bauch", "11.4f");
+
+    // todo: sort entries by size
 
     List<PieEntry> entries = new ArrayList<>();
-    entries.add(new PieEntry(18.5f, "Schultern"));
-    entries.add(new PieEntry(26.7f, "Brust"));
-    entries.add(new PieEntry(10.1f, "Rücken"));
-    entries.add(new PieEntry(24.0f, "Arme"));
-    entries.add(new PieEntry(30.8f, "Beine"));
-    entries.add(new PieEntry(11.4f, "Bauch"));
+
+    for (Map.Entry<String, String> entry : testData.entrySet()) {
+      entries.add(new PieEntry(Float.parseFloat(entry.getValue()), entry.getKey()));
+    }
 
     PieDataSet set = new PieDataSet(entries, "Muskelgruppen trainiert");
     chart.setEntryLabelColor(Color.BLACK);

@@ -6,7 +6,7 @@ import java.util.Map;
 
 /** Muscle group data prototype for serialization */
 public class MuscleGroupChart {
-  private Map<String, String> muscleGroupData;
+  private ArrayMap<String, String> muscleGroupData;
 
   public MuscleGroupChart() {
     muscleGroupData = new ArrayMap<>();
@@ -27,7 +27,7 @@ public class MuscleGroupChart {
    *
    * @param data that replaces list.
    */
-  public void addDataAll(Map<String, String> data) {
+  public void addDataAll(ArrayMap<String, String> data) {
     muscleGroupData = data;
   }
 
