@@ -17,6 +17,7 @@ import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.prototypes.ExperienceBar;
+import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 
 public class FirstFragment extends Fragment {
@@ -110,7 +111,9 @@ public class FirstFragment extends Fragment {
   public void initExperienceBar() {
     final Serializer serializer = new Serializer();
     experienceBar =
-        (ExperienceBar) serializer.deserialize(getActivity(), ExperienceBar.class, "Demo.json");
+        (ExperienceBar)
+            serializer.deserialize(
+                getActivity(), ExperienceBar.class, Savefile.EXPERIENCE_BAR_SAVEFILE);
 
     // if file cant be serialized from a new exp bar needs to be created
     if (experienceBar == null) {
@@ -138,7 +141,7 @@ public class FirstFragment extends Fragment {
     progressLabel.setText(experienceBar.getProgress() + "/" + experienceBar.getMAX_EXPERIENCE());
 
     Serializer serializer = new Serializer();
-    serializer.serialize(getActivity(), experienceBar, "Demo.json");
+    serializer.serialize(getActivity(), experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
   }
 
   @Override
