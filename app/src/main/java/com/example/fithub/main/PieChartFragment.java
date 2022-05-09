@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentPiechartBinding;
 import com.example.fithub.main.prototypes.MuscleGroupChart;
+import com.example.fithub.main.storage.Savefile;
+import com.example.fithub.main.storage.Serializer;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -28,6 +30,7 @@ public class PieChartFragment extends Fragment {
 
   private FragmentPiechartBinding binding;
   private PieChart chart;
+  private MuscleGroupChart muscleGroupChart;
 
   @Override
   public View onCreateView(
@@ -40,10 +43,22 @@ public class PieChartFragment extends Fragment {
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    initChart();
+
     chart = (PieChart) view.findViewById(R.id.chart1);
 
-    MuscleGroupChart chartData = new MuscleGroupChart();
+    List<PieEntry> pieEntries = new ArrayList<>();
+    for (Map.Entry<String, String> entry : muscleGroupChart.getAllData().entrySet()) {
+      pieEntries.add(new PieEntry(Float.parseFloat(entry.getValue()), entry.getKey()));
+    }
 
+    sortChart(pieEntries);
+
+    renderChart(pieEntries);
+  }
+
+  /** Fills the pie chart with initial data. Useful when files are corrupted or not existing. */
+  public void resetChart() {
     // raw test data for testing purposes only
     ArrayMap<String, String> MuscleData = new ArrayMap<>();
     MuscleData.put("Schultern", "18.5f");
@@ -53,27 +68,16 @@ public class PieChartFragment extends Fragment {
     MuscleData.put("Beine", "30.8f");
     MuscleData.put("Bauch", "11.4f");
 
-    MuscleGroupChart muscleGroupChartData = new MuscleGroupChart();
-    muscleGroupChartData.addDataAll(MuscleData);
+    muscleGroupChart = new MuscleGroupChart();
+    muscleGroupChart.addDataAll(MuscleData);
+  }
 
-    List<PieEntry> pieEntries = new ArrayList<>();
-
-    for (Map.Entry<String, String> entry : muscleGroupChartData.getAllData().entrySet()) {
-      pieEntries.add(new PieEntry(Float.parseFloat(entry.getValue()), entry.getKey()));
-    }
-
-    Collections.sort(
-        pieEntries,
-        new Comparator<Object>() {
-          @Override
-          public int compare(Object a1, Object a2) {
-            PieEntry pe1 = (PieEntry) a1;
-            PieEntry pe2 = (PieEntry) a2;
-            // sorting descending so biggest value starts on right side of the donut chart
-            return Float.compare(pe2.getValue(), pe1.getValue());
-          }
-        });
-
+  /**
+   * Adds entries into the chart and defines their color.
+   *
+   * @param pieEntries that are rendered into the chart.
+   */
+  public void renderChart(List<PieEntry> pieEntries) {
     PieDataSet set = new PieDataSet(pieEntries, "Muskelgruppen trainiert");
     chart.setEntryLabelColor(Color.BLACK);
 
@@ -89,7 +93,42 @@ public class PieChartFragment extends Fragment {
     set.setColors(Colors);
     final PieData data = new PieData(set);
     chart.setData(data);
-    chart.invalidate(); // refresh
+    chart.invalidate(); // refresh data - no idea why its called invalidate in lib
+  }
+
+  /**
+   * Sort the List with PieEntries in order to the biggest entry being first.
+   *
+   * @param pieEntries to be sorted
+   */
+  public void sortChart(List<PieEntry> pieEntries) {
+    Collections.sort(
+        pieEntries,
+        new Comparator<Object>() {
+          @Override
+          public int compare(Object a1, Object a2) {
+            PieEntry pe1 = (PieEntry) a1;
+            PieEntry pe2 = (PieEntry) a2;
+            // sorting so biggest value starts on right side of the donut chart
+            return Float.compare(pe2.getValue(), pe1.getValue());
+          }
+        });
+  }
+
+  /**
+   * Initializes the chart data based on savefile or if file is not existing/corrupted with example
+   * data.
+   */
+  public void initChart() {
+    Serializer serializer = new Serializer();
+    this.muscleGroupChart =
+        (MuscleGroupChart)
+            serializer.deserialize(
+                getActivity(), MuscleGroupChart.class, Savefile.MUSCLE_GROUP_CHART_SAVEFILE);
+
+    if (this.muscleGroupChart == null) {
+      resetChart();
+    }
   }
 
   @Override
