@@ -42,7 +42,7 @@ public class FirstFragment extends Fragment {
    *
    * @param view the components where added into layout xml
    */
-  public final void initComponents(View view) {
+  private void initComponents(View view) {
 
     this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
@@ -58,7 +58,7 @@ public class FirstFragment extends Fragment {
    *
    * @param view the buttons where added into layout xml
    */
-  public final void createOnClickListeners(View view) {
+  private void createOnClickListeners(View view) {
 
     // Buttons are not initialized in initComponents() to reduce redundant code
     final Button calendarButton = (Button) view.findViewById(R.id.button_home);
@@ -108,7 +108,7 @@ public class FirstFragment extends Fragment {
   }
 
   /** initializes the experience bar with saved values. */
-  public void initExperienceBar() {
+  private void initExperienceBar() {
     final Serializer serializer = new Serializer();
     experienceBar =
         (ExperienceBar)
@@ -126,14 +126,14 @@ public class FirstFragment extends Fragment {
    * reset experience bar values. Useful when app is started the first time or save files have been
    * deleted or corrupted.
    */
-  public void resetExperienceBar() {
+  private void resetExperienceBar() {
     experienceBar = new ExperienceBar(100, 0, 0);
   }
 
   /**
    * Updates the experience bar graphic component. Should be called after values have been changed.
    */
-  public void updateExperienceBar() {
+  private void updateExperienceBar() {
     progressBar.setMax(experienceBar.getMax());
     progressBar.setProgress(experienceBar.getProgress());
 
