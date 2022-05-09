@@ -17,10 +17,14 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class SerializerInstrumentedTest {
   private Context appContext;
+  private Serializer serializer;
+  private Storage storage;
 
   @Before
   public void preparations() {
     this.appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    this.serializer = new Serializer();
+    this.storage = new Storage();
   }
 
   @Test
@@ -32,16 +36,25 @@ public class SerializerInstrumentedTest {
   @Test
   public void checkSerializedContent() {
 
-    String json_result = "{\"age\":20,\"name\":\"Max Mustermann\"}";
+    final String json_result = "{\"age\":20,\"name\":\"Max Mustermann\"}";
 
-    Serializer serializer = new Serializer();
-    Person person = new Person("Max Mustermann", 20);
-    serializer.serialize(this.appContext, person, Savefile.TEST_FILE1);
+    final Person person = new Person("Max Mustermann", 20);
+    this.serializer.serialize(this.appContext, person, Savefile.TEST_FILE1);
 
-    Storage storage = new Storage();
-    String json_stored = storage.loadData(this.appContext, Savefile.TEST_FILE1.toString());
+    final String json_stored =
+        this.storage.loadData(this.appContext, Savefile.TEST_FILE1.toString());
 
-    Assert.assertEquals(true, json_stored.equals(json_result));
+    Assert.assertTrue(json_stored.equals(json_result));
+  }
+
+  @Test
+  public void testDeserialization() {
+    final Person person = new Person("Max Mustermann", 20);
+
+    final Person person2 =
+        (Person) serializer.deserialize(this.appContext, Person.class, Savefile.TEST_FILE1);
+
+    Assert.assertTrue(person.name.equals(person2.name));
   }
 }
 
