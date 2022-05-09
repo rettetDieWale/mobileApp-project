@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentFirstBinding;
 import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.storage.Savefile;
@@ -22,7 +21,6 @@ import com.example.fithub.main.storage.Serializer;
 
 public class FirstFragment extends Fragment {
 
-  private FragmentFirstBinding binding;
   private ProgressBar progressBar;
   private TextView levelLabel, progressLabel;
   private ExperienceBar experienceBar;
@@ -32,7 +30,6 @@ public class FirstFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
-    // binding = FragmentFirstBinding.inflate(inflater, container, false);
     initComponents(view);
     return view;
   }
@@ -110,13 +107,13 @@ public class FirstFragment extends Fragment {
   /** initializes the experience bar with saved values. */
   private void initExperienceBar() {
     final Serializer serializer = new Serializer();
-    experienceBar =
+    this.experienceBar =
         (ExperienceBar)
             serializer.deserialize(
                 getActivity(), ExperienceBar.class, Savefile.EXPERIENCE_BAR_SAVEFILE);
 
     // if file cant be serialized from a new exp bar needs to be created
-    if (experienceBar == null) {
+    if (this.experienceBar == null) {
       resetExperienceBar();
     }
     updateExperienceBar();
@@ -127,26 +124,26 @@ public class FirstFragment extends Fragment {
    * deleted or corrupted.
    */
   private void resetExperienceBar() {
-    experienceBar = new ExperienceBar(100, 0, 0);
+    this.experienceBar = new ExperienceBar(100, 0, 0);
   }
 
   /**
    * Updates the experience bar graphic component. Should be called after values have been changed.
    */
   private void updateExperienceBar() {
-    progressBar.setMax(experienceBar.getMax());
-    progressBar.setProgress(experienceBar.getProgress());
+    this.progressBar.setMax(this.experienceBar.getMax());
+    this.progressBar.setProgress(this.experienceBar.getProgress());
 
-    levelLabel.setText("Level " + experienceBar.getLevel());
-    progressLabel.setText(experienceBar.getProgress() + "/" + experienceBar.getMAX_EXPERIENCE());
+    this.levelLabel.setText("Level " + this.experienceBar.getLevel());
+    this.progressLabel.setText(
+        this.experienceBar.getProgress() + "/" + this.experienceBar.getMAX_EXPERIENCE());
 
     Serializer serializer = new Serializer();
-    serializer.serialize(getActivity(), experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
+    serializer.serialize(getActivity(), this.experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
   }
 
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    binding = null;
   }
 }
