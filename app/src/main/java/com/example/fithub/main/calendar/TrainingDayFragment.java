@@ -26,8 +26,7 @@ public class TrainingDayFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    binding = FragmentTrainingDayBinding.inflate(inflater, container, false);
-    return binding.getRoot();
+    return inflater.inflate(R.layout.fragment_training_day, container, false);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
