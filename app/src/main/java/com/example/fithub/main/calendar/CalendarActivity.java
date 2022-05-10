@@ -2,9 +2,13 @@ package com.example.fithub.main.calendar;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,7 +20,6 @@ import com.example.fithub.databinding.ActivityCalendarBinding;
 
 public class CalendarActivity extends AppCompatActivity {
 
-  CalendarView simpleCalendarView;
   private AppBarConfiguration appBarConfiguration;
   private ActivityCalendarBinding binding;
 
@@ -35,6 +38,7 @@ public class CalendarActivity extends AppCompatActivity {
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
     // Calender code:
+    /*
     simpleCalendarView =
         (CalendarView) findViewById(R.id.simpleCalendarView); // get the reference of CalendarView
     simpleCalendarView.setFocusedMonthDateColor(
@@ -57,7 +61,7 @@ public class CalendarActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG)
                 .show();
           }
-        });
+        });*/
   }
 
   @Override

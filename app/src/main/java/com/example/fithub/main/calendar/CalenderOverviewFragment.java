@@ -1,75 +1,110 @@
 package com.example.fithub.main.calendar;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentCalenderOverviewBinding;
 import com.example.fithub.main.MainActivity;
 import com.example.fithub.main.trainingplan.TrainingPlanActivity;
 
 public class CalenderOverviewFragment extends Fragment {
 
-  private FragmentCalenderOverviewBinding binding;
+    private CalendarView simpleCalendarView;
 
-  @Override
-  public View onCreateView(
-      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Nullable
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    binding = FragmentCalenderOverviewBinding.inflate(inflater, container, false);
-    return binding.getRoot();
-  }
+        final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
+        initComponents(view);
+        return view;
+    }
 
-  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
+    /**
+     * Initialize components and add them to the fragment so they can be accessed in code.
+     *
+     * @param view the components where added into layout xml
+     */
+    private void initComponents(View view) {
 
-    binding.buttonCalenderReturn.setOnClickListener(
+        this.simpleCalendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
+
+        createOnClickListeners(view);
+
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    /**
+     * Creates onClick listeners for buttons and initializes them.
+     *
+     * @param view the buttons where added into layout xml
+     */
+    private void createOnClickListeners(View view) {
+
+        // Buttons are not initialized in initComponents() to reduce redundant code
+        final Button trainingPeriod = (Button) view.findViewById(R.id.button_training_period);
+        trainingPeriod.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        NavHostFragment.findNavController(CalenderOverviewFragment.this)
+                                .navigate(R.id.action_calendar_overview_to_training_day);
+                    }
+                });
+
+        final Button back = (Button) view.findViewById(R.id.button_calender_return);
+        back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+        final Button trainingPlan = (Button) view.findViewById(R.id.button_trainingplan);
+        trainingPlan.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), TrainingPlanActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+
+        final Button trainingDay = (Button) view.findViewById(R.id.button_training_day);
+        trainingDay.setOnClickListener(
         new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-          }
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(CalenderOverviewFragment.this)
+                        .navigate(R.id.action_calender_overview_to_training_period);
+            }
         });
 
-    binding.buttonTrainingplan.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), TrainingPlanActivity.class);
-            startActivity(intent);
-          }
-        });
 
-    binding.buttonTrainingDay.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                .navigate(R.id.action_calendar_overview_to_training_day);
-          }
-        });
+    }
 
-    binding.buttonTrainingPeriod.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                .navigate(R.id.action_calender_overview_to_training_period);
-          }
-        });
-  }
-
-  @Override
-  public void onDestroyView() {
-    super.onDestroyView();
-    binding = null;
-  }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }
