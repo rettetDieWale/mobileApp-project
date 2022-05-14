@@ -29,6 +29,9 @@
 
     <!-- Strings for labels -->
     <string name="loading">Loading data...</string>
+    <string name="row1Exercise">Übung</string>
+    <string name="row1Weight">Gewicht</string>
+    <string name="row1Repeats">Wdh.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
