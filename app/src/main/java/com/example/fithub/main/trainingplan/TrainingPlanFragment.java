@@ -1,7 +1,6 @@
 package com.example.fithub.main.trainingplan;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,41 +56,46 @@ public class TrainingPlanFragment extends Fragment {
     // table
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    TableRow tableRow = new TableRow(getActivity());
-    tableRow.setLayoutParams(
-        new TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-    tableRow.setWeightSum(3.0f);
+    for (int i = 0; i < 10; i++) {
+      TableRow tableRow = new TableRow(getActivity());
+      tableRow.setLayoutParams(
+          new TableRow.LayoutParams(
+              TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+      tableRow.setWeightSum(3.0f);
 
-    final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
-    layoutParams.width = 0;
-    layoutParams.height = TableRow.LayoutParams.WRAP_CONTENT;
-    layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-    layoutParams.weight = 1.0f;
+      final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
+      layoutParams.width = 0;
+      layoutParams.height = TableRow.LayoutParams.WRAP_CONTENT;
+      // layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+      layoutParams.weight = 1.0f;
 
-    final TextView textViewExercise = new TextView(getActivity());
-    textViewExercise.setText("Übung 1");
-    textViewExercise.setTextSize(14);
-    textViewExercise.setLayoutParams(layoutParams);
+      final TextView textViewExercise = new TextView(getActivity());
+      textViewExercise.setText("Übung 1");
+      textViewExercise.setTextSize(14);
+      textViewExercise.setPadding(10, 10, 10, 10);
+      textViewExercise.setLayoutParams(layoutParams);
 
-    final TextView textViewWeight = new TextView(getActivity());
-    textViewWeight.setText("50 KG");
-    textViewWeight.setTextSize(14);
-    textViewWeight.setLayoutParams(layoutParams);
+      final TextView textViewWeight = new TextView(getActivity());
+      textViewWeight.setText("50 KG");
+      textViewWeight.setTextSize(14);
+      textViewWeight.setPadding(10, 10, 10, 10);
+      textViewWeight.setLayoutParams(layoutParams);
 
-    final TextView textViewRepeats = new TextView(getActivity());
-    textViewRepeats.setText("3x 12");
-    textViewRepeats.setTextSize(14);
-    textViewRepeats.setLayoutParams(layoutParams);
+      final TextView textViewRepeats = new TextView(getActivity());
+      textViewRepeats.setText("3x 12");
+      textViewRepeats.setTextSize(14);
+      textViewRepeats.setPadding(10, 10, 10, 10);
+      textViewRepeats.setLayoutParams(layoutParams);
 
-    //
-    tableRow.addView(textViewExercise);
-    tableRow.addView(textViewWeight);
-    tableRow.addView(textViewRepeats);
+      //
+      tableRow.addView(textViewExercise);
+      tableRow.addView(textViewWeight);
+      tableRow.addView(textViewRepeats);
 
-    textViewRepeats.setTextSize(14);
+      textViewRepeats.setTextSize(14);
 
-    tableLayout.addView(tableRow);
+      tableLayout.addView(tableRow);
+    }
 
     return view;
   }
