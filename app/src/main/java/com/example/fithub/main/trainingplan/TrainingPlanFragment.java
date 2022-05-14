@@ -30,17 +30,8 @@ public class TrainingPlanFragment extends Fragment {
 
     final View view = inflater.inflate(R.layout.fragment_training_plan, container, false);
 
-    Spinner spinner = (Spinner) view.findViewById(R.id.spinner_training_plan);
-    // Create an ArrayAdapter using the string array and a default spinner layout
-    ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(
-            getActivity(), R.array.template_array, android.R.layout.simple_spinner_item);
-
-    // Specify the layout to use when the list of choices appears
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-    // Apply the adapter to the spinner
-    spinner.setAdapter(adapter);
+    initSpinner(view);
+    initTable(view);
 
     final Button buttonExercise = (Button) view.findViewById(R.id.button_exercise);
     buttonExercise.setOnClickListener(
@@ -53,51 +44,84 @@ public class TrainingPlanFragment extends Fragment {
           }
         });
 
-    // table
+    return view;
+  }
+
+  /**
+   * Initializes the table dynamically with trainings plan details.
+   *
+   * @param view the table is attached to in layout file
+   */
+  public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
     for (int i = 0; i < 10; i++) {
-      TableRow tableRow = new TableRow(getActivity());
-      tableRow.setLayoutParams(
-          new TableRow.LayoutParams(
-              TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-      tableRow.setWeightSum(3.0f);
-
-      final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
-      layoutParams.width = 0;
-      layoutParams.height = TableRow.LayoutParams.WRAP_CONTENT;
-      // layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-      layoutParams.weight = 1.0f;
-
-      final TextView textViewExercise = new TextView(getActivity());
-      textViewExercise.setText("Übung 1");
-      textViewExercise.setTextSize(14);
-      textViewExercise.setPadding(10, 10, 10, 10);
-      textViewExercise.setLayoutParams(layoutParams);
-
-      final TextView textViewWeight = new TextView(getActivity());
-      textViewWeight.setText("50 KG");
-      textViewWeight.setTextSize(14);
-      textViewWeight.setPadding(10, 10, 10, 10);
-      textViewWeight.setLayoutParams(layoutParams);
-
-      final TextView textViewRepeats = new TextView(getActivity());
-      textViewRepeats.setText("3x 12");
-      textViewRepeats.setTextSize(14);
-      textViewRepeats.setPadding(10, 10, 10, 10);
-      textViewRepeats.setLayoutParams(layoutParams);
-
-      //
-      tableRow.addView(textViewExercise);
-      tableRow.addView(textViewWeight);
-      tableRow.addView(textViewRepeats);
-
-      textViewRepeats.setTextSize(14);
-
-      tableLayout.addView(tableRow);
+      addTableRow(tableLayout);
     }
+  }
 
-    return view;
+  /**
+   * Add entry to the table.
+   *
+   * @param tableLayout entry is added to
+   */
+  void addTableRow(TableLayout tableLayout) {
+    TableRow tableRow = new TableRow(getActivity());
+    tableRow.setLayoutParams(
+        new TableRow.LayoutParams(
+            TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+    tableRow.setWeightSum(3.0f);
+
+    final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
+    layoutParams.width = 0;
+    layoutParams.height = TableRow.LayoutParams.WRAP_CONTENT;
+    // layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+    layoutParams.weight = 1.0f;
+
+    final TextView textViewExercise = new TextView(getActivity());
+    textViewExercise.setText("Übung 1");
+    textViewExercise.setTextSize(14);
+    textViewExercise.setPadding(10, 10, 10, 10);
+    textViewExercise.setLayoutParams(layoutParams);
+
+    final TextView textViewWeight = new TextView(getActivity());
+    textViewWeight.setText("50 KG");
+    textViewWeight.setTextSize(14);
+    textViewWeight.setPadding(10, 10, 10, 10);
+    textViewWeight.setLayoutParams(layoutParams);
+
+    final TextView textViewRepeats = new TextView(getActivity());
+    textViewRepeats.setText("3x 12");
+    textViewRepeats.setTextSize(14);
+    textViewRepeats.setPadding(10, 10, 10, 10);
+    textViewRepeats.setLayoutParams(layoutParams);
+
+    tableRow.addView(textViewExercise);
+    tableRow.addView(textViewWeight);
+    tableRow.addView(textViewRepeats);
+
+    textViewRepeats.setTextSize(14);
+
+    tableLayout.addView(tableRow);
+  }
+
+  /**
+   * Initializes a spinner with a list of templates.
+   *
+   * @param view the spinner is attached to in layout file
+   */
+  public void initSpinner(View view) {
+    Spinner spinner = (Spinner) view.findViewById(R.id.spinner_training_plan);
+    // Create an ArrayAdapter using the string array and a default spinner layout
+    ArrayAdapter<CharSequence> adapter =
+        ArrayAdapter.createFromResource(
+            getActivity(), R.array.template_array, android.R.layout.simple_spinner_item);
+
+    // Specify the layout to use when the list of choices appears
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    // Apply the adapter to the spinner
+    spinner.setAdapter(adapter);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
