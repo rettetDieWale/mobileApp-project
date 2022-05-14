@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -49,6 +52,26 @@ public class TrainingPlanFragment extends Fragment {
                 .navigate(R.id.action_training_plan_to_exercise);
           }
         });
+
+    // table
+    final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
+
+    TableRow tableRow = new TableRow(getActivity());
+
+    TextView textViewExercise = new TextView(getActivity());
+    textViewExercise.setText("Übung 1");
+
+    TextView textViewWeight = new TextView(getActivity());
+    textViewWeight.setText("50 KG");
+
+    TextView textViewRepeats = new TextView(getActivity());
+    textViewRepeats.setText("3x 12");
+
+    tableRow.addView(textViewExercise);
+    tableRow.addView(textViewWeight);
+    tableRow.addView(textViewRepeats);
+
+    tableLayout.addView(tableRow);
 
     return view;
   }
