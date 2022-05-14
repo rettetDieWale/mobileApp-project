@@ -1,6 +1,7 @@
 package com.example.fithub.main.trainingplan;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,19 +58,38 @@ public class TrainingPlanFragment extends Fragment {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
     TableRow tableRow = new TableRow(getActivity());
+    tableRow.setLayoutParams(
+        new TableRow.LayoutParams(
+            TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+    tableRow.setWeightSum(3.0f);
 
-    TextView textViewExercise = new TextView(getActivity());
+    final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
+    layoutParams.width = 0;
+    layoutParams.height = TableRow.LayoutParams.WRAP_CONTENT;
+    layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+    layoutParams.weight = 1.0f;
+
+    final TextView textViewExercise = new TextView(getActivity());
     textViewExercise.setText("Übung 1");
+    textViewExercise.setTextSize(14);
+    textViewExercise.setLayoutParams(layoutParams);
 
-    TextView textViewWeight = new TextView(getActivity());
+    final TextView textViewWeight = new TextView(getActivity());
     textViewWeight.setText("50 KG");
+    textViewWeight.setTextSize(14);
+    textViewWeight.setLayoutParams(layoutParams);
 
-    TextView textViewRepeats = new TextView(getActivity());
+    final TextView textViewRepeats = new TextView(getActivity());
     textViewRepeats.setText("3x 12");
+    textViewRepeats.setTextSize(14);
+    textViewRepeats.setLayoutParams(layoutParams);
 
+    //
     tableRow.addView(textViewExercise);
     tableRow.addView(textViewWeight);
     tableRow.addView(textViewRepeats);
+
+    textViewRepeats.setTextSize(14);
 
     tableLayout.addView(tableRow);
 
