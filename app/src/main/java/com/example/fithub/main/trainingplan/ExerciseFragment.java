@@ -28,10 +28,10 @@ public class ExerciseFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
-    initSpinner(view);
 
-    final ImageView imageView = view.findViewById(R.id.exercise_image);
-    imageView.setImageResource(R.drawable.klimmzug);
+    initSpinner(view);
+    loadExerciseImage(view, R.drawable.klimmzug);
+
     return view;
   }
 
@@ -54,6 +54,17 @@ public class ExerciseFragment extends Fragment {
 
     // Apply the adapter to the spinner
     spinner.setAdapter(adapter);
+  }
+
+  /**
+   * Load an image from the drawable folder into the exercise image view.
+   *
+   * @param view the image is attached to
+   * @param imageId R.drawable.imageID path
+   */
+  public void loadExerciseImage(View view, int imageId) {
+    final ImageView imageView = view.findViewById(R.id.exercise_image);
+    imageView.setImageResource(imageId);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
