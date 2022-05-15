@@ -57,4 +57,28 @@
         app:layout_constraintTop_toBottomOf="@+id/exercise_instruction"
         app:layout_constraintVertical_bias="0.023" />
 
+    <ImageView
+        android:id="@+id/exercise_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:contentDescription="@string/exercise_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_text_area"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ImageContrastCheck"
+        tools:src="@tools:sample/avatars" />
+
+    <VideoView
+        android:id="@+id/exercise_video"
+        android:layout_width="380dp"
+        android:layout_height="157dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
