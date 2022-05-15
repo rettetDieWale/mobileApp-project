@@ -32,6 +32,10 @@
     <string name="row1Exercise">Übung</string>
     <string name="row1Weight">Gewicht</string>
     <string name="row1Repeats">Wdh.</string>
+    <string name="instruction">Anleitung:</string>
+
+    <!-- content description -->
+    <string name="exercise_image">Exercise Image</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
