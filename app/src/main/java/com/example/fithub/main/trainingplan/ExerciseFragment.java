@@ -26,12 +26,19 @@ public class ExerciseFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    // Inflate the layout for this fragment
-    binding = FragmentExerciseBinding.inflate(inflater, container, false);
-    return binding.getRoot();
+    final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
+    initSpinner(view);
+    return view;
   }
 
-  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+  // TODO: refactor spinner into own class for multiple uses
+
+  /**
+   * Initializes a spinner with a list of templates.
+   *
+   * @param view the spinner is attached to in layout file
+   */
+  public void initSpinner(View view) {
     Spinner spinner = (Spinner) view.findViewById(R.id.spinner_exercise);
     // Create an ArrayAdapter using the string array and a default spinner layout
     ArrayAdapter<CharSequence> adapter =
@@ -43,6 +50,9 @@ public class ExerciseFragment extends Fragment {
 
     // Apply the adapter to the spinner
     spinner.setAdapter(adapter);
+  }
+
+  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
     super.onViewCreated(view, savedInstanceState);
   }
