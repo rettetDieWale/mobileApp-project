@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,9 @@ public class ExerciseFragment extends Fragment {
 
     final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
     initSpinner(view);
+
+    final ImageView imageView = view.findViewById(R.id.exercise_image);
+    imageView.setImageResource(R.drawable.klimmzug);
     return view;
   }
 
