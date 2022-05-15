@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -31,6 +34,21 @@ public class ExerciseFragment extends Fragment {
 
     initSpinner(view);
     loadExerciseImage(view, R.drawable.klimmzug);
+
+    String frameVideo =
+        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
+
+    WebView displayYoutubeVideo = (WebView) view.findViewById(R.id.exercise_webview);
+    displayYoutubeVideo.setWebViewClient(
+        new WebViewClient() {
+          @Override
+          public boolean shouldOverrideUrlLoading(WebView view, String Url) {
+            return false;
+          }
+        });
+    WebSettings webSettings = displayYoutubeVideo.getSettings();
+    webSettings.setJavaScriptEnabled(true);
+    displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
 
     return view;
   }
