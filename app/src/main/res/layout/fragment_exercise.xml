@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.trainingplan.ExerciseFragment" >
+    tools:context=".main.trainingplan.ExerciseFragment">
 
     <Spinner
         android:id="@+id/spinner_exercise"
@@ -15,16 +15,23 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.008" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/exercise_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Templates:"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_exercise"
+        android:layout_marginTop="34dp"
+        android:text="@string/instruction"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_exercise"
+        app:layout_constraintVertical_bias="0.001" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
