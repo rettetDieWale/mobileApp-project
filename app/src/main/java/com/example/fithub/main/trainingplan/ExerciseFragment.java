@@ -7,15 +7,14 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentExerciseBinding;
+import com.example.fithub.main.components.TemplateSpinner;
 
 public class ExerciseFragment extends Fragment {
 
@@ -53,25 +52,13 @@ public class ExerciseFragment extends Fragment {
     return view;
   }
 
-  // TODO: refactor spinner into own class for multiple uses
-
   /**
    * Initializes a spinner with a list of templates.
    *
    * @param view the spinner is attached to in layout file
    */
   public void initSpinner(View view) {
-    Spinner spinner = (Spinner) view.findViewById(R.id.spinner_exercise);
-    // Create an ArrayAdapter using the string array and a default spinner layout
-    ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(
-            getActivity(), R.array.template_array, android.R.layout.simple_spinner_item);
-
-    // Specify the layout to use when the list of choices appears
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-    // Apply the adapter to the spinner
-    spinner.setAdapter(adapter);
+    final TemplateSpinner spinner = new TemplateSpinner(view, getActivity(), R.id.spinner_exercise);
   }
 
   /**

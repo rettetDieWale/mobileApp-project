@@ -1,4 +1,4 @@
-package com.example.fithub.main.trainingplan;
+package com.example.fithub.main.components;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
