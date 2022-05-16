@@ -52,15 +52,13 @@ public class ExerciseFragment extends Fragment {
     return view;
   }
 
-  // TODO: refactor spinner into own class for multiple uses
-
   /**
    * Initializes a spinner with a list of templates.
    *
    * @param view the spinner is attached to in layout file
    */
   public void initSpinner(View view) {
-    TemplateSpinner spinner = new TemplateSpinner(view, getActivity(), R.id.spinner_exercise);
+    final TemplateSpinner spinner = new TemplateSpinner(view, getActivity(), R.id.spinner_exercise);
   }
 
   /**

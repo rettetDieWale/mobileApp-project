@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
+import com.example.fithub.main.components.TemplateSpinner;
 
 public class TrainingPlanFragment extends Fragment {
 
@@ -111,17 +110,8 @@ public class TrainingPlanFragment extends Fragment {
    * @param view the spinner is attached to in layout file
    */
   public void initSpinner(View view) {
-    Spinner spinner = (Spinner) view.findViewById(R.id.spinner_training_plan);
-    // Create an ArrayAdapter using the string array and a default spinner layout
-    ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(
-            getActivity(), R.array.template_array, android.R.layout.simple_spinner_item);
-
-    // Specify the layout to use when the list of choices appears
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-    // Apply the adapter to the spinner
-    spinner.setAdapter(adapter);
+    final TemplateSpinner spinner =
+        new TemplateSpinner(view, getActivity(), R.id.spinner_training_plan);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
