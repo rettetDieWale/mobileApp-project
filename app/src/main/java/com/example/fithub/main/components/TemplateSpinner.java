@@ -7,7 +7,7 @@ import android.widget.Spinner;
 
 import com.example.fithub.R;
 
-/** Class for spinner selecting templates. */
+/** Interface class for spinners selecting our templates. */
 public class TemplateSpinner {
   private Spinner spinner;
 
