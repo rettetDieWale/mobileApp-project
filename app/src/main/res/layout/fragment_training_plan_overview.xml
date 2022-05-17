@@ -5,9 +5,21 @@
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.trainingplan.TrainingPlanOverview">
+    tools:context=".main.trainingplan.TrainingPlanOverviewFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/fragment_list_layout"
+        android:layout_width="258dp"
+        android:layout_height="472dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
 
     <Button
         android:id="@+id/button_trainingplan_return"
@@ -22,13 +34,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_training_plan"
+        android:id="@+id/button_tp_for_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/training_plan"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_trainingplan_return"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.216"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.819" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
