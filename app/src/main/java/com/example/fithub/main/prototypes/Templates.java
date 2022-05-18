@@ -18,7 +18,7 @@ public class Templates {
     Exercise exercise = new Exercise();
 
     exercise.setName("Klimmzug");
-    exercise.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
+    exercise.setInstruction("Klimmzüge Instruktionen hier einfügen ...2222");
     exercise.setVideoUrl(
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
     exercise.setImageId(R.drawable.klimmzug);
