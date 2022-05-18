@@ -26,6 +26,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class ExerciseFragment extends Fragment {
+  TextView InstructionTextArea, exerciseTitle;
+  Serializer serializer;
 
   private FragmentExerciseBinding binding;
 
@@ -41,31 +43,7 @@ public class ExerciseFragment extends Fragment {
     final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
 
     initSpinner(view);
-
-    Serializer serializer = new Serializer();
-
-    Type listOfExercisesType = new TypeToken<List<Exercise>>() {}.getType();
-
-    List<Exercise> exerciseTemplates =
-        (List<Exercise>)
-            serializer.deserialize(getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
-
-    // Templates need to be created if file is corrupted or not existent
-    if (exerciseTemplates == null) {
-      Templates templates = new Templates();
-      exerciseTemplates = templates.createExerciseTemplates();
-    }
-
-    Exercise exercise = exerciseTemplates.get(0);
-
-    loadExerciseImage(view, exercise.getImageId());
-    loadExerciseVideo(view, exercise.getVideoUrl());
-
-    final TextView InstructionTextArea = view.findViewById(R.id.exercise_text_area);
-    InstructionTextArea.setText(exercise.getInstruction());
-
-    final TextView exerciseTitle = view.findViewById(R.id.exercise_name);
-    exerciseTitle.setText(exercise.getName());
+    loadExerciseContent(view);
 
     return view;
   }
@@ -77,6 +55,47 @@ public class ExerciseFragment extends Fragment {
    */
   public void initSpinner(View view) {
     final TemplateSpinner spinner = new TemplateSpinner(view, getActivity(), R.id.spinner_exercise);
+  }
+
+  /**
+   * Load content from storage into fragment content.
+   *
+   * @param view of the fragment.
+   */
+  public void loadExerciseContent(View view) {
+    this.serializer = new Serializer();
+    Type listOfExercisesType = new TypeToken<List<Exercise>>() {}.getType();
+
+    List<Exercise> exerciseTemplates =
+        (List<Exercise>)
+            this.serializer.deserialize(
+                getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
+
+    // Templates need to be created if file is corrupted or not existent
+    if (exerciseTemplates == null) {
+      Templates templates = new Templates();
+      exerciseTemplates = templates.createExerciseTemplates();
+    }
+
+    Exercise exercise = exerciseTemplates.get(0);
+    setExerciseContent(view, exercise);
+  }
+
+  /**
+   * Set the attributes of a exercise for the connected layout components.
+   *
+   * @param view of the fragment the components belong to
+   * @param exercise from storage whom data should be used
+   */
+  public void setExerciseContent(View view, Exercise exercise) {
+    loadExerciseImage(view, exercise.getImageId());
+    loadExerciseVideo(view, exercise.getVideoUrl());
+
+    this.InstructionTextArea = view.findViewById(R.id.exercise_text_area);
+    this.InstructionTextArea.setText(exercise.getInstruction());
+
+    this.exerciseTitle = view.findViewById(R.id.exercise_name);
+    this.exerciseTitle.setText(exercise.getName());
   }
 
   /**
