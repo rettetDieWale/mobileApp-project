@@ -8,6 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -55,8 +56,16 @@ public class ExerciseFragment extends Fragment {
       exerciseTemplates = templates.createExerciseTemplates();
     }
 
-    loadExerciseImage(view, R.drawable.klimmzug);
-    loadExerciseVideo(view);
+    Exercise exercise = exerciseTemplates.get(0);
+
+    loadExerciseImage(view, exercise.getImageId());
+    loadExerciseVideo(view, exercise.getVideoUrl());
+
+    final TextView InstructionTextArea = view.findViewById(R.id.exercise_text_area);
+    InstructionTextArea.setText(exercise.getInstruction());
+
+    final TextView exerciseTitle = view.findViewById(R.id.exercise_name);
+    exerciseTitle.setText(exercise.getName());
 
     return view;
   }
@@ -91,9 +100,7 @@ public class ExerciseFragment extends Fragment {
    *
    * @param view the video is attached to
    */
-  public void loadExerciseVideo(View view) {
-    final String frameVideo =
-        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
+  public void loadExerciseVideo(View view, String frameVideo) {
 
     WebView displayYoutubeVideo = (WebView) view.findViewById(R.id.exercise_webview);
     displayYoutubeVideo.setWebViewClient(
