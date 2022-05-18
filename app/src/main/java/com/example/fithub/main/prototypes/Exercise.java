@@ -3,7 +3,7 @@ package com.example.fithub.main.prototypes;
 public class Exercise {
   private String name;
   private String instruction;
-  private String imageUrl;
+  private int imageId;
   private String videoUrl;
 
   public String getName() {
@@ -22,12 +22,12 @@ public class Exercise {
     this.instruction = instruction;
   }
 
-  public String getImageUrl() {
-    return imageUrl;
+  public int getImageId() {
+    return imageId;
   }
 
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
+  public void setImageId(int imageId) {
+    this.imageId = imageId;
   }
 
   public String getVideoUrl() {

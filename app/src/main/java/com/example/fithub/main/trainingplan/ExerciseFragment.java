@@ -15,6 +15,14 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentExerciseBinding;
 import com.example.fithub.main.components.TemplateSpinner;
+import com.example.fithub.main.prototypes.Exercise;
+import com.example.fithub.main.prototypes.Templates;
+import com.example.fithub.main.storage.Savefile;
+import com.example.fithub.main.storage.Serializer;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class ExerciseFragment extends Fragment {
 
@@ -32,6 +40,21 @@ public class ExerciseFragment extends Fragment {
     final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
 
     initSpinner(view);
+
+    Serializer serializer = new Serializer();
+
+    Type listOfExercisesType = new TypeToken<List<Exercise>>() {}.getType();
+
+    List<Exercise> exerciseTemplates =
+        (List<Exercise>)
+            serializer.deserialize(getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
+
+    // Templates need to be created if file is corrupted or not existent
+    if (exerciseTemplates == null) {
+      Templates templates = new Templates();
+      exerciseTemplates = templates.createExerciseTemplates();
+    }
+
     loadExerciseImage(view, R.drawable.klimmzug);
     loadExerciseVideo(view);
 
