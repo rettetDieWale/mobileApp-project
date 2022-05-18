@@ -33,21 +33,7 @@ public class ExerciseFragment extends Fragment {
 
     initSpinner(view);
     loadExerciseImage(view, R.drawable.klimmzug);
-
-    String frameVideo =
-        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
-
-    WebView displayYoutubeVideo = (WebView) view.findViewById(R.id.exercise_webview);
-    displayYoutubeVideo.setWebViewClient(
-        new WebViewClient() {
-          @Override
-          public boolean shouldOverrideUrlLoading(WebView view, String Url) {
-            return false;
-          }
-        });
-    WebSettings webSettings = displayYoutubeVideo.getSettings();
-    webSettings.setJavaScriptEnabled(true);
-    displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
+    loadExerciseVideo(view);
 
     return view;
   }
@@ -75,6 +61,28 @@ public class ExerciseFragment extends Fragment {
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
     super.onViewCreated(view, savedInstanceState);
+  }
+
+  /**
+   * Load an video inside the webview that is located in the exercise fragment from youtube.
+   *
+   * @param view the video is attached to
+   */
+  public void loadExerciseVideo(View view) {
+    final String frameVideo =
+        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
+
+    WebView displayYoutubeVideo = (WebView) view.findViewById(R.id.exercise_webview);
+    displayYoutubeVideo.setWebViewClient(
+        new WebViewClient() {
+          @Override
+          public boolean shouldOverrideUrlLoading(WebView view, String Url) {
+            return false;
+          }
+        });
+    WebSettings webSettings = displayYoutubeVideo.getSettings();
+    webSettings.setJavaScriptEnabled(true);
+    displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
   }
 
   @Override
