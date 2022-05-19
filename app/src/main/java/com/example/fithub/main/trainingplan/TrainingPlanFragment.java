@@ -15,8 +15,17 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
+import com.example.fithub.main.prototypes.ExerciseData;
+import com.example.fithub.main.prototypes.Templates;
+import com.example.fithub.main.storage.Savefile;
+import com.example.fithub.main.storage.Serializer;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class TrainingPlanFragment extends Fragment {
+  private Serializer serializer;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +63,23 @@ public class TrainingPlanFragment extends Fragment {
   public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    for (int i = 0; i < 10; i++) {
-      addTableRow(tableLayout);
+    // duplicate code for testing purpose will be erased later
+    this.serializer = new Serializer();
+    Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
+
+    List<ExerciseData> exerciseDataTemplates =
+        (List<ExerciseData>)
+            this.serializer.deserialize(
+                getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
+
+    // Templates need to be created if file is corrupted or not existent
+    if (exerciseDataTemplates == null) {
+      Templates templates = new Templates();
+      exerciseDataTemplates = templates.createExerciseTemplates();
+    }
+
+    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
+      addTableRow(tableLayout, exerciseDataTemplates.get(i));
     }
   }
 
@@ -63,8 +87,9 @@ public class TrainingPlanFragment extends Fragment {
    * Add entry to the table.
    *
    * @param tableLayout entry is added to
+   * @param exerciseData exercise data for the table entry
    */
-  void addTableRow(TableLayout tableLayout) {
+  void addTableRow(TableLayout tableLayout, ExerciseData exerciseData) {
     TableRow tableRow = new TableRow(getActivity());
     tableRow.setLayoutParams(
         new TableRow.LayoutParams(

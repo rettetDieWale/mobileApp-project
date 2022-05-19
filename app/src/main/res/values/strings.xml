@@ -22,7 +22,7 @@
     <string name="training_day">Trainingstage</string>
     <string name="training_period">Zeitraumplanung</string>
     <string name="training_plan">Trainingsplan</string>
-    <string name="exercise">Übung</string>
+    <string name="exerciseData">Übung</string>
     <string name="save">Speichern</string>
     <string name="add">+</string>
     <string name="sub">-</string>

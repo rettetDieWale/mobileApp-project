@@ -1,10 +1,11 @@
 package com.example.fithub.main.prototypes;
 
+/** Class for the exercise type. */
 public class Exercise {
   private String name;
-  private String instruction;
-  private int imageId;
-  private String videoUrl;
+  private int weight;
+  private int repeats;
+  private ExerciseData exerciseData;
 
   public String getName() {
     return name;
@@ -14,27 +15,27 @@ public class Exercise {
     this.name = name;
   }
 
-  public String getInstruction() {
-    return instruction;
+  public int getWeight() {
+    return weight;
   }
 
-  public void setInstruction(String instruction) {
-    this.instruction = instruction;
+  public void setWeight(int weight) {
+    this.weight = weight;
   }
 
-  public int getImageId() {
-    return imageId;
+  public int getRepeats() {
+    return repeats;
   }
 
-  public void setImageId(int imageId) {
-    this.imageId = imageId;
+  public void setRepeats(int repeats) {
+    this.repeats = repeats;
   }
 
-  public String getVideoUrl() {
-    return videoUrl;
+  public ExerciseData getExerciseData() {
+    return exerciseData;
   }
 
-  public void setVideoUrl(String videoUrl) {
-    this.videoUrl = videoUrl;
+  public void setExerciseData(ExerciseData exerciseData) {
+    this.exerciseData = exerciseData;
   }
 }

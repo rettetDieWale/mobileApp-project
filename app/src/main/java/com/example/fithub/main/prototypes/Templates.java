@@ -13,37 +13,37 @@ public class Templates {
    *
    * @return List with template exercises
    */
-  public List<Exercise> createExerciseTemplates() {
-    final List<Exercise> exercises = new ArrayList<>();
+  public List<ExerciseData> createExerciseTemplates() {
+    final List<ExerciseData> exerciseData = new ArrayList<>();
 
-    final Exercise emptyExerciseTemplate = new Exercise();
-    emptyExerciseTemplate.setName("Hier Übungsnamen eingeben...");
-    emptyExerciseTemplate.setInstruction("Hier Anleitung einfügen...");
-    emptyExerciseTemplate.setVideoUrl("Hier Video Url einfügen...");
-    emptyExerciseTemplate.setImageId(0);
+    final ExerciseData emptyExerciseDataTemplate = new ExerciseData();
+    emptyExerciseDataTemplate.setName("Hier Übungsnamen eingeben...");
+    emptyExerciseDataTemplate.setInstruction("Hier Anleitung einfügen...");
+    emptyExerciseDataTemplate.setVideoUrl("Hier Video Url einfügen...");
+    emptyExerciseDataTemplate.setImageId(0);
 
-    exercises.add(emptyExerciseTemplate);
+    exerciseData.add(emptyExerciseDataTemplate);
 
-    final Exercise chinupsExerciseTemplate = new Exercise();
+    final ExerciseData chinupsExerciseDataTemplate = new ExerciseData();
 
-    chinupsExerciseTemplate.setName("Klimmzug");
-    chinupsExerciseTemplate.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
-    chinupsExerciseTemplate.setVideoUrl(
+    chinupsExerciseDataTemplate.setName("Klimmzug");
+    chinupsExerciseDataTemplate.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
+    chinupsExerciseDataTemplate.setVideoUrl(
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
-    chinupsExerciseTemplate.setImageId(R.drawable.klimmzug);
+    chinupsExerciseDataTemplate.setImageId(R.drawable.klimmzug);
 
-    exercises.add(chinupsExerciseTemplate);
+    exerciseData.add(chinupsExerciseDataTemplate);
 
-    final Exercise squatsExerciseTemplate = new Exercise();
+    final ExerciseData squatsExerciseDataTemplate = new ExerciseData();
 
-    squatsExerciseTemplate.setName("Kniebeugen");
-    squatsExerciseTemplate.setInstruction("Kniebeugen Instruktionen hier einfügen ...");
-    squatsExerciseTemplate.setVideoUrl(
+    squatsExerciseDataTemplate.setName("Kniebeugen");
+    squatsExerciseDataTemplate.setInstruction("Kniebeugen Instruktionen hier einfügen ...");
+    squatsExerciseDataTemplate.setVideoUrl(
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/huVujjfzphI\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
-    squatsExerciseTemplate.setImageId(R.drawable.klimmzug);
+    squatsExerciseDataTemplate.setImageId(R.drawable.klimmzug);
 
-    exercises.add(squatsExerciseTemplate);
+    exerciseData.add(squatsExerciseDataTemplate);
 
-    return exercises;
+    return exerciseData;
   }
 }
