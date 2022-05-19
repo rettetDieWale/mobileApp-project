@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,8 +31,25 @@ public class CalenderOverviewFragment extends Fragment {
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
+
         final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
         initComponents(view);
+
+        //super.onCreate(savedInstanceState);
+        //setContentView(R.layout.newact);
+        CalendarView calendarView=(CalendarView) view.findViewById(R.id.simpleCalendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month,
+                                            int dayOfMonth) {
+                NavHostFragment.findNavController(CalenderOverviewFragment.this)
+                        .navigate(R.id.action_calendar_overview_to_training_day);
+
+            }
+        });
+
         return view;
     }
 
@@ -42,7 +61,6 @@ public class CalenderOverviewFragment extends Fragment {
     private void initComponents(View view) {
 
         this.simpleCalendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
-
         createOnClickListeners(view);
 
     }
@@ -65,7 +83,7 @@ public class CalenderOverviewFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                                .navigate(R.id.action_calendar_overview_to_training_day);
+                                .navigate(R.id.action_calender_overview_to_training_period);
                     }
                 });
 
@@ -89,16 +107,16 @@ public class CalenderOverviewFragment extends Fragment {
                     }
                 });
 
-
+/*
         final Button trainingDay = (Button) view.findViewById(R.id.button_training_day);
         trainingDay.setOnClickListener(
         new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                        .navigate(R.id.action_calender_overview_to_training_period);
+                        .navigate(R.id.action_calendar_overview_to_training_day);
             }
-        });
+        });*/
 
 
     }
@@ -107,4 +125,5 @@ public class CalenderOverviewFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
 }

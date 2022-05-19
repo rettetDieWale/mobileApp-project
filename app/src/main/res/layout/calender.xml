@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <!-- CalendarView with monday as first day and minmal and maximal day-->
     <CalendarView
         android:id="@+id/simpleCalendarView"
         android:layout_width="fill_parent"
