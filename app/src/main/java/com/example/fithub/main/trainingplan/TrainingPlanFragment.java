@@ -43,17 +43,6 @@ public class TrainingPlanFragment extends Fragment {
     initSpinner(view);
     initTable(view);
 
-    final Button buttonExercise = (Button) view.findViewById(R.id.button_exercise);
-    buttonExercise.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-
-            NavHostFragment.findNavController(TrainingPlanFragment.this)
-                .navigate(R.id.action_training_plan_to_exercise);
-          }
-        });
-
     return view;
   }
 
@@ -81,6 +70,11 @@ public class TrainingPlanFragment extends Fragment {
     }
 
     List<Exercise> exercises = new ArrayList<>();
+    final int FIRST = 0;
+    final ExerciseData startupTemplateExerciseData = exerciseDataTemplates.get(FIRST);
+    exerciseDataTemplates.remove(FIRST);
+
+    setNewExerciseButton(view, startupTemplateExerciseData);
 
     for (int i = 0; i < exerciseDataTemplates.size(); i++) {
       final String name = exerciseDataTemplates.get(i).getName();
@@ -162,6 +156,21 @@ public class TrainingPlanFragment extends Fragment {
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+  }
+
+  public void setNewExerciseButton(View view, ExerciseData exerciseData) {
+    final Button buttonExercise = (Button) view.findViewById(R.id.button_exercise);
+    buttonExercise.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Bundle args = new Bundle();
+            args.putSerializable("exercise", exerciseData);
+
+            NavHostFragment.findNavController(TrainingPlanFragment.this)
+                .navigate(R.id.action_training_plan_to_exercise, args);
+          }
+        });
   }
 
   @Override
