@@ -1,7 +1,9 @@
 package com.example.fithub.main.prototypes;
 
+import java.io.Serializable;
+
 /** String data class for an exercise displayed in the exercise fragment */
-public class ExerciseData {
+public class ExerciseData implements Serializable {
   private String name;
   private String instruction;
   private int imageId;
