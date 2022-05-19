@@ -12,6 +12,7 @@ public class Exercise {
     this.weight = weight;
     this.repeats = repeats;
     this.exerciseData = exerciseData;
+    this.exerciseData.setName(name);
   }
 
   public String getName() {
@@ -20,6 +21,7 @@ public class Exercise {
 
   public void setName(String name) {
     this.name = name;
+    this.exerciseData.setName(name);
   }
 
   public String getWeight() {
