@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentExerciseBinding;
 import com.example.fithub.main.components.TemplateSpinner;
-import com.example.fithub.main.prototypes.Exercise;
+import com.example.fithub.main.prototypes.ExerciseData;
 import com.example.fithub.main.prototypes.Templates;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
@@ -41,9 +41,11 @@ public class ExerciseFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
+    final Bundle bundle = getArguments();
+    final ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
 
     initSpinner(view);
-    loadExerciseContent(view);
+    setExerciseContent(view, exerciseData);
 
     return view;
   }
@@ -64,45 +66,45 @@ public class ExerciseFragment extends Fragment {
    */
   public void loadExerciseContent(View view) {
     this.serializer = new Serializer();
-    Type listOfExercisesType = new TypeToken<List<Exercise>>() {}.getType();
+    Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
 
-    List<Exercise> exerciseTemplates =
-        (List<Exercise>)
+    List<ExerciseData> exerciseDataTemplates =
+        (List<ExerciseData>)
             this.serializer.deserialize(
                 getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
 
     // Templates need to be created if file is corrupted or not existent
-    if (exerciseTemplates == null) {
+    if (exerciseDataTemplates == null) {
       Templates templates = new Templates();
-      exerciseTemplates = templates.createExerciseTemplates();
+      exerciseDataTemplates = templates.createExerciseTemplates();
     }
 
     Templates templates = new Templates();
-    exerciseTemplates = templates.createExerciseTemplates();
+    exerciseDataTemplates = templates.createExerciseTemplates();
 
     // rendering fragment with basic exercise (empty one) data
     final int standardTemplateNumber = 0;
-    final Exercise exercise = exerciseTemplates.get(standardTemplateNumber);
-    setExerciseContent(view, exercise);
+    final ExerciseData exerciseData = exerciseDataTemplates.get(standardTemplateNumber);
+    setExerciseContent(view, exerciseData);
 
-    this.serializer.serialize(getActivity(), exerciseTemplates, Savefile.EXERCISE_SAVEFILE);
+    this.serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
   }
 
   /**
    * Set the attributes of a exercise for the connected layout components.
    *
    * @param view of the fragment the components belong to
-   * @param exercise from storage whom data should be used
+   * @param exerciseData from storage whom data should be used
    */
-  public void setExerciseContent(View view, Exercise exercise) {
-    loadExerciseImage(view, exercise.getImageId());
-    loadExerciseVideo(view, exercise.getVideoUrl());
+  public void setExerciseContent(View view, ExerciseData exerciseData) {
+    loadExerciseImage(view, exerciseData.getImageId());
+    loadExerciseVideo(view, exerciseData.getVideoUrl());
 
     this.InstructionTextArea = view.findViewById(R.id.exercise_text_area);
-    this.InstructionTextArea.setText(exercise.getInstruction());
+    this.InstructionTextArea.setText(exerciseData.getInstruction());
 
     this.exerciseTitle = view.findViewById(R.id.exercise_name);
-    this.exerciseTitle.setText(exercise.getName());
+    this.exerciseTitle.setText(exerciseData.getName());
   }
 
   /**

@@ -11,7 +11,7 @@
         android:id="@+id/spinner_exercise"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/exercise"
+        android:contentDescription="@string/exerciseData"
         android:minHeight="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
