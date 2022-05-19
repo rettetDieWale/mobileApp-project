@@ -1,6 +1,6 @@
 package com.example.fithub.main.prototypes;
 
-/** Class for the exercise type. */
+/** Class for the exercise type displayed in the training plan. */
 public class Exercise {
   private String name;
   private String weight;

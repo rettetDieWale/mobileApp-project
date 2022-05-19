@@ -1,6 +1,6 @@
 package com.example.fithub.main.prototypes;
 
-/** String data class for an exercise */
+/** String data class for an exercise displayed in the exercise fragment */
 public class ExerciseData {
   private String name;
   private String instruction;
