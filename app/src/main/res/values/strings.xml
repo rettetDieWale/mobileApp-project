@@ -26,6 +26,7 @@
     <string name="save">Speichern</string>
     <string name="add">+</string>
     <string name="sub">-</string>
+    <string name="submit">Bestätigen</string>
 
     <!-- Strings for labels -->
     <string name="loading">Loading data...</string>

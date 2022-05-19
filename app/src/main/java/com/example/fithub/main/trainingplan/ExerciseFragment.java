@@ -7,15 +7,17 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentExerciseBinding;
-import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.ExerciseData;
 import com.example.fithub.main.prototypes.Templates;
 import com.example.fithub.main.storage.Savefile;
@@ -44,19 +46,32 @@ public class ExerciseFragment extends Fragment {
     final Bundle bundle = getArguments();
     final ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
 
-    initSpinner(view);
+    final ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcher);
+    final TextView exerciseNameTextView = (TextView) view.findViewById(R.id.exercise_name);
+    final EditText exerciseEditText = (EditText) view.findViewById(R.id.editTextInput);
+
+    exerciseNameTextView.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            viewSwitcher.showNext();
+            exerciseEditText.setText(exerciseNameTextView.getText(), TextView.BufferType.EDITABLE);
+          }
+        });
+
+    final Button exerciseTextSubmit = (Button) view.findViewById(R.id.submit);
+    exerciseTextSubmit.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            exerciseNameTextView.setText(exerciseEditText.getText());
+            viewSwitcher.showNext();
+          }
+        });
+
     setExerciseContent(view, exerciseData);
 
     return view;
-  }
-
-  /**
-   * Initializes a spinner with a list of templates.
-   *
-   * @param view the spinner is attached to in layout file
-   */
-  public void initSpinner(View view) {
-    final TemplateSpinner spinner = new TemplateSpinner(view, getActivity(), R.id.spinner_exercise);
   }
 
   /**
@@ -97,6 +112,7 @@ public class ExerciseFragment extends Fragment {
    * @param exerciseData from storage whom data should be used
    */
   public void setExerciseContent(View view, ExerciseData exerciseData) {
+
     loadExerciseImage(view, exerciseData.getImageId());
     loadExerciseVideo(view, exerciseData.getVideoUrl());
 
