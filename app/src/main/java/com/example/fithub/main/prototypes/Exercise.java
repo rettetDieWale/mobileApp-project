@@ -3,9 +3,16 @@ package com.example.fithub.main.prototypes;
 /** Class for the exercise type. */
 public class Exercise {
   private String name;
-  private int weight;
-  private int repeats;
+  private String weight;
+  private String repeats;
   private ExerciseData exerciseData;
+
+  public Exercise(String name, String weight, String repeats, ExerciseData exerciseData) {
+    this.name = name;
+    this.weight = weight;
+    this.repeats = repeats;
+    this.exerciseData = exerciseData;
+  }
 
   public String getName() {
     return name;
@@ -15,19 +22,19 @@ public class Exercise {
     this.name = name;
   }
 
-  public int getWeight() {
+  public String getWeight() {
     return weight;
   }
 
-  public void setWeight(int weight) {
+  public void setWeight(String weight) {
     this.weight = weight;
   }
 
-  public int getRepeats() {
+  public String getRepeats() {
     return repeats;
   }
 
-  public void setRepeats(int repeats) {
+  public void setRepeats(String repeats) {
     this.repeats = repeats;
   }
 

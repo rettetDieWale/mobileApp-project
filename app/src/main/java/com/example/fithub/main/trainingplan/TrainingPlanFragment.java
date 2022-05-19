@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
+import com.example.fithub.main.prototypes.Exercise;
 import com.example.fithub.main.prototypes.ExerciseData;
 import com.example.fithub.main.prototypes.Templates;
 import com.example.fithub.main.storage.Savefile;
@@ -22,6 +23,7 @@ import com.example.fithub.main.storage.Serializer;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPlanFragment extends Fragment {
@@ -63,7 +65,7 @@ public class TrainingPlanFragment extends Fragment {
   public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    // duplicate code for testing purpose will be erased later
+    // TODO: duplicate code for testing purpose will be erased later
     this.serializer = new Serializer();
     Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
 
@@ -78,8 +80,14 @@ public class TrainingPlanFragment extends Fragment {
       exerciseDataTemplates = templates.createExerciseTemplates();
     }
 
+    List<Exercise> exercises = new ArrayList<Exercise>();
     for (int i = 0; i < exerciseDataTemplates.size(); i++) {
-      addTableRow(tableLayout, exerciseDataTemplates.get(i));
+      final String name = exerciseDataTemplates.get(i).getName();
+      exercises.add(new Exercise(name, "20kg", "12x3", exerciseDataTemplates.get(i)));
+    }
+
+    for (int i = 0; i < exercises.size(); i++) {
+      addTableRow(tableLayout, exercises.get(i));
     }
   }
 
@@ -87,9 +95,9 @@ public class TrainingPlanFragment extends Fragment {
    * Add entry to the table.
    *
    * @param tableLayout entry is added to
-   * @param exerciseData exercise data for the table entry
+   * @param exercise exercise data for the table entry
    */
-  void addTableRow(TableLayout tableLayout, ExerciseData exerciseData) {
+  void addTableRow(TableLayout tableLayout, Exercise exercise) {
     TableRow tableRow = new TableRow(getActivity());
     tableRow.setLayoutParams(
         new TableRow.LayoutParams(
@@ -103,19 +111,19 @@ public class TrainingPlanFragment extends Fragment {
     layoutParams.weight = 1.0f;
 
     final TextView textViewExercise = new TextView(getActivity());
-    textViewExercise.setText("Übung 1");
+    textViewExercise.setText(exercise.getName());
     textViewExercise.setTextSize(14);
     textViewExercise.setPadding(10, 10, 10, 10);
     textViewExercise.setLayoutParams(layoutParams);
 
     final TextView textViewWeight = new TextView(getActivity());
-    textViewWeight.setText("50 KG");
+    textViewWeight.setText(exercise.getWeight());
     textViewWeight.setTextSize(14);
     textViewWeight.setPadding(10, 10, 10, 10);
     textViewWeight.setLayoutParams(layoutParams);
 
     final TextView textViewRepeats = new TextView(getActivity());
-    textViewRepeats.setText("3x 12");
+    textViewRepeats.setText(exercise.getRepeats());
     textViewRepeats.setTextSize(14);
     textViewRepeats.setPadding(10, 10, 10, 10);
     textViewRepeats.setLayoutParams(layoutParams);
