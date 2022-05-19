@@ -77,7 +77,12 @@ public class ExerciseFragment extends Fragment {
       exerciseTemplates = templates.createExerciseTemplates();
     }
 
-    Exercise exercise = exerciseTemplates.get(0);
+    Templates templates = new Templates();
+    exerciseTemplates = templates.createExerciseTemplates();
+
+    // rendering fragment with basic exercise (empty one) data
+    final int standardTemplateNumber = 0;
+    final Exercise exercise = exerciseTemplates.get(standardTemplateNumber);
     setExerciseContent(view, exercise);
 
     this.serializer.serialize(getActivity(), exerciseTemplates, Savefile.EXERCISE_SAVEFILE);
