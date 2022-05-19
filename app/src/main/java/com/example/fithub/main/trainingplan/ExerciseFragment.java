@@ -135,7 +135,7 @@ public class ExerciseFragment extends Fragment {
    */
   public void setExerciseContent(ExerciseData exerciseData) {
 
-    loadExerciseImage(exerciseData.getImageId());
+    loadExerciseImage(exerciseData.getImageUrl());
     loadExerciseVideo(exerciseData.getVideoUrl());
 
     this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
@@ -148,12 +148,12 @@ public class ExerciseFragment extends Fragment {
   /**
    * Load an image from the drawable folder into the exercise image view.
    *
-   * @param imageId R.drawable.imageID path
+   * @param url to web image (should be https for picasso)
    */
-  public void loadExerciseImage(int imageId) {
+  public void loadExerciseImage(String url) {
 
     final ImageView imageView = this.view.findViewById(R.id.exercise_image);
-    Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
+    Picasso.get().load(url).into(imageView);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

@@ -1,7 +1,5 @@
 package com.example.fithub.main.prototypes;
 
-import com.example.fithub.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class Templates {
     emptyExerciseDataTemplate.setName("Hier Übungsnamen eingeben...");
     emptyExerciseDataTemplate.setInstruction("Hier Anleitung einfügen...");
     emptyExerciseDataTemplate.setVideoUrl("Hier Video Url einfügen...");
-    emptyExerciseDataTemplate.setImageId(0);
+    emptyExerciseDataTemplate.setImageUrl("Hier Bild URL einfügen...");
 
     exerciseData.add(emptyExerciseDataTemplate);
 
@@ -30,7 +28,8 @@ public class Templates {
     chinupsExerciseDataTemplate.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
     chinupsExerciseDataTemplate.setVideoUrl(
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
-    chinupsExerciseDataTemplate.setImageId(R.drawable.klimmzug);
+    chinupsExerciseDataTemplate.setImageUrl(
+        "https://www.uebungen.ws/wp-content/uploads/2011/07/klimmzuege.jpg");
 
     exerciseData.add(chinupsExerciseDataTemplate);
 
@@ -40,7 +39,8 @@ public class Templates {
     squatsExerciseDataTemplate.setInstruction("Kniebeugen Instruktionen hier einfügen ...");
     squatsExerciseDataTemplate.setVideoUrl(
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/huVujjfzphI\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
-    squatsExerciseDataTemplate.setImageId(R.drawable.klimmzug);
+    squatsExerciseDataTemplate.setImageUrl(
+        "https://www.uebungen.ws/wp-content/uploads/2011/08/Kniebeugen1.jpg");
 
     exerciseData.add(squatsExerciseDataTemplate);
 

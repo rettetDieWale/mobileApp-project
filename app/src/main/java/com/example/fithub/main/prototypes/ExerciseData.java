@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class ExerciseData implements Serializable {
   private String name;
   private String instruction;
-  private int imageId;
+  private String imageUrl;
   private String videoUrl;
 
   public String getName() {
@@ -25,12 +25,12 @@ public class ExerciseData implements Serializable {
     this.instruction = instruction;
   }
 
-  public int getImageId() {
-    return imageId;
+  public String getImageUrl() {
+    return imageUrl;
   }
 
-  public void setImageId(int imageId) {
-    this.imageId = imageId;
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   public String getVideoUrl() {
