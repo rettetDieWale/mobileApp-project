@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentExerciseBinding;
 import com.example.fithub.main.prototypes.ExerciseData;
 import com.example.fithub.main.prototypes.Templates;
 import com.example.fithub.main.storage.Savefile;
@@ -31,7 +30,7 @@ public class ExerciseFragment extends Fragment {
   TextView InstructionTextArea, exerciseTitle;
   Serializer serializer;
 
-  private FragmentExerciseBinding binding;
+  private View view;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -42,13 +41,14 @@ public class ExerciseFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
+    this.view = inflater.inflate(R.layout.fragment_exercise, container, false);
     final Bundle bundle = getArguments();
     final ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
 
-    final ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcher);
+    // exercise title input
+    final ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherTitle);
     final TextView exerciseNameTextView = (TextView) view.findViewById(R.id.exercise_name);
-    final EditText exerciseEditText = (EditText) view.findViewById(R.id.editTextInput);
+    final EditText exerciseEditText = (EditText) view.findViewById(R.id.editTextInputName);
 
     exerciseNameTextView.setOnClickListener(
         new View.OnClickListener() {
@@ -59,7 +59,7 @@ public class ExerciseFragment extends Fragment {
           }
         });
 
-    final Button exerciseTextSubmit = (Button) view.findViewById(R.id.submit);
+    final Button exerciseTextSubmit = (Button) view.findViewById(R.id.submitButtonName);
     exerciseTextSubmit.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -69,17 +69,43 @@ public class ExerciseFragment extends Fragment {
           }
         });
 
-    setExerciseContent(view, exerciseData);
+    // exercise instruction input
+
+    // exercise title input
+    final ViewSwitcher viewSwitcher2 =
+        (ViewSwitcher) view.findViewById(R.id.viewSwitcherInstruction);
+    final TextView exerciseNameTextView2 = (TextView) view.findViewById(R.id.exercise_text_area);
+    final EditText exerciseEditText2 = (EditText) view.findViewById(R.id.editTextInputInstruction);
+
+    exerciseNameTextView2.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            viewSwitcher2.showNext();
+            exerciseEditText2.setText(
+                exerciseNameTextView2.getText(), TextView.BufferType.EDITABLE);
+          }
+        });
+
+    final Button exerciseTextSubmit2 = (Button) view.findViewById(R.id.submitButtonInstruction);
+    exerciseTextSubmit2.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            exerciseNameTextView2.setText(exerciseEditText2.getText());
+            viewSwitcher2.showNext();
+          }
+        });
+
+    setExerciseContent(exerciseData);
 
     return view;
   }
 
-  /**
-   * Load content from storage into fragment content.
-   *
-   * @param view of the fragment.
-   */
-  public void loadExerciseContent(View view) {
+  public void configureViewSwitcher() {}
+
+  /** Load content from storage into fragment content. */
+  public void loadExerciseContent() {
     this.serializer = new Serializer();
     Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
 
@@ -100,7 +126,7 @@ public class ExerciseFragment extends Fragment {
     // rendering fragment with basic exercise (empty one) data
     final int standardTemplateNumber = 0;
     final ExerciseData exerciseData = exerciseDataTemplates.get(standardTemplateNumber);
-    setExerciseContent(view, exerciseData);
+    setExerciseContent(exerciseData);
 
     this.serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
   }
@@ -108,29 +134,27 @@ public class ExerciseFragment extends Fragment {
   /**
    * Set the attributes of a exercise for the connected layout components.
    *
-   * @param view of the fragment the components belong to
    * @param exerciseData from storage whom data should be used
    */
-  public void setExerciseContent(View view, ExerciseData exerciseData) {
+  public void setExerciseContent(ExerciseData exerciseData) {
 
-    loadExerciseImage(view, exerciseData.getImageId());
-    loadExerciseVideo(view, exerciseData.getVideoUrl());
+    loadExerciseImage(exerciseData.getImageId());
+    loadExerciseVideo(exerciseData.getVideoUrl());
 
-    this.InstructionTextArea = view.findViewById(R.id.exercise_text_area);
+    this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
     this.InstructionTextArea.setText(exerciseData.getInstruction());
 
-    this.exerciseTitle = view.findViewById(R.id.exercise_name);
+    this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
   /**
    * Load an image from the drawable folder into the exercise image view.
    *
-   * @param view the image is attached to
    * @param imageId R.drawable.imageID path
    */
-  public void loadExerciseImage(View view, int imageId) {
-    final ImageView imageView = view.findViewById(R.id.exercise_image);
+  public void loadExerciseImage(int imageId) {
+    final ImageView imageView = this.view.findViewById(R.id.exercise_image);
     imageView.setImageResource(imageId);
   }
 
@@ -139,14 +163,10 @@ public class ExerciseFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
-  /**
-   * Load an video inside the webview that is located in the exercise fragment from youtube.
-   *
-   * @param view the video is attached to
-   */
-  public void loadExerciseVideo(View view, String frameVideo) {
+  /** Load an video inside the webview that is located in the exercise fragment from youtube. */
+  public void loadExerciseVideo(String frameVideo) {
 
-    WebView displayYoutubeVideo = (WebView) view.findViewById(R.id.exercise_webview);
+    WebView displayYoutubeVideo = (WebView) this.view.findViewById(R.id.exercise_webview);
     displayYoutubeVideo.setWebViewClient(
         new WebViewClient() {
           @Override
@@ -162,6 +182,5 @@ public class ExerciseFragment extends Fragment {
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    binding = null;
   }
 }

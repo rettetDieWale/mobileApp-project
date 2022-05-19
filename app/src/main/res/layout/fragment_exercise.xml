@@ -14,18 +14,9 @@
         android:layout_height="wrap_content"
         android:text="@string/instruction"
         android:textSize="30sp"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="445dp" />
-
-    <TextView
-        android:id="@+id/exercise_text_area"
-        android:layout_width="397dp"
-        android:layout_height="70dp"
-        android:text="@string/loading"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="445dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherTitle" />
 
     <ImageView
         android:id="@+id/exercise_image"
@@ -37,10 +28,14 @@
         tools:src="@tools:sample/avatars" />
 
     <ViewSwitcher
-        android:id="@+id/viewSwitcher"
+        android:id="@+id/viewSwitcherTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/exercise_name"
@@ -49,10 +44,34 @@
             android:text="@string/loading" />
 
         <include
-            android:id="@+id/input_exercise"
-            layout="@layout/input_text"
+            android:id="@+id/input_exercise_name"
+            layout="@layout/input_text_exercise_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+    </ViewSwitcher>
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitcherInstruction"
+        android:layout_width="413dp"
+        android:layout_height="116dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_instruction"
+        app:layout_constraintVertical_bias="0.025">
+
+        <TextView
+            android:id="@+id/exercise_text_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading" />
+
+        <include
+            layout="@layout/input_text_exercise_instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </ViewSwitcher>
 
     <WebView
