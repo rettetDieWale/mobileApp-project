@@ -41,8 +41,8 @@ public class ExerciseFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_exercise, container, false);
-    Bundle bundle = getArguments();
-    ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
+    final Bundle bundle = getArguments();
+    final ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
 
     initSpinner(view);
     setExerciseContent(view, exerciseData);
