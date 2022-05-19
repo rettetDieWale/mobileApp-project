@@ -134,6 +134,15 @@ public class TrainingPlanFragment extends Fragment {
 
     textViewRepeats.setTextSize(14);
 
+    tableRow.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            NavHostFragment.findNavController(TrainingPlanFragment.this)
+                .navigate(R.id.action_training_plan_to_exercise);
+          }
+        });
+
     tableLayout.addView(tableRow);
   }
 
