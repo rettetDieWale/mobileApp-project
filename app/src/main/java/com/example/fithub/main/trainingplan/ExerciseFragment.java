@@ -146,14 +146,14 @@ public class ExerciseFragment extends Fragment {
   }
 
   /**
-   * Load an image from the drawable folder into the exercise image view.
+   * Load an image from a web source into the exercise image view.
    *
    * @param url to web image (should be https for picasso)
    */
   public void loadExerciseImage(String url) {
 
     final ImageView imageView = this.view.findViewById(R.id.exercise_image);
-    Picasso.get().load(url).into(imageView);
+    Picasso.get().load(url).placeholder(R.drawable.klimmzug).into(imageView);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
