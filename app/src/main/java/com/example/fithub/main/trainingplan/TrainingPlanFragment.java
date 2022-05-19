@@ -65,7 +65,7 @@ public class TrainingPlanFragment extends Fragment {
   public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    // TODO: duplicate code for testing purpose will be erased later
+    // TODO: duplicate code for testing purpose will be erased/changed later
     this.serializer = new Serializer();
     Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
 
@@ -80,7 +80,8 @@ public class TrainingPlanFragment extends Fragment {
       exerciseDataTemplates = templates.createExerciseTemplates();
     }
 
-    List<Exercise> exercises = new ArrayList<Exercise>();
+    List<Exercise> exercises = new ArrayList<>();
+
     for (int i = 0; i < exerciseDataTemplates.size(); i++) {
       final String name = exerciseDataTemplates.get(i).getName();
       exercises.add(new Exercise(name, "20kg", "12x3", exerciseDataTemplates.get(i)));
@@ -134,7 +135,7 @@ public class TrainingPlanFragment extends Fragment {
 
     textViewRepeats.setTextSize(14);
 
-    tableRow.setOnClickListener(
+    textViewExercise.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
