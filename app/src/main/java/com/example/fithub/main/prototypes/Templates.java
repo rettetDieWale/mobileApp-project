@@ -14,16 +14,33 @@ public class Templates {
    * @return List with template exercises
    */
   public List<Exercise> createExerciseTemplates() {
-    List<Exercise> exercises = new ArrayList<Exercise>();
-    Exercise exercise = new Exercise();
+    final List<Exercise> exercises = new ArrayList<Exercise>();
+    final Exercise exercise = new Exercise();
+
+    Exercise emptyExercise = new Exercise();
+    emptyExercise.setName("Hier Übungsnamen eingeben...");
+    emptyExercise.setInstruction("Hier Anleitung einfügen...");
+    emptyExercise.setVideoUrl("Hier Video Url einfügen...");
+    emptyExercise.setImageId(0);
+
+    exercises.add(emptyExercise);
 
     exercise.setName("Klimmzug");
-    exercise.setInstruction("Klimmzüge Instruktionen hier einfügen ...2222");
+    exercise.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
     exercise.setVideoUrl(
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
     exercise.setImageId(R.drawable.klimmzug);
 
     exercises.add(exercise);
+
+    final Exercise exercise2 = new Exercise();
+    exercise2.setName("Kniebeugen");
+    exercise2.setInstruction("Kniebeugen Instruktionen hier einfügen ...");
+    exercise2.setVideoUrl(
+        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/huVujjfzphI\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
+    exercise2.setImageId(R.drawable.klimmzug);
+
+    exercises.add(exercise2);
 
     return exercises;
   }
