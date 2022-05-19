@@ -1,5 +1,7 @@
 package com.example.fithub.main.trainingplan;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +24,11 @@ import com.example.fithub.main.prototypes.Templates;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.List;
 
 public class ExerciseFragment extends Fragment {
@@ -45,64 +50,56 @@ public class ExerciseFragment extends Fragment {
     final Bundle bundle = getArguments();
     final ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
 
-    // exercise title input
-    final ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherTitle);
-    final TextView exerciseNameTextView = (TextView) view.findViewById(R.id.exercise_name);
-    final EditText exerciseEditText = (EditText) view.findViewById(R.id.editTextInputName);
+    configureTextViewSwitcher(
+        R.id.viewSwitcherTitle, R.id.exercise_name, R.id.editTextInputName, R.id.submitButtonName);
 
-    exerciseNameTextView.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            viewSwitcher.showNext();
-            exerciseEditText.setText(exerciseNameTextView.getText(), TextView.BufferType.EDITABLE);
-          }
-        });
-
-    final Button exerciseTextSubmit = (Button) view.findViewById(R.id.submitButtonName);
-    exerciseTextSubmit.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            exerciseNameTextView.setText(exerciseEditText.getText());
-            viewSwitcher.showNext();
-          }
-        });
-
-    // exercise instruction input
+    configureTextViewSwitcher(
+        R.id.viewSwitcherInstruction,
+        R.id.exercise_text_area,
+        R.id.editTextInputInstruction,
+        R.id.submitButtonInstruction);
 
     // exercise title input
-    final ViewSwitcher viewSwitcher2 =
-        (ViewSwitcher) view.findViewById(R.id.viewSwitcherInstruction);
-    final TextView exerciseNameTextView2 = (TextView) view.findViewById(R.id.exercise_text_area);
-    final EditText exerciseEditText2 = (EditText) view.findViewById(R.id.editTextInputInstruction);
-
-    exerciseNameTextView2.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            viewSwitcher2.showNext();
-            exerciseEditText2.setText(
-                exerciseNameTextView2.getText(), TextView.BufferType.EDITABLE);
-          }
-        });
-
-    final Button exerciseTextSubmit2 = (Button) view.findViewById(R.id.submitButtonInstruction);
-    exerciseTextSubmit2.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            exerciseNameTextView2.setText(exerciseEditText2.getText());
-            viewSwitcher2.showNext();
-          }
-        });
 
     setExerciseContent(exerciseData);
 
     return view;
   }
 
-  public void configureViewSwitcher() {}
+  /**
+   * Makes the text view clickable and opens a input to change the value.
+   *
+   * @param viewSwitcherId id of the view switcher container
+   * @param textViewId id for the text view that should change on click
+   * @param editTextId id for input field that pops up on click
+   * @param submitButtonId id for the button to submit input and switch back to textview
+   */
+  public void configureTextViewSwitcher(
+      int viewSwitcherId, int textViewId, int editTextId, int submitButtonId) {
+
+    final ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(viewSwitcherId);
+    final TextView textView = (TextView) view.findViewById(textViewId);
+    final EditText editText = (EditText) view.findViewById(editTextId);
+
+    textView.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            viewSwitcher.showNext();
+            editText.setText(textView.getText(), TextView.BufferType.EDITABLE);
+          }
+        });
+
+    final Button submitButton = (Button) view.findViewById(submitButtonId);
+    submitButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            textView.setText(editText.getText());
+            viewSwitcher.showNext();
+          }
+        });
+  }
 
   /** Load content from storage into fragment content. */
   public void loadExerciseContent() {
@@ -154,8 +151,9 @@ public class ExerciseFragment extends Fragment {
    * @param imageId R.drawable.imageID path
    */
   public void loadExerciseImage(int imageId) {
+
     final ImageView imageView = this.view.findViewById(R.id.exercise_image);
-    imageView.setImageResource(imageId);
+    Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -177,6 +175,16 @@ public class ExerciseFragment extends Fragment {
     WebSettings webSettings = displayYoutubeVideo.getSettings();
     webSettings.setJavaScriptEnabled(true);
     displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
+  }
+
+  public Bitmap LoadImageFromWebOperations(String url) {
+    try {
+      InputStream is = (InputStream) new URL(url).getContent();
+      Bitmap bitmap = BitmapFactory.decodeStream(is);
+      return bitmap;
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   @Override
