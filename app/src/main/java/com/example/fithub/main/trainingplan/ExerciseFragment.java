@@ -89,6 +89,7 @@ public class ExerciseFragment extends Fragment {
           public void onClick(View view) {
             imageViewSwitcher.showNext();
             loadExerciseImage(imageEditText.getText().toString());
+            tempImageUrl = imageEditText.getText().toString();
           }
         });
 
@@ -115,6 +116,16 @@ public class ExerciseFragment extends Fragment {
             videoWebView.setVisibility(View.VISIBLE);
             videoViewSwitcher.showNext();
             loadExerciseVideo(videoEditText.getText().toString());
+            tempVideoUrl = videoEditText.getText().toString();
+          }
+        });
+
+    final Button saveExerciseDataButton = (Button) view.findViewById(R.id.button_save_exercise);
+    saveExerciseDataButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            updateExerciseData();
           }
         });
 
@@ -198,6 +209,15 @@ public class ExerciseFragment extends Fragment {
 
     this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
     this.exerciseTitle.setText(exerciseData.getName());
+  }
+
+  /** */
+  public void updateExerciseData() {
+    exerciseData.setName(this.exerciseTitle.getText().toString());
+    exerciseData.setInstruction(this.InstructionTextArea.getText().toString());
+
+    exerciseData.setImageUrl(this.tempImageUrl);
+    exerciseData.setVideoUrl(this.tempVideoUrl);
   }
 
   /**

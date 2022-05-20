@@ -1,121 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout5"
+    android:id="@+id/exerciseLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.trainingplan.ExerciseFragment">
 
 
-    <ViewSwitcher
-        android:id="@+id/viewSwitcherVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherImage"
-        tools:layout_editor_absoluteX="10dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Switch
-            android:id="@+id/switchVideo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Switch" />
+        <LinearLayout
+            android:id="@+id/scrollViewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <include
-            layout="@layout/input_link_exercise_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </ViewSwitcher>
+            <ViewSwitcher
+                android:id="@+id/viewSwitcherTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp">
 
-    <WebView
-        android:id="@+id/exercise_webview"
-        android:layout_width="379dp"
-        android:layout_height="244dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.714"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherVideo"
-        app:layout_constraintVertical_bias="0.148">
+                <TextView
+                    android:id="@+id/exercise_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading" />
 
-    </WebView>
+                <include
+                    android:id="@+id/input_exercise_name"
+                    layout="@layout/input_text_exercise_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ViewSwitcher>
 
-    <ViewSwitcher
-        android:id="@+id/viewSwitcherTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="16dp">
+            <TextView
+                android:id="@+id/exercise_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/instruction"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/exercise_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading" />
+            <ViewSwitcher
+                android:id="@+id/viewSwitcherInstruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/input_exercise_name"
-            layout="@layout/input_text_exercise_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </ViewSwitcher>
+                <TextView
+                    android:id="@+id/exercise_text_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading" />
 
-    <TextView
-        android:id="@+id/exercise_instruction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/instruction"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherTitle" />
+                <include
+                    layout="@layout/input_text_exercise_instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <ViewSwitcher
-        android:id="@+id/viewSwitcherImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherInstruction">
+            </ViewSwitcher>
 
-        <ImageView
-            android:id="@+id/exercise_image"
-            android:layout_width="94dp"
-            android:layout_height="77dp"
-            android:layout_marginTop="31dp"
-            tools:src="@tools:sample/avatars" />
+            <ViewSwitcher
+                android:id="@+id/viewSwitcherImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp">
 
-        <include
-            layout="@layout/input_link_exercise_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/exercise_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="31dp"
+                    tools:src="@tools:sample/avatars" />
 
-    </ViewSwitcher>
+                <include
+                    layout="@layout/input_link_exercise_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <ViewSwitcher
-        android:id="@+id/viewSwitcherInstruction"
-        android:layout_width="413dp"
-        android:layout_height="116dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exercise_instruction">
+            </ViewSwitcher>
 
-        <TextView
-            android:id="@+id/exercise_text_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading" />
+            <WebView
+                android:id="@+id/exercise_webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/input_text_exercise_instruction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            </WebView>
 
-    </ViewSwitcher>
+            <ViewSwitcher
+                android:id="@+id/viewSwitcherVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <Switch
+                    android:id="@+id/switchVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Switch" />
+
+                <include
+                    layout="@layout/input_link_exercise_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ViewSwitcher>
+
+            <Button
+                android:id="@+id/button_save_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
