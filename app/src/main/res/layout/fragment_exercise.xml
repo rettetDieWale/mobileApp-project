@@ -8,38 +8,45 @@
     tools:context=".main.trainingplan.ExerciseFragment">
 
 
-    <TextView
-        android:id="@+id/exercise_instruction"
+    <ViewSwitcher
+        android:id="@+id/viewSwitcherVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/instruction"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherImage"
+        tools:layout_editor_absoluteX="10dp">
 
-    <ImageView
-        android:id="@+id/exercise_image"
-        android:layout_width="94dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="31dp"
+        <Switch
+            android:id="@+id/switchVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Switch" />
+
+        <include
+            layout="@layout/input_link_exercise_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ViewSwitcher>
+
+    <WebView
+        android:id="@+id/exercise_webview"
+        android:layout_width="379dp"
+        android:layout_height="244dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherInstruction"
-        app:layout_constraintVertical_bias="0.0"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherVideo"
+        app:layout_constraintVertical_bias="0.148">
+
+    </WebView>
 
     <ViewSwitcher
         android:id="@+id/viewSwitcherTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <TextView
             android:id="@+id/exercise_name"
@@ -54,16 +61,48 @@
             android:layout_height="wrap_content" />
     </ViewSwitcher>
 
+    <TextView
+        android:id="@+id/exercise_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instruction"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherTitle" />
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitcherImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSwitcherInstruction">
+
+        <ImageView
+            android:id="@+id/exercise_image"
+            android:layout_width="94dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="31dp"
+            tools:src="@tools:sample/avatars" />
+
+        <include
+            layout="@layout/input_link_exercise_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </ViewSwitcher>
+
     <ViewSwitcher
         android:id="@+id/viewSwitcherInstruction"
         android:layout_width="413dp"
         android:layout_height="116dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exercise_instruction"
-        app:layout_constraintVertical_bias="0.025">
+        app:layout_constraintTop_toBottomOf="@+id/exercise_instruction">
 
         <TextView
             android:id="@+id/exercise_text_area"
@@ -77,16 +116,6 @@
             android:layout_height="wrap_content" />
 
     </ViewSwitcher>
-
-    <WebView
-        android:id="@+id/exercise_webview"
-        android:layout_width="409dp"
-        android:layout_height="211dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exercise_image"
-        tools:layout_editor_absoluteX="0dp">
-
-    </WebView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

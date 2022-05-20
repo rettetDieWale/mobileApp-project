@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -36,6 +37,9 @@ public class ExerciseFragment extends Fragment {
   Serializer serializer;
 
   private View view;
+  private ExerciseData exerciseData;
+  // image and video components don't have url attributes for temporary storage
+  private String tempImageUrl, tempVideoUrl;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,13 @@ public class ExerciseFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     this.view = inflater.inflate(R.layout.fragment_exercise, container, false);
+
     final Bundle bundle = getArguments();
-    final ExerciseData exerciseData = (ExerciseData) bundle.getSerializable("exercise");
+    this.exerciseData = (ExerciseData) bundle.getSerializable("exercise");
+    setExerciseContent(exerciseData);
+
+    this.tempImageUrl = this.exerciseData.getImageUrl();
+    this.tempVideoUrl = this.exerciseData.getVideoUrl();
 
     configureTextViewSwitcher(
         R.id.viewSwitcherTitle, R.id.exercise_name, R.id.editTextInputName, R.id.submitButtonName);
@@ -59,9 +68,55 @@ public class ExerciseFragment extends Fragment {
         R.id.editTextInputInstruction,
         R.id.submitButtonInstruction);
 
-    // exercise title input
+    final ViewSwitcher imageViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherImage);
+    final ImageView imageView = (ImageView) view.findViewById(R.id.exercise_image);
+    final EditText imageEditText = (EditText) view.findViewById(R.id.editTextInputImage);
 
-    setExerciseContent(exerciseData);
+    final Button submitButtonImage = (Button) view.findViewById(R.id.submitButtonImage);
+
+    imageView.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            imageViewSwitcher.showNext();
+            imageEditText.setText(tempImageUrl, TextView.BufferType.EDITABLE);
+          }
+        });
+
+    submitButtonImage.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            imageViewSwitcher.showNext();
+            loadExerciseImage(imageEditText.getText().toString());
+          }
+        });
+
+    final ViewSwitcher videoViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherVideo);
+    final WebView videoWebView = (WebView) view.findViewById(R.id.exercise_webview);
+    final Switch videoSwitch = (Switch) view.findViewById(R.id.switchVideo);
+    final EditText videoEditText = (EditText) view.findViewById(R.id.editTextInputVideo);
+    final Button submitButtonVideo = (Button) view.findViewById(R.id.submitButtonVideo);
+
+    videoSwitch.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            videoWebView.setVisibility(View.GONE);
+            videoViewSwitcher.showNext();
+            videoEditText.setText(tempVideoUrl, TextView.BufferType.EDITABLE);
+          }
+        });
+
+    submitButtonVideo.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            videoWebView.setVisibility(View.VISIBLE);
+            videoViewSwitcher.showNext();
+            loadExerciseVideo(videoEditText.getText().toString());
+          }
+        });
 
     return view;
   }
