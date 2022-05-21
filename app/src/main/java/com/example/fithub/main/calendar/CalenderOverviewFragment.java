@@ -45,8 +45,13 @@ public class CalenderOverviewFragment extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
+                Bundle args = new Bundle();
+                month = month+1;
+                String date = dayOfMonth+"/"+month+"/"+year;
+                args.putSerializable("date",date);
+
                 NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                        .navigate(R.id.action_calendar_overview_to_training_day);
+                        .navigate(R.id.action_calendar_overview_to_training_day, args);
 
             }
         });
