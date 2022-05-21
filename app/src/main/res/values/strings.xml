@@ -4,6 +4,9 @@
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="title_activity_training_plan">TrainingPlanActivity</string>
 
+    <!-- Strings used for TrainingDay -->
+    <string name="date">dd/mm/yyyy</string>
+
     <!-- Strings used for AppBar -->
     <string name="appbar_item_name_analysis">Analyse</string>
     <string name="appbar_title_calender">Kalender</string>

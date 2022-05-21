@@ -36,6 +36,7 @@ public class CalenderOverviewFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
         initComponents(view);
 
+        // TODO: Code NOCH VERSCHIEBEN
         //super.onCreate(savedInstanceState);
         //setContentView(R.layout.newact);
         CalendarView calendarView=(CalendarView) view.findViewById(R.id.simpleCalendarView);
