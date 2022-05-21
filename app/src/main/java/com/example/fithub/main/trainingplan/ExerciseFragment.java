@@ -1,7 +1,5 @@
 package com.example.fithub.main.trainingplan;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +25,7 @@ import com.example.fithub.main.storage.Serializer;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.List;
 
 public class ExerciseFragment extends Fragment {
@@ -167,8 +163,12 @@ public class ExerciseFragment extends Fragment {
         });
   }
 
-  /** Load content from storage into fragment content. */
-  public void loadExerciseContent() {
+  /**
+   * Load content from storage into fragment content.
+   *
+   * @return list of exercise templates
+   */
+  public List<ExerciseData> loadExerciseContent() {
     this.serializer = new Serializer();
     Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
 
@@ -183,15 +183,7 @@ public class ExerciseFragment extends Fragment {
       exerciseDataTemplates = templates.createExerciseTemplates();
     }
 
-    Templates templates = new Templates();
-    exerciseDataTemplates = templates.createExerciseTemplates();
-
-    // rendering fragment with basic exercise (empty one) data
-    final int standardTemplateNumber = 0;
-    final ExerciseData exerciseData = exerciseDataTemplates.get(standardTemplateNumber);
-    setExerciseContent(exerciseData);
-
-    this.serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
+    return exerciseDataTemplates;
   }
 
   /**
@@ -250,16 +242,6 @@ public class ExerciseFragment extends Fragment {
     WebSettings webSettings = displayYoutubeVideo.getSettings();
     webSettings.setJavaScriptEnabled(true);
     displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
-  }
-
-  public Bitmap LoadImageFromWebOperations(String url) {
-    try {
-      InputStream is = (InputStream) new URL(url).getContent();
-      Bitmap bitmap = BitmapFactory.decodeStream(is);
-      return bitmap;
-    } catch (Exception e) {
-      return null;
-    }
   }
 
   @Override
