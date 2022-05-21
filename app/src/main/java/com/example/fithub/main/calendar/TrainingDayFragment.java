@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,11 +27,12 @@ public class TrainingDayFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
+
     return inflater.inflate(R.layout.fragment_training_day, container, false);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-
+    setDate();
     Spinner spinner = (Spinner) view.findViewById(R.id.spinner_training_day);
     // Create an ArrayAdapter using the string array and a default spinner layout
     ArrayAdapter<CharSequence> adapter =
@@ -45,4 +47,15 @@ public class TrainingDayFragment extends Fragment {
 
     super.onViewCreated(view, savedInstanceState);
   }
+
+  private void setDate(){
+    Bundle bundle = getArguments();
+    String date = null;
+    if (bundle != null) {
+      date = (String) bundle.getSerializable("date");
+    }
+    TextView tv = (TextView) getView().findViewById(R.id.dateText);
+    tv.setText(date);
+  }
+
 }
