@@ -122,10 +122,28 @@ public class ExerciseFragment extends Fragment {
           @Override
           public void onClick(View view) {
             updateExerciseData();
+            addExerciseDataToTemplates();
           }
         });
 
     return view;
+  }
+
+  public void addExerciseDataToTemplates() {
+    List<ExerciseData> exerciseDataTemplates = getExerciseDataTemplates();
+
+    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
+      if (exerciseDataTemplates.get(i).getName().equals(exerciseData.getName())) {
+
+        exerciseDataTemplates.remove(exerciseDataTemplates.get(i));
+        exerciseDataTemplates.add(exerciseData);
+        serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
+        return;
+      }
+    }
+
+    exerciseDataTemplates.add(exerciseData);
+    serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
   }
 
   /**
@@ -168,7 +186,7 @@ public class ExerciseFragment extends Fragment {
    *
    * @return list of exercise templates
    */
-  public List<ExerciseData> loadExerciseContent() {
+  public List<ExerciseData> getExerciseDataTemplates() {
     this.serializer = new Serializer();
     Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
 
@@ -205,11 +223,11 @@ public class ExerciseFragment extends Fragment {
 
   /** */
   public void updateExerciseData() {
-    exerciseData.setName(this.exerciseTitle.getText().toString());
-    exerciseData.setInstruction(this.InstructionTextArea.getText().toString());
+    this.exerciseData.setName(this.exerciseTitle.getText().toString());
+    this.exerciseData.setInstruction(this.InstructionTextArea.getText().toString());
 
-    exerciseData.setImageUrl(this.tempImageUrl);
-    exerciseData.setVideoUrl(this.tempVideoUrl);
+    this.exerciseData.setImageUrl(this.tempImageUrl);
+    this.exerciseData.setVideoUrl(this.tempVideoUrl);
   }
 
   /**
