@@ -26,8 +26,7 @@ public class Templates {
 
     chinupsExerciseDataTemplate.setName("Klimmzug");
     chinupsExerciseDataTemplate.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
-    chinupsExerciseDataTemplate.setVideoUrl(
-        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/T78xCiw_R6g\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
+    chinupsExerciseDataTemplate.setVideoUrl("https://youtu.be/T78xCiw_R6g");
     chinupsExerciseDataTemplate.setImageUrl(
         "https://www.uebungen.ws/wp-content/uploads/2011/07/klimmzuege.jpg");
 
@@ -37,8 +36,7 @@ public class Templates {
 
     squatsExerciseDataTemplate.setName("Kniebeugen");
     squatsExerciseDataTemplate.setInstruction("Kniebeugen Instruktionen hier einfügen ...");
-    squatsExerciseDataTemplate.setVideoUrl(
-        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/huVujjfzphI\" frameborder=\"0\" allowfullscreen></iframe></body></html>");
+    squatsExerciseDataTemplate.setVideoUrl("https://youtu.be/huVujjfzphI");
     squatsExerciseDataTemplate.setImageUrl(
         "https://www.uebungen.ws/wp-content/uploads/2011/08/Kniebeugen1.jpg");
 

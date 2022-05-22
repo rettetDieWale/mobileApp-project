@@ -95,6 +95,8 @@ public class ExerciseFragment extends Fragment {
     final EditText videoEditText = (EditText) view.findViewById(R.id.editTextInputVideo);
     final Button submitButtonVideo = (Button) view.findViewById(R.id.submitButtonVideo);
 
+    System.out.println("test");
+
     videoSwitch.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -247,8 +249,9 @@ public class ExerciseFragment extends Fragment {
   }
 
   /** Load an video inside the webview that is located in the exercise fragment from youtube. */
-  public void loadExerciseVideo(String frameVideo) {
+  public void loadExerciseVideo(String url) {
 
+    String frameVideo = parseVideoUrl(url);
     WebView displayYoutubeVideo = (WebView) this.view.findViewById(R.id.exercise_webview);
     displayYoutubeVideo.setWebViewClient(
         new WebViewClient() {
@@ -260,6 +263,16 @@ public class ExerciseFragment extends Fragment {
     WebSettings webSettings = displayYoutubeVideo.getSettings();
     webSettings.setJavaScriptEnabled(true);
     displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
+  }
+
+  public String parseVideoUrl(String url) {
+    String[] separatedUrl = url.split("/");
+    String youtubeId = separatedUrl[separatedUrl.length - 1];
+    String fullUrl =
+        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/"
+            + youtubeId
+            + "\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
+    return fullUrl;
   }
 
   @Override

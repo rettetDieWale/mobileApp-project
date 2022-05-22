@@ -12,7 +12,7 @@ import com.example.fithub.R;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-  String[] list;
+  private String[] list;
 
   public ListAdapter(String[] list) {
     this.list = list;
