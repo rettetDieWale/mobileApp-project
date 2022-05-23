@@ -63,6 +63,32 @@ public class ExerciseFragment extends Fragment {
         R.id.editTextInputInstruction,
         R.id.submitButtonInstruction);
 
+    setImageViewSwitcher();
+    setVideoViewSwitcher();
+
+    return view;
+  }
+
+  /** add the current exercise data to the template files in local storage. */
+  public void addExerciseDataToTemplates() {
+    List<ExerciseData> exerciseDataTemplates = getExerciseDataTemplates();
+
+    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
+      if (exerciseDataTemplates.get(i).getName().equals(exerciseData.getName())) {
+
+        exerciseDataTemplates.remove(exerciseDataTemplates.get(i));
+        exerciseDataTemplates.add(exerciseData);
+        serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
+        return;
+      }
+    }
+
+    exerciseDataTemplates.add(exerciseData);
+    serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
+  }
+
+  /** Make image clickable so url for exercise image can be manually changed. */
+  public void setImageViewSwitcher() {
     final ViewSwitcher imageViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherImage);
     final ImageView imageView = (ImageView) view.findViewById(R.id.exercise_image);
     final EditText imageEditText = (EditText) view.findViewById(R.id.editTextInputImage);
@@ -87,7 +113,10 @@ public class ExerciseFragment extends Fragment {
             tempImageUrl = imageEditText.getText().toString();
           }
         });
+  }
 
+  /** make url under video clickable to it can be edited and changed manually. */
+  public void setVideoViewSwitcher() {
     final ViewSwitcher videoViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherVideo);
     final WebView videoWebView = (WebView) view.findViewById(R.id.exercise_webview);
     final TextView videoTextView = (TextView) view.findViewById(R.id.videoUrl_textView);
@@ -126,25 +155,6 @@ public class ExerciseFragment extends Fragment {
             addExerciseDataToTemplates();
           }
         });
-
-    return view;
-  }
-
-  public void addExerciseDataToTemplates() {
-    List<ExerciseData> exerciseDataTemplates = getExerciseDataTemplates();
-
-    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
-      if (exerciseDataTemplates.get(i).getName().equals(exerciseData.getName())) {
-
-        exerciseDataTemplates.remove(exerciseDataTemplates.get(i));
-        exerciseDataTemplates.add(exerciseData);
-        serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
-        return;
-      }
-    }
-
-    exerciseDataTemplates.add(exerciseData);
-    serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
   }
 
   /**
