@@ -99,12 +99,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
-                <Switch
-                    android:id="@+id/switchVideo"
+                <TextView
+                    android:id="@+id/videoUrl_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Switch" />
+                    android:text="@string/loading" />
 
                 <include
                     layout="@layout/input_link_exercise_video"

@@ -10,7 +10,6 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -91,13 +90,12 @@ public class ExerciseFragment extends Fragment {
 
     final ViewSwitcher videoViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherVideo);
     final WebView videoWebView = (WebView) view.findViewById(R.id.exercise_webview);
-    final Switch videoSwitch = (Switch) view.findViewById(R.id.switchVideo);
+    final TextView videoTextView = (TextView) view.findViewById(R.id.videoUrl_textView);
+    videoTextView.setText(tempVideoUrl);
     final EditText videoEditText = (EditText) view.findViewById(R.id.editTextInputVideo);
     final Button submitButtonVideo = (Button) view.findViewById(R.id.submitButtonVideo);
 
-    System.out.println("test");
-
-    videoSwitch.setOnClickListener(
+    videoTextView.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -115,6 +113,7 @@ public class ExerciseFragment extends Fragment {
             videoViewSwitcher.showNext();
             loadExerciseVideo(videoEditText.getText().toString());
             tempVideoUrl = videoEditText.getText().toString();
+            videoTextView.setText(tempVideoUrl);
           }
         });
 
