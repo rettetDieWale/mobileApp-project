@@ -10,7 +10,6 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -64,6 +63,32 @@ public class ExerciseFragment extends Fragment {
         R.id.editTextInputInstruction,
         R.id.submitButtonInstruction);
 
+    setImageViewSwitcher();
+    setVideoViewSwitcher();
+
+    return view;
+  }
+
+  /** add the current exercise data to the template files in local storage. */
+  public void addExerciseDataToTemplates() {
+    List<ExerciseData> exerciseDataTemplates = getExerciseDataTemplates();
+
+    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
+      if (exerciseDataTemplates.get(i).getName().equals(exerciseData.getName())) {
+
+        exerciseDataTemplates.remove(exerciseDataTemplates.get(i));
+        exerciseDataTemplates.add(exerciseData);
+        serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
+        return;
+      }
+    }
+
+    exerciseDataTemplates.add(exerciseData);
+    serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
+  }
+
+  /** Make image clickable so url for exercise image can be manually changed. */
+  public void setImageViewSwitcher() {
     final ViewSwitcher imageViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherImage);
     final ImageView imageView = (ImageView) view.findViewById(R.id.exercise_image);
     final EditText imageEditText = (EditText) view.findViewById(R.id.editTextInputImage);
@@ -88,16 +113,18 @@ public class ExerciseFragment extends Fragment {
             tempImageUrl = imageEditText.getText().toString();
           }
         });
+  }
 
+  /** make url under video clickable to it can be edited and changed manually. */
+  public void setVideoViewSwitcher() {
     final ViewSwitcher videoViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherVideo);
     final WebView videoWebView = (WebView) view.findViewById(R.id.exercise_webview);
-    final Switch videoSwitch = (Switch) view.findViewById(R.id.switchVideo);
+    final TextView videoTextView = (TextView) view.findViewById(R.id.videoUrl_textView);
+    videoTextView.setText(tempVideoUrl);
     final EditText videoEditText = (EditText) view.findViewById(R.id.editTextInputVideo);
     final Button submitButtonVideo = (Button) view.findViewById(R.id.submitButtonVideo);
 
-    System.out.println("test");
-
-    videoSwitch.setOnClickListener(
+    videoTextView.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -115,6 +142,7 @@ public class ExerciseFragment extends Fragment {
             videoViewSwitcher.showNext();
             loadExerciseVideo(videoEditText.getText().toString());
             tempVideoUrl = videoEditText.getText().toString();
+            videoTextView.setText(tempVideoUrl);
           }
         });
 
@@ -127,25 +155,6 @@ public class ExerciseFragment extends Fragment {
             addExerciseDataToTemplates();
           }
         });
-
-    return view;
-  }
-
-  public void addExerciseDataToTemplates() {
-    List<ExerciseData> exerciseDataTemplates = getExerciseDataTemplates();
-
-    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
-      if (exerciseDataTemplates.get(i).getName().equals(exerciseData.getName())) {
-
-        exerciseDataTemplates.remove(exerciseDataTemplates.get(i));
-        exerciseDataTemplates.add(exerciseData);
-        serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
-        return;
-      }
-    }
-
-    exerciseDataTemplates.add(exerciseData);
-    serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
   }
 
   /**
@@ -223,7 +232,11 @@ public class ExerciseFragment extends Fragment {
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /** */
+  /**
+   * updates the exercise data attributes to match data in the current fragment views (e.g. name
+   * textview. Useful for when data inside the fragment has changed and now should serialize the new
+   * exercise data into storage.
+   */
   public void updateExerciseData() {
     this.exerciseData.setName(this.exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(this.InstructionTextArea.getText().toString());
@@ -265,6 +278,12 @@ public class ExerciseFragment extends Fragment {
     displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
   }
 
+  /**
+   * Changes the url from user input into the needed iframe format for a webView.
+   *
+   * @param url given from user generally in format like: https://youtu.be/LnhpKTXeIeg
+   * @return full iframe url that can be put into a WebView component
+   */
   public String parseVideoUrl(String url) {
     String[] separatedUrl = url.split("/");
     String youtubeId = separatedUrl[separatedUrl.length - 1];
