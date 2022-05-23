@@ -232,7 +232,11 @@ public class ExerciseFragment extends Fragment {
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /** */
+  /**
+   * updates the exercise data attributes to match data in the current fragment views (e.g. name
+   * textview. Useful for when data inside the fragment has changed and now should serialize the new
+   * exercise data into storage.
+   */
   public void updateExerciseData() {
     this.exerciseData.setName(this.exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(this.InstructionTextArea.getText().toString());
@@ -274,6 +278,12 @@ public class ExerciseFragment extends Fragment {
     displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
   }
 
+  /**
+   * Changes the url from user input into the needed iframe format for a webView.
+   *
+   * @param url given from user generally in format like: https://youtu.be/LnhpKTXeIeg
+   * @return full iframe url that can be put into a WebView component
+   */
   public String parseVideoUrl(String url) {
     String[] separatedUrl = url.split("/");
     String youtubeId = separatedUrl[separatedUrl.length - 1];
