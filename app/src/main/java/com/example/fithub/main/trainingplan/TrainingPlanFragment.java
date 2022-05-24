@@ -16,13 +16,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.Exercise;
-import com.example.fithub.main.prototypes.Templates;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
-import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,35 +51,23 @@ public class TrainingPlanFragment extends Fragment {
   public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    // TODO: duplicate code for testing purpose will be erased/changed later
-    this.serializer = new Serializer();
-    Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
+    List<ExerciseData> exerciseDataList = DatabaseManager.appDatabase.exerciseDataDao().getAll();
 
-    List<ExerciseData> exerciseDataTemplates =
-        (List<ExerciseData>)
-            this.serializer.deserialize(
-                getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
-
-    // Templates need to be created if file is corrupted or not existent
-    if (exerciseDataTemplates == null) {
-      Templates templates = new Templates();
-      exerciseDataTemplates = templates.createExerciseDataTemplates();
-    }
-
-    List<Exercise> exercises = new ArrayList<>();
     final int FIRST = 0;
-    final ExerciseData startupTemplateExerciseData = exerciseDataTemplates.get(FIRST);
-    exerciseDataTemplates.remove(FIRST);
+    final ExerciseData startupTemplateExerciseData = exerciseDataList.get(FIRST);
+    // exerciseData.remove(FIRST);
 
     setNewExerciseButton(view, startupTemplateExerciseData);
 
-    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
-      final String name = exerciseDataTemplates.get(i).getName();
-      exercises.add(new Exercise(name, "20kg", "12x3", exerciseDataTemplates.get(i)));
+    final List<Exercise> exerciseList = new ArrayList<>();
+
+    for (int i = 0; i < exerciseDataList.size(); i++) {
+      final String name = exerciseDataList.get(i).getName();
+      exerciseList.add(new Exercise(name, "20kg", "12x3", exerciseDataList.get(i)));
     }
 
-    for (int i = 0; i < exercises.size(); i++) {
-      addTableRow(tableLayout, exercises.get(i));
+    for (int i = 0; i < exerciseList.size(); i++) {
+      addTableRow(tableLayout, exerciseList.get(i));
     }
   }
 
