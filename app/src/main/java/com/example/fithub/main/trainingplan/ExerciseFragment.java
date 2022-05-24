@@ -41,7 +41,10 @@ public class ExerciseFragment extends Fragment {
     this.view = inflater.inflate(R.layout.fragment_exercise, container, false);
 
     final Bundle bundle = getArguments();
-    this.exerciseData = (ExerciseData) bundle.getSerializable("exerciseData");
+    final int exerciseDataId = bundle.getInt("exerciseDataId");
+
+    this.exerciseData =
+        DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(exerciseDataId);
 
     setExerciseContent(exerciseData);
 
