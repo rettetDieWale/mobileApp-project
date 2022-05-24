@@ -36,14 +36,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
   @Override
   public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+    position = holder.getAdapterPosition();
+
     holder.textView.setText(list.get(position));
+    int finalPosition = position;
+
     holder.textView.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
 
             Bundle args = new Bundle();
-            args.putInt("exerciseDataId", elementIdList[position]);
+            args.putInt("trainingPlanId", elementIdList[finalPosition]);
 
             NavHostFragment.findNavController(fragment)
                 .navigate(R.id.action_training_plan_overview_to_training_plan, args);

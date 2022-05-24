@@ -18,6 +18,9 @@ public interface PlanEntryDao {
   @Query("SELECT * FROM TRAININGPLAN_ENTRY WHERE trainingPlanId = :trainingPlanId")
   List<PlanEntry> getPlanEntrieListById(int trainingPlanId);
 
+  @Query("SELECT * FROM TRAININGPLAN_ENTRY WHERE entryId = :entryId")
+  PlanEntry getPlanEntryById(int entryId);
+
   @Insert
   void insert(PlanEntry planEntry);
 

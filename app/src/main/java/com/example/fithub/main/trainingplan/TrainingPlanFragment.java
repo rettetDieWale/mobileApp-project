@@ -17,12 +17,11 @@ import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.PlanEntry;
-import com.example.fithub.main.storage.Serializer;
 
 import java.util.List;
 
 public class TrainingPlanFragment extends Fragment {
-  private Serializer serializer;
+  private View view;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -33,33 +32,32 @@ public class TrainingPlanFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    final View view = inflater.inflate(R.layout.fragment_training_plan, container, false);
+    this.view = inflater.inflate(R.layout.fragment_training_plan, container, false);
+
+    final Bundle bundle = getArguments();
+    final int trainingPlanId = bundle.getInt("trainingPlanId");
+
+    List<PlanEntry> planEntryList =
+        DatabaseManager.appDatabase.planEntryDao().getPlanEntrieListById(trainingPlanId);
 
     final TextView nameTextView = (TextView) view.findViewById(R.id.training_plan_name);
+
     nameTextView.setText("Testplan 1");
 
-    initSpinner(view);
-    initTable(view);
+    initSpinner();
+    initTable(planEntryList);
 
     return view;
   }
 
-  /**
-   * Initializes the table dynamically with trainings plan details.
-   *
-   * @param view the table is attached to in layout file
-   */
-  public void initTable(View view) {
+  /** Initializes the table dynamically with trainings plan details. */
+  public void initTable(List<PlanEntry> planEntryList) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout_include);
 
-    List<PlanEntry> planEntryList =
-        DatabaseManager.appDatabase.planEntryDao().getPlanEntrieListById(1);
-
     final int FIRST = 0;
-    final PlanEntry startupTemplateExercise = planEntryList.get(FIRST);
-    // exerciseData.remove(FIRST);
+    PlanEntry startupTemplateExercise;
 
-    setNewExerciseButton(view, startupTemplateExercise.getExerciseDataId());
+    setNewExerciseButton(view, 1);
 
     for (int i = 0; i < planEntryList.size(); i++) {
       addTableRow(tableLayout, planEntryList.get(i));
@@ -128,12 +126,8 @@ public class TrainingPlanFragment extends Fragment {
     tableLayout.addView(tableRow);
   }
 
-  /**
-   * Initializes a spinner with a list of templates.
-   *
-   * @param view the spinner is attached to in layout file
-   */
-  public void initSpinner(View view) {
+  /** Initializes a spinner with a list of templates. */
+  public void initSpinner() {
     final TemplateSpinner spinner =
         new TemplateSpinner(view, getActivity(), R.id.spinner_training_plan);
   }
@@ -149,7 +143,7 @@ public class TrainingPlanFragment extends Fragment {
           @Override
           public void onClick(View view) {
             Bundle args = new Bundle();
-            args.putInt("exercise", exerciseDataId);
+            args.putInt("exerciseDataId", exerciseDataId);
             NavHostFragment.findNavController(TrainingPlanFragment.this)
                 .navigate(R.id.action_training_plan_to_exercise, args);
           }
