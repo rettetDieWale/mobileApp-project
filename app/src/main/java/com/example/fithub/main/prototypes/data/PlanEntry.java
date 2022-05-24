@@ -19,12 +19,23 @@ public class PlanEntry {
   private String repeats;
 
   private int exerciseDataId;
+  private int trainingPlanId;
 
-  public PlanEntry(int entryId, String weight, String repeats, int exerciseDataId) {
+  public PlanEntry(
+      int entryId, String weight, String repeats, int exerciseDataId, int trainingPlanId) {
     this.entryId = entryId;
     this.weight = weight;
     this.repeats = repeats;
     this.exerciseDataId = exerciseDataId;
+    this.trainingPlanId = trainingPlanId;
+  }
+
+  public int getTrainingPlanId() {
+    return trainingPlanId;
+  }
+
+  public void setTrainingPlanId(int trainingPlanId) {
+    this.trainingPlanId = trainingPlanId;
   }
 
   public int getExerciseDataId() {

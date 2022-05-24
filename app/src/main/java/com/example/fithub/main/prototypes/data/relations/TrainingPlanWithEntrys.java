@@ -11,6 +11,6 @@ import java.util.List;
 public class TrainingPlanWithEntrys {
   @Embedded public TrainingPlan trainingPlan;
 
-  @Relation(parentColumn = "trainingPlanId", entityColumn = "entryId")
+  @Relation(parentColumn = "trainingPlanId", entityColumn = "entryId", entity = PlanEntry.class)
   public List<PlanEntry> entryList;
 }
