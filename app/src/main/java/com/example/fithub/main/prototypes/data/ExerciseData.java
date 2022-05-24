@@ -3,8 +3,10 @@ package com.example.fithub.main.prototypes.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class ExerciseData {
+public class ExerciseData implements Serializable {
   @PrimaryKey public int id;
   public String name;
   public String instruction;

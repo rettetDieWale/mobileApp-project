@@ -32,7 +32,7 @@ public class FirstFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     DatabaseManager.initDatabase(getActivity());
-    DatabaseManager.clearDatabase();
+    DatabaseManager.addTemplates(getActivity());
 
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
     initComponents(view);
