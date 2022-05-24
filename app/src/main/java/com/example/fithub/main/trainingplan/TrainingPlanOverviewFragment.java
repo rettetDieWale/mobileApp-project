@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,27 +40,27 @@ public class TrainingPlanOverviewFragment extends Fragment {
           }
         });
 
-    // ONLY FOR TEST PURPOSE WILL BE DELETED LATER
+    // TODO: ONLY FOR TEST PURPOSE WILL BE DELETED LATER
     final Button tpButton = view.findViewById(R.id.button_tp_for_test);
     tpButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View view) {
-            NavHostFragment.findNavController(TrainingPlanOverviewFragment.this)
-                .navigate(R.id.action_training_plan_overview_to_training_plan);
-          }
+          public void onClick(View view) {}
         });
 
     names = new ArrayList<>();
-
     List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();
+    int[] trainingPlanIds = new int[trainingPlanList.size()];
+
     for (int i = 0; i < trainingPlanList.size(); i++) {
       names.add(trainingPlanList.get(i).getName());
+      trainingPlanIds[i] = trainingPlanList.get(i).getTrainingPlanId();
     }
 
     final RecyclerView recyclerView = view.findViewById(R.id.listLayout);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    recyclerView.setAdapter(new ListAdapter(names));
+    recyclerView.setAdapter(
+        new ListAdapter(names, trainingPlanIds, TrainingPlanOverviewFragment.this));
 
     return view;
   }
