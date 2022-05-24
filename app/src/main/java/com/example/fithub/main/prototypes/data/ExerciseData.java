@@ -8,10 +8,10 @@ import java.io.Serializable;
 @Entity(tableName = "exercise_data")
 public class ExerciseData implements Serializable {
   @PrimaryKey public int exerciseDataId;
-  public String name;
-  public String instruction;
-  public String imageUrl;
-  public String videoUrl;
+  private String instruction;
+  private String name;
+  private String imageUrl;
+  private String videoUrl;
 
   public ExerciseData(
       int exerciseDataId, String name, String instruction, String imageUrl, String videoUrl) {

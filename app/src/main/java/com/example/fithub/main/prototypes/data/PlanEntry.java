@@ -15,10 +15,10 @@ import androidx.room.PrimaryKey;
 public class PlanEntry {
   @PrimaryKey public int entryId;
 
-  public String weight;
-  public String repeats;
+  private String weight;
+  private String repeats;
 
-  public int exerciseDataId;
+  private int exerciseDataId;
 
   public PlanEntry(int entryId, String weight, String repeats, int exerciseDataId) {
     this.entryId = entryId;
