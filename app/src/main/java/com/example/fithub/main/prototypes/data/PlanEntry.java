@@ -1,42 +1,46 @@
 package com.example.fithub.main.prototypes.data;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
-import com.example.fithub.main.prototypes.data.converter.ExerciseDataConverter;
-
-@Entity
+@Entity(
+    tableName = "trainingplan_entry",
+    foreignKeys = {
+      @ForeignKey(
+          entity = ExerciseData.class,
+          parentColumns = {"exerciseDataId"},
+          childColumns = {"exerciseDataId"})
+    })
 public class PlanEntry {
-  @PrimaryKey public int id;
-
-  @TypeConverters(ExerciseDataConverter.class)
-  public ExerciseData exerciseData;
+  @PrimaryKey public int entryId;
 
   public String weight;
   public String repeats;
 
-  public PlanEntry(int id, ExerciseData exerciseData, String weight, String repeats) {
-    this.id = id;
-    this.exerciseData = exerciseData;
+  public int exerciseDataId;
+
+  public PlanEntry(int entryId, String weight, String repeats, int exerciseDataId) {
+    this.entryId = entryId;
     this.weight = weight;
     this.repeats = repeats;
+    this.exerciseDataId = exerciseDataId;
   }
 
-  public int getId() {
-    return id;
+  public int getExerciseDataId() {
+    return exerciseDataId;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setExerciseDataId(int exerciseDataId) {
+    this.exerciseDataId = exerciseDataId;
   }
 
-  public ExerciseData getExerciseData() {
-    return exerciseData;
+  public int getEntryId() {
+    return entryId;
   }
 
-  public void setExerciseData(ExerciseData exerciseData) {
-    this.exerciseData = exerciseData;
+  public void setEntryId(int entryId) {
+    this.entryId = entryId;
   }
 
   public String getWeight() {

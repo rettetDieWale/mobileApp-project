@@ -17,15 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
-import com.example.fithub.main.prototypes.Templates;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
-import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 public class ExerciseFragment extends Fragment {
   TextView InstructionTextArea, exerciseTitle;
@@ -33,8 +28,6 @@ public class ExerciseFragment extends Fragment {
 
   private View view;
   private ExerciseData exerciseData;
-  // image and video components don't have url attributes for temporary storage
-  private String tempImageUrl, tempVideoUrl;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -48,11 +41,9 @@ public class ExerciseFragment extends Fragment {
     this.view = inflater.inflate(R.layout.fragment_exercise, container, false);
 
     final Bundle bundle = getArguments();
-    this.exerciseData = (ExerciseData) bundle.getSerializable("exercise");
-    setExerciseContent(exerciseData);
+    this.exerciseData = (ExerciseData) bundle.getSerializable("exerciseData");
 
-    this.tempImageUrl = this.exerciseData.getImageUrl();
-    this.tempVideoUrl = this.exerciseData.getVideoUrl();
+    setExerciseContent(exerciseData);
 
     configureTextViewSwitcher(
         R.id.viewSwitcherTitle, R.id.exercise_name, R.id.editTextInputName, R.id.submitButtonName);
@@ -66,25 +57,16 @@ public class ExerciseFragment extends Fragment {
     setImageViewSwitcher();
     setVideoViewSwitcher();
 
+    final Button saveExerciseDataButton = (Button) view.findViewById(R.id.button_save_exercise);
+    saveExerciseDataButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            updateExerciseData();
+          }
+        });
+
     return view;
-  }
-
-  /** add the current exercise data to the template files in local storage. */
-  public void addExerciseDataToTemplates() {
-    List<ExerciseData> exerciseDataTemplates = getExerciseDataTemplates();
-
-    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
-      if (exerciseDataTemplates.get(i).getName().equals(exerciseData.getName())) {
-
-        exerciseDataTemplates.remove(exerciseDataTemplates.get(i));
-        exerciseDataTemplates.add(exerciseData);
-        serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
-        return;
-      }
-    }
-
-    exerciseDataTemplates.add(exerciseData);
-    serializer.serialize(getActivity(), exerciseDataTemplates, Savefile.EXERCISE_SAVEFILE);
   }
 
   /** Make image clickable so url for exercise image can be manually changed. */
@@ -100,7 +82,7 @@ public class ExerciseFragment extends Fragment {
           @Override
           public void onClick(View view) {
             imageViewSwitcher.showNext();
-            imageEditText.setText(tempImageUrl, TextView.BufferType.EDITABLE);
+            imageEditText.setText(exerciseData.getImageUrl(), TextView.BufferType.EDITABLE);
           }
         });
 
@@ -110,7 +92,7 @@ public class ExerciseFragment extends Fragment {
           public void onClick(View view) {
             imageViewSwitcher.showNext();
             loadExerciseImage(imageEditText.getText().toString());
-            tempImageUrl = imageEditText.getText().toString();
+            exerciseData.setImageUrl(imageEditText.getText().toString());
           }
         });
   }
@@ -120,7 +102,7 @@ public class ExerciseFragment extends Fragment {
     final ViewSwitcher videoViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherVideo);
     final WebView videoWebView = (WebView) view.findViewById(R.id.exercise_webview);
     final TextView videoTextView = (TextView) view.findViewById(R.id.videoUrl_textView);
-    videoTextView.setText(tempVideoUrl);
+    videoTextView.setText(exerciseData.getVideoUrl());
     final EditText videoEditText = (EditText) view.findViewById(R.id.editTextInputVideo);
     final Button submitButtonVideo = (Button) view.findViewById(R.id.submitButtonVideo);
 
@@ -130,7 +112,7 @@ public class ExerciseFragment extends Fragment {
           public void onClick(View view) {
             videoWebView.setVisibility(View.GONE);
             videoViewSwitcher.showNext();
-            videoEditText.setText(tempVideoUrl, TextView.BufferType.EDITABLE);
+            videoEditText.setText(exerciseData.getVideoUrl(), TextView.BufferType.EDITABLE);
           }
         });
 
@@ -141,18 +123,8 @@ public class ExerciseFragment extends Fragment {
             videoWebView.setVisibility(View.VISIBLE);
             videoViewSwitcher.showNext();
             loadExerciseVideo(videoEditText.getText().toString());
-            tempVideoUrl = videoEditText.getText().toString();
-            videoTextView.setText(tempVideoUrl);
-          }
-        });
-
-    final Button saveExerciseDataButton = (Button) view.findViewById(R.id.button_save_exercise);
-    saveExerciseDataButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            updateExerciseData();
-            addExerciseDataToTemplates();
+            exerciseData.setVideoUrl(videoEditText.getText().toString());
+            videoTextView.setText(exerciseData.getVideoUrl());
           }
         });
   }
@@ -193,29 +165,6 @@ public class ExerciseFragment extends Fragment {
   }
 
   /**
-   * Load content from storage into fragment content.
-   *
-   * @return list of exercise templates
-   */
-  public List<ExerciseData> getExerciseDataTemplates() {
-    this.serializer = new Serializer();
-    Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
-
-    List<ExerciseData> exerciseDataTemplates =
-        (List<ExerciseData>)
-            this.serializer.deserialize(
-                getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
-
-    // Templates need to be created if file is corrupted or not existent
-    if (exerciseDataTemplates == null) {
-      Templates templates = new Templates();
-      exerciseDataTemplates = templates.createExerciseDataTemplates();
-    }
-
-    return exerciseDataTemplates;
-  }
-
-  /**
    * Set the attributes of a exercise for the connected layout components.
    *
    * @param exerciseData from storage whom data should be used
@@ -232,17 +181,12 @@ public class ExerciseFragment extends Fragment {
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /**
-   * updates the exercise data attributes to match data in the current fragment views (e.g. name
-   * textview. Useful for when data inside the fragment has changed and now should serialize the new
-   * exercise data into storage.
-   */
+  /** */
   public void updateExerciseData() {
-    this.exerciseData.setName(this.exerciseTitle.getText().toString());
-    this.exerciseData.setInstruction(this.InstructionTextArea.getText().toString());
+    this.exerciseData.setName(exerciseTitle.getText().toString());
+    this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
 
-    this.exerciseData.setImageUrl(this.tempImageUrl);
-    this.exerciseData.setVideoUrl(this.tempVideoUrl);
+    DatabaseManager.appDatabase.exerciseDataDao().update(this.exerciseData);
   }
 
   /**
