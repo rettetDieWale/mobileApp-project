@@ -49,6 +49,7 @@ public class DatabaseManager {
 
     // Templates need to be created if file is corrupted or not existent
     if (exerciseDataTemplates == null) {
+      appDatabase.clearAllTables();
       for (int i = 0; i < exerciseDataList.size(); i++) {
         appDatabase.exerciseDataDao().insert(exerciseDataList.get(i));
       }
