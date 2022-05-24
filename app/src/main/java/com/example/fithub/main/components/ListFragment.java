@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentListLayoutBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListFragment extends Fragment {
 
-  String[] names = {
-    "hello", "bye", "main", "joe", "give", "true", "false", "know", "list", "hello", "bye"
-  };
+  List<String> names;
   private FragmentListLayoutBinding binding;
 
   @Nullable
@@ -29,6 +30,8 @@ public class ListFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view =
         LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_layout, container, false);
+
+    names = new ArrayList<>();
 
     RecyclerView recyclerView = view.findViewById(R.id.listLayout);
     recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
