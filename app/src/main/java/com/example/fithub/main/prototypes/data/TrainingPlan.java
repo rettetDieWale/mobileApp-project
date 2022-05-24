@@ -2,16 +2,30 @@ package com.example.fithub.main.prototypes.data;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.example.fithub.main.prototypes.data.converter.PlanEntryConverter;
-
-import java.util.List;
 
 @Entity
 public class TrainingPlan {
-  @PrimaryKey public int id;
+  @PrimaryKey private int trainingPlanId;
+  private String name;
 
-  @TypeConverters(PlanEntryConverter.class)
-  public List<PlanEntry> entries;
+  public TrainingPlan(int trainingPlanId, String name) {
+    this.trainingPlanId = trainingPlanId;
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public int getTrainingPlanId() {
+    return trainingPlanId;
+  }
+
+  public void setTrainingPlanId(int trainingPlanId) {
+    this.trainingPlanId = trainingPlanId;
+  }
 }

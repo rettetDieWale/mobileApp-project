@@ -48,8 +48,13 @@ public class DatabaseManager {
 
     // Templates need to be created if file is corrupted or not existent
     for (int i = 0; i < planEntryList.size(); i++) {
-
       appDatabase.planEntryDao().insert(planEntryList.get(i));
+    }
+
+    List<TrainingPlan> trainingPlanList = templates.createTrainingPlanTemplates();
+
+    for (int i = 0; i < trainingPlanList.size(); i++) {
+      appDatabase.trainingPlanDao().insert(trainingPlanList.get(i));
     }
   }
 }

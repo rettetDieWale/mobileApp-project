@@ -1,4 +1,4 @@
-package com.example.fithub.main.prototypes.data.dao;
+package com.example.fithub.main.prototypes.data.daos;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -14,6 +14,9 @@ import java.util.List;
 public interface PlanEntryDao {
   @Query("SELECT * FROM TRAININGPLAN_ENTRY")
   List<PlanEntry> getAll();
+
+  @Query("SELECT * FROM TRAININGPLAN_ENTRY WHERE trainingPlanId = :trainingPlanId")
+  List<PlanEntry> getPlanEntrieListById(int trainingPlanId);
 
   @Insert
   void insert(PlanEntry planEntry);
