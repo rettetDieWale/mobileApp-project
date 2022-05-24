@@ -82,7 +82,11 @@ public class TrainingPlanFragment extends Fragment {
     layoutParams.weight = 1.0f;
 
     final TextView textViewExercise = new TextView(getActivity());
-    textViewExercise.setText(String.valueOf(trainingPlanEntry.getExerciseDataId()));
+    textViewExercise.setText(
+        DatabaseManager.appDatabase
+            .exerciseDataDao()
+            .getExerciseData(trainingPlanEntry.getExerciseDataId())
+            .getName());
     textViewExercise.setTextSize(14);
     textViewExercise.setPadding(10, 10, 10, 10);
     textViewExercise.setLayoutParams(layoutParams);
