@@ -6,9 +6,19 @@ import androidx.room.PrimaryKey;
 @Entity
 public class TrainingPlan {
   @PrimaryKey private int trainingPlanId;
+  private String name;
 
-  public TrainingPlan(int trainingPlanId) {
+  public TrainingPlan(int trainingPlanId, String name) {
     this.trainingPlanId = trainingPlanId;
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getTrainingPlanId() {

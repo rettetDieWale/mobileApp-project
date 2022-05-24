@@ -35,6 +35,9 @@ public class TrainingPlanFragment extends Fragment {
 
     final View view = inflater.inflate(R.layout.fragment_training_plan, container, false);
 
+    final TextView nameTextView = (TextView) view.findViewById(R.id.training_plan_name);
+    nameTextView.setText("Testplan 1");
+
     initSpinner(view);
     initTable(view);
 
@@ -47,7 +50,7 @@ public class TrainingPlanFragment extends Fragment {
    * @param view the table is attached to in layout file
    */
   public void initTable(View view) {
-    final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
+    final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout_include);
 
     List<PlanEntry> planEntryList =
         DatabaseManager.appDatabase.planEntryDao().getPlanEntrieListById(1);
