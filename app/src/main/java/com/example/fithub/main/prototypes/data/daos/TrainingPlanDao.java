@@ -22,5 +22,5 @@ public interface TrainingPlanDao {
 
   @Transaction
   @Query("SELECT * FROM TrainingPlan")
-  public List<TrainingPlanWithEntrys> getTrainingPlansWithEntrys();
+  public List<TrainingPlanWithEntrys> getTrainingPlanWithEntries();
 }

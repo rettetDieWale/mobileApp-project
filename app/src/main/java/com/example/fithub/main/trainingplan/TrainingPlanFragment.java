@@ -49,7 +49,8 @@ public class TrainingPlanFragment extends Fragment {
   public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
+    List<PlanEntry> planEntryList =
+        DatabaseManager.appDatabase.planEntryDao().getPlanEntrieListById(1);
 
     final int FIRST = 0;
     final PlanEntry startupTemplateExercise = planEntryList.get(FIRST);
