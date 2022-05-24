@@ -7,11 +7,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.fithub.main.prototypes.Templates;
-import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class DatabaseManager {
@@ -40,19 +37,12 @@ public class DatabaseManager {
   public static void addTemplates(Context context) {
 
     Templates templates = new Templates();
-    List<ExerciseData> exerciseDataList = templates.createExerciseDataTemplates();
-
-    Type listType = new TypeToken<List<ExerciseData>>() {}.getType();
-
-    List<ExerciseData> exerciseDataTemplates =
-        (List<ExerciseData>) serializer.deserialize(context, listType, Savefile.EXERCISE_SAVEFILE);
+    List<PlanEntry> planEntryList = templates.createPlanEntryTemplates();
 
     // Templates need to be created if file is corrupted or not existent
-    if (exerciseDataTemplates == null) {
-      appDatabase.clearAllTables();
-      for (int i = 0; i < exerciseDataList.size(); i++) {
-        appDatabase.exerciseDataDao().insert(exerciseDataList.get(i));
-      }
+    appDatabase.clearAllTables();
+    for (int i = 0; i < planEntryList.size(); i++) {
+      appDatabase.planEntryDao().insert(planEntryList.get(i));
     }
   }
 }

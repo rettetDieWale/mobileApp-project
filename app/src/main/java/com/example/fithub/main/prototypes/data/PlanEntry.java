@@ -15,4 +15,43 @@ public class PlanEntry {
 
   public String weight;
   public String repeats;
+
+  public PlanEntry(int id, ExerciseData exerciseData, String weight, String repeats) {
+    this.id = id;
+    this.exerciseData = exerciseData;
+    this.weight = weight;
+    this.repeats = repeats;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public ExerciseData getExerciseData() {
+    return exerciseData;
+  }
+
+  public void setExerciseData(ExerciseData exerciseData) {
+    this.exerciseData = exerciseData;
+  }
+
+  public String getWeight() {
+    return weight;
+  }
+
+  public void setWeight(String weight) {
+    this.weight = weight;
+  }
+
+  public String getRepeats() {
+    return repeats;
+  }
+
+  public void setRepeats(String repeats) {
+    this.repeats = repeats;
+  }
 }

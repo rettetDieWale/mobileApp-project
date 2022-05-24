@@ -1,6 +1,7 @@
 package com.example.fithub.main.prototypes;
 
 import com.example.fithub.main.prototypes.data.ExerciseData;
+import com.example.fithub.main.prototypes.data.PlanEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +45,17 @@ public class Templates {
     exerciseData.add(squatsExerciseDataTemplate);
 
     return exerciseData;
+  }
+
+  public List<PlanEntry> createPlanEntryTemplates() {
+    final List<PlanEntry> planEntryList = new ArrayList<>();
+
+    final List<ExerciseData> exerciseDataList = createExerciseDataTemplates();
+
+    planEntryList.add(new PlanEntry(1, exerciseDataList.get(0), "0kg", "0x0"));
+    planEntryList.add(new PlanEntry(2, exerciseDataList.get(1), "5kg", "3x12"));
+    planEntryList.add(new PlanEntry(3, exerciseDataList.get(2), "5kg", "3x15"));
+
+    return planEntryList;
   }
 }
