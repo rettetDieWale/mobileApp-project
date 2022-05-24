@@ -3,9 +3,9 @@ package com.example.fithub.main.prototypes.data;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.example.fithub.main.prototypes.data.dao.ExerciseDataDao;
-import com.example.fithub.main.prototypes.data.dao.PlanEntryDao;
-import com.example.fithub.main.prototypes.data.dao.TrainingPlanDao;
+import com.example.fithub.main.prototypes.data.daos.ExerciseDataDao;
+import com.example.fithub.main.prototypes.data.daos.PlanEntryDao;
+import com.example.fithub.main.prototypes.data.daos.TrainingPlanDao;
 
 @Database(
     entities = {TrainingPlan.class, PlanEntry.class, ExerciseData.class},

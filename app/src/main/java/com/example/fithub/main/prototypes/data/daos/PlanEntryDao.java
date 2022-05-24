@@ -1,4 +1,4 @@
-package com.example.fithub.main.prototypes.data.dao;
+package com.example.fithub.main.prototypes.data.daos;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
