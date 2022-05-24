@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
-import com.example.fithub.main.prototypes.ExerciseData;
 import com.example.fithub.main.prototypes.Templates;
+import com.example.fithub.main.prototypes.data.ExerciseData;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 import com.google.gson.reflect.TypeToken;
@@ -209,7 +209,7 @@ public class ExerciseFragment extends Fragment {
     // Templates need to be created if file is corrupted or not existent
     if (exerciseDataTemplates == null) {
       Templates templates = new Templates();
-      exerciseDataTemplates = templates.createExerciseTemplates();
+      exerciseDataTemplates = templates.createExerciseDataTemplates();
     }
 
     return exerciseDataTemplates;

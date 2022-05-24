@@ -15,15 +15,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
-import com.example.fithub.main.prototypes.Exercise;
-import com.example.fithub.main.prototypes.ExerciseData;
-import com.example.fithub.main.prototypes.Templates;
-import com.example.fithub.main.storage.Savefile;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.ExerciseData;
+import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.example.fithub.main.storage.Serializer;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPlanFragment extends Fragment {
@@ -54,35 +50,16 @@ public class TrainingPlanFragment extends Fragment {
   public void initTable(View view) {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
 
-    // TODO: duplicate code for testing purpose will be erased/changed later
-    this.serializer = new Serializer();
-    Type listOfExercisesType = new TypeToken<List<ExerciseData>>() {}.getType();
+    List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
 
-    List<ExerciseData> exerciseDataTemplates =
-        (List<ExerciseData>)
-            this.serializer.deserialize(
-                getActivity(), listOfExercisesType, Savefile.EXERCISE_SAVEFILE);
-
-    // Templates need to be created if file is corrupted or not existent
-    if (exerciseDataTemplates == null) {
-      Templates templates = new Templates();
-      exerciseDataTemplates = templates.createExerciseTemplates();
-    }
-
-    List<Exercise> exercises = new ArrayList<>();
     final int FIRST = 0;
-    final ExerciseData startupTemplateExerciseData = exerciseDataTemplates.get(FIRST);
-    exerciseDataTemplates.remove(FIRST);
+    final PlanEntry startupTemplateExercise = planEntryList.get(FIRST);
+    // exerciseData.remove(FIRST);
 
-    setNewExerciseButton(view, startupTemplateExerciseData);
+    setNewExerciseButton(view, startupTemplateExercise.getExerciseData());
 
-    for (int i = 0; i < exerciseDataTemplates.size(); i++) {
-      final String name = exerciseDataTemplates.get(i).getName();
-      exercises.add(new Exercise(name, "20kg", "12x3", exerciseDataTemplates.get(i)));
-    }
-
-    for (int i = 0; i < exercises.size(); i++) {
-      addTableRow(tableLayout, exercises.get(i));
+    for (int i = 0; i < planEntryList.size(); i++) {
+      addTableRow(tableLayout, planEntryList.get(i));
     }
   }
 
@@ -92,7 +69,7 @@ public class TrainingPlanFragment extends Fragment {
    * @param tableLayout entry is added to
    * @param exercise exercise data for the table entry
    */
-  void addTableRow(TableLayout tableLayout, Exercise exercise) {
+  void addTableRow(TableLayout tableLayout, PlanEntry exercise) {
     TableRow tableRow = new TableRow(getActivity());
     tableRow.setLayoutParams(
         new TableRow.LayoutParams(
@@ -106,7 +83,7 @@ public class TrainingPlanFragment extends Fragment {
     layoutParams.weight = 1.0f;
 
     final TextView textViewExercise = new TextView(getActivity());
-    textViewExercise.setText(exercise.getName());
+    textViewExercise.setText(exercise.getExerciseData().getName());
     textViewExercise.setTextSize(14);
     textViewExercise.setPadding(10, 10, 10, 10);
     textViewExercise.setLayoutParams(layoutParams);

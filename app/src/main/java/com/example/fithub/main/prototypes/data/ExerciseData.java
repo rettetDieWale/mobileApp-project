@@ -1,13 +1,33 @@
-package com.example.fithub.main.prototypes;
+package com.example.fithub.main.prototypes.data;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-/** String data class for an exercise displayed in the exercise fragment */
+@Entity
 public class ExerciseData implements Serializable {
-  private String name;
-  private String instruction;
-  private String imageUrl;
-  private String videoUrl;
+  @PrimaryKey public int id;
+  public String name;
+  public String instruction;
+  public String imageUrl;
+  public String videoUrl;
+
+  public ExerciseData(int id, String name, String instruction, String imageUrl, String videoUrl) {
+    this.id = id;
+    this.name = name;
+    this.instruction = instruction;
+    this.imageUrl = imageUrl;
+    this.videoUrl = videoUrl;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;

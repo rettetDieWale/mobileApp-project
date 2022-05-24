@@ -1,5 +1,7 @@
 package com.example.fithub.main.prototypes;
 
+import com.example.fithub.main.prototypes.data.ExerciseData;
+
 /** Class for the exercise type displayed in the training plan. */
 public class Exercise {
   private String name;

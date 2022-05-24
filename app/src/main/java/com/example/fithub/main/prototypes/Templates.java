@@ -1,5 +1,8 @@
 package com.example.fithub.main.prototypes;
 
+import com.example.fithub.main.prototypes.data.ExerciseData;
+import com.example.fithub.main.prototypes.data.PlanEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,37 +14,48 @@ public class Templates {
    *
    * @return List with template exercises
    */
-  public List<ExerciseData> createExerciseTemplates() {
+  public List<ExerciseData> createExerciseDataTemplates() {
     final List<ExerciseData> exerciseData = new ArrayList<>();
 
-    final ExerciseData emptyExerciseDataTemplate = new ExerciseData();
-    emptyExerciseDataTemplate.setName("Hier Übungsnamen eingeben...");
-    emptyExerciseDataTemplate.setInstruction("Hier Anleitung einfügen...");
-    emptyExerciseDataTemplate.setVideoUrl("Hier Video Url einfügen...");
-    emptyExerciseDataTemplate.setImageUrl("Hier Bild URL einfügen...");
-
+    final ExerciseData emptyExerciseDataTemplate =
+        new ExerciseData(
+            1,
+            "Hier Übungsnamen eingeben...",
+            "Hier Anleitung einfügen...",
+            "Hier Bild URL einfügen...",
+            "Hier Video Url einfügen...");
     exerciseData.add(emptyExerciseDataTemplate);
 
-    final ExerciseData chinupsExerciseDataTemplate = new ExerciseData();
-
-    chinupsExerciseDataTemplate.setName("Klimmzug");
-    chinupsExerciseDataTemplate.setInstruction("Klimmzüge Instruktionen hier einfügen ...");
-    chinupsExerciseDataTemplate.setVideoUrl("https://youtu.be/T78xCiw_R6g");
-    chinupsExerciseDataTemplate.setImageUrl(
-        "https://www.uebungen.ws/wp-content/uploads/2011/07/klimmzuege.jpg");
-
+    final ExerciseData chinupsExerciseDataTemplate =
+        new ExerciseData(
+            2,
+            "Klimmzug",
+            "Klimmzüge Instruktionen hier einfügen ...",
+            "https://www.uebungen.ws/wp-content/uploads/2011/07/klimmzuege.jpg",
+            "https://youtu.be/T78xCiw_R6g");
     exerciseData.add(chinupsExerciseDataTemplate);
 
-    final ExerciseData squatsExerciseDataTemplate = new ExerciseData();
-
-    squatsExerciseDataTemplate.setName("Kniebeugen");
-    squatsExerciseDataTemplate.setInstruction("Kniebeugen Instruktionen hier einfügen ...");
-    squatsExerciseDataTemplate.setVideoUrl("https://youtu.be/huVujjfzphI");
-    squatsExerciseDataTemplate.setImageUrl(
-        "https://www.uebungen.ws/wp-content/uploads/2011/08/Kniebeugen1.jpg");
-
+    final ExerciseData squatsExerciseDataTemplate =
+        new ExerciseData(
+            3,
+            "Kniebeugen",
+            "Kniebeugen Instruktionen hier einfügen ...",
+            "https://www.uebungen.ws/wp-content/uploads/2011/08/Kniebeugen1.jpg",
+            "https://youtu.be/huVujjfzphI");
     exerciseData.add(squatsExerciseDataTemplate);
 
     return exerciseData;
+  }
+
+  public List<PlanEntry> createPlanEntryTemplates() {
+    final List<PlanEntry> planEntryList = new ArrayList<>();
+
+    final List<ExerciseData> exerciseDataList = createExerciseDataTemplates();
+
+    planEntryList.add(new PlanEntry(1, exerciseDataList.get(0), "0kg", "0x0"));
+    planEntryList.add(new PlanEntry(2, exerciseDataList.get(1), "5kg", "3x12"));
+    planEntryList.add(new PlanEntry(3, exerciseDataList.get(2), "5kg", "3x15"));
+
+    return planEntryList;
   }
 }
