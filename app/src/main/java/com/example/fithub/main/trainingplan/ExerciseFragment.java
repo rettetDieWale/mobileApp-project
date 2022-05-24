@@ -15,12 +15,10 @@ import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import com.example.fithub.R;
 import com.example.fithub.main.prototypes.ExerciseData;
 import com.example.fithub.main.prototypes.Templates;
-import com.example.fithub.main.prototypes.data.AppDatabase;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 import com.google.gson.reflect.TypeToken;
@@ -48,10 +46,6 @@ public class ExerciseFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     this.view = inflater.inflate(R.layout.fragment_exercise, container, false);
-
-    // db
-    AppDatabase database =
-        Room.databaseBuilder(getActivity(), AppDatabase.class, "fitHub-database").build();
 
     final Bundle bundle = getArguments();
     this.exerciseData = (ExerciseData) bundle.getSerializable("exercise");

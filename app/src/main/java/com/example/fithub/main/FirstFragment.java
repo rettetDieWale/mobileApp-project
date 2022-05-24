@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.prototypes.ExperienceBar;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 
@@ -29,6 +30,10 @@ public class FirstFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+    DatabaseManager.initDatabase(getActivity());
+    DatabaseManager.clearDatabase();
+
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
     initComponents(view);
     return view;
