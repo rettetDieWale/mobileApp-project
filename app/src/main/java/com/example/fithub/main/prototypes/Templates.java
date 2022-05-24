@@ -66,8 +66,12 @@ public class Templates {
   public List<TrainingPlan> createTrainingPlanTemplates() {
     final List<TrainingPlan> trainingPlanList = new ArrayList<>();
 
-    TrainingPlan basicTrainingPlan = new TrainingPlan(1, "Trainingsplan 1");
-    trainingPlanList.add(basicTrainingPlan);
+    TrainingPlan trainingPlanTemplate1 = new TrainingPlan(1, "Trainingsplan 1");
+    trainingPlanList.add(trainingPlanTemplate1);
+
+    TrainingPlan trainingPlanTemplate2 = new TrainingPlan(2, "Trainingsplan 2");
+    trainingPlanList.add(trainingPlanTemplate2);
+
     return trainingPlanList;
   }
 }

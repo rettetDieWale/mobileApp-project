@@ -16,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fithub.R;
 import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.components.ListAdapter;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.TrainingPlan;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingPlanOverviewFragment extends Fragment {
 
-  private final String[] names = {
-    "hello", "bye", "main", "joe", "give", "true", "false", "know", "list", "hello", "bye"
-  };
+  private List<String> names;
 
   @Override
   public View onCreateView(
@@ -48,6 +51,13 @@ public class TrainingPlanOverviewFragment extends Fragment {
                 .navigate(R.id.action_training_plan_overview_to_training_plan);
           }
         });
+
+    names = new ArrayList<>();
+
+    List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();
+    for (int i = 0; i < trainingPlanList.size(); i++) {
+      names.add(trainingPlanList.get(i).getName());
+    }
 
     final RecyclerView recyclerView = view.findViewById(R.id.listLayout);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

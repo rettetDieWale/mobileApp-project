@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
 
+import java.util.List;
+
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-  private String[] list;
+  private List<String> list;
 
-  public ListAdapter(String[] list) {
+  public ListAdapter(List<String> list) {
     this.list = list;
   }
 
@@ -27,12 +29,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
   @Override
   public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-    holder.textView.setText(list[position]);
+    holder.textView.setText(list.get(position));
   }
 
   @Override
   public int getItemCount() {
-    return list.length;
+    return list.size();
   }
 
   static class MyViewHolder extends RecyclerView.ViewHolder {

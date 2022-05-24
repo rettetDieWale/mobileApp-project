@@ -4,10 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 
 import com.example.fithub.main.prototypes.data.TrainingPlan;
-import com.example.fithub.main.prototypes.data.relations.TrainingPlanWithEntrys;
 
 import java.util.List;
 
@@ -20,7 +18,6 @@ public interface TrainingPlanDao {
   @Delete
   void delete(TrainingPlan trainingPlan);
 
-  @Transaction
   @Query("SELECT * FROM TrainingPlan")
-  public List<TrainingPlanWithEntrys> getTrainingPlanWithEntries();
+  List<TrainingPlan> getAll();
 }
