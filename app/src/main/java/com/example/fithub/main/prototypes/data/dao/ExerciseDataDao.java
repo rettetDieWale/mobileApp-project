@@ -13,13 +13,16 @@ import java.util.List;
 @Dao
 public interface ExerciseDataDao {
 
-  @Query("SELECT * FROM ExerciseData")
+  @Query("SELECT * FROM EXERCISE_DATA WHERE exerciseDataId = :exerciseDataId ")
+  ExerciseData getExerciseData(int exerciseDataId);
+
+  @Query("SELECT * FROM EXERCISE_DATA")
   List<ExerciseData> getAll();
 
   @Insert
   void insert(ExerciseData exerciseData);
 
-  @Update
+  @Update(entity = ExerciseData.class)
   void update(ExerciseData targetExerciseData);
 
   @Delete

@@ -36,12 +36,19 @@ public class DatabaseManager {
 
   public static void addTemplates(Context context) {
 
+    appDatabase.clearAllTables();
+
     Templates templates = new Templates();
     List<PlanEntry> planEntryList = templates.createPlanEntryTemplates();
 
+    List<ExerciseData> exerciseDataList = templates.createExerciseDataTemplates();
+    for (int i = 0; i < exerciseDataList.size(); i++) {
+      appDatabase.exerciseDataDao().insert(exerciseDataList.get(i));
+    }
+
     // Templates need to be created if file is corrupted or not existent
-    appDatabase.clearAllTables();
     for (int i = 0; i < planEntryList.size(); i++) {
+
       appDatabase.planEntryDao().insert(planEntryList.get(i));
     }
   }

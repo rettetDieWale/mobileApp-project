@@ -16,7 +16,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
-import com.example.fithub.main.prototypes.data.ExerciseData;
 import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.example.fithub.main.storage.Serializer;
 
@@ -56,7 +55,7 @@ public class TrainingPlanFragment extends Fragment {
     final PlanEntry startupTemplateExercise = planEntryList.get(FIRST);
     // exerciseData.remove(FIRST);
 
-    setNewExerciseButton(view, startupTemplateExercise.getExerciseData());
+    setNewExerciseButton(view, startupTemplateExercise.getExerciseDataId());
 
     for (int i = 0; i < planEntryList.size(); i++) {
       addTableRow(tableLayout, planEntryList.get(i));
@@ -67,9 +66,9 @@ public class TrainingPlanFragment extends Fragment {
    * Add entry to the table.
    *
    * @param tableLayout entry is added to
-   * @param exercise exercise data for the table entry
+   * @param trainingPlanEntry exercise data for the table entry
    */
-  void addTableRow(TableLayout tableLayout, PlanEntry exercise) {
+  void addTableRow(TableLayout tableLayout, PlanEntry trainingPlanEntry) {
     TableRow tableRow = new TableRow(getActivity());
     tableRow.setLayoutParams(
         new TableRow.LayoutParams(
@@ -83,19 +82,23 @@ public class TrainingPlanFragment extends Fragment {
     layoutParams.weight = 1.0f;
 
     final TextView textViewExercise = new TextView(getActivity());
-    textViewExercise.setText(exercise.getExerciseData().getName());
+    textViewExercise.setText(
+        DatabaseManager.appDatabase
+            .exerciseDataDao()
+            .getExerciseData(trainingPlanEntry.getExerciseDataId())
+            .getName());
     textViewExercise.setTextSize(14);
     textViewExercise.setPadding(10, 10, 10, 10);
     textViewExercise.setLayoutParams(layoutParams);
 
     final TextView textViewWeight = new TextView(getActivity());
-    textViewWeight.setText(exercise.getWeight());
+    textViewWeight.setText(trainingPlanEntry.getWeight());
     textViewWeight.setTextSize(14);
     textViewWeight.setPadding(10, 10, 10, 10);
     textViewWeight.setLayoutParams(layoutParams);
 
     final TextView textViewRepeats = new TextView(getActivity());
-    textViewRepeats.setText(exercise.getRepeats());
+    textViewRepeats.setText(trainingPlanEntry.getRepeats());
     textViewRepeats.setTextSize(14);
     textViewRepeats.setPadding(10, 10, 10, 10);
     textViewRepeats.setLayoutParams(layoutParams);
@@ -111,7 +114,7 @@ public class TrainingPlanFragment extends Fragment {
           @Override
           public void onClick(View view) {
             Bundle args = new Bundle();
-            args.putSerializable("exercise", exercise.getExerciseData());
+            args.putInt("exerciseDataId", trainingPlanEntry.getExerciseDataId());
 
             NavHostFragment.findNavController(TrainingPlanFragment.this)
                 .navigate(R.id.action_training_plan_to_exercise, args);
@@ -135,15 +138,14 @@ public class TrainingPlanFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
-  public void setNewExerciseButton(View view, ExerciseData exerciseData) {
+  public void setNewExerciseButton(View view, int exerciseDataId) {
     final Button buttonExercise = (Button) view.findViewById(R.id.button_exercise);
     buttonExercise.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
             Bundle args = new Bundle();
-            args.putSerializable("exercise", exerciseData);
-
+            args.putInt("exercise", exerciseDataId);
             NavHostFragment.findNavController(TrainingPlanFragment.this)
                 .navigate(R.id.action_training_plan_to_exercise, args);
           }

@@ -5,28 +5,29 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+@Entity(tableName = "exercise_data")
 public class ExerciseData implements Serializable {
-  @PrimaryKey public int id;
+  @PrimaryKey public int exerciseDataId;
   public String name;
   public String instruction;
   public String imageUrl;
   public String videoUrl;
 
-  public ExerciseData(int id, String name, String instruction, String imageUrl, String videoUrl) {
-    this.id = id;
+  public ExerciseData(
+      int exerciseDataId, String name, String instruction, String imageUrl, String videoUrl) {
+    this.exerciseDataId = exerciseDataId;
     this.name = name;
     this.instruction = instruction;
     this.imageUrl = imageUrl;
     this.videoUrl = videoUrl;
   }
 
-  public int getId() {
-    return id;
+  public int getExerciseDataId() {
+    return exerciseDataId;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setExerciseDataId(int exerciseDataId) {
+    this.exerciseDataId = exerciseDataId;
   }
 
   public String getName() {
