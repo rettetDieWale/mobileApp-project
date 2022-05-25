@@ -19,12 +19,10 @@ import androidx.fragment.app.Fragment;
 import com.example.fithub.R;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
-import com.example.fithub.main.storage.Serializer;
 import com.squareup.picasso.Picasso;
 
 public class ExerciseFragment extends Fragment {
-  TextView InstructionTextArea, exerciseTitle;
-  Serializer serializer;
+  private TextView InstructionTextArea, exerciseTitle;
 
   private View view;
   private ExerciseData exerciseData;
@@ -170,7 +168,7 @@ public class ExerciseFragment extends Fragment {
   /**
    * Set the attributes of a exercise for the connected layout components.
    *
-   * @param exerciseData from storage whom data should be used
+   * @param exerciseData from storage which data should be used
    */
   public void setExerciseContent(ExerciseData exerciseData) {
 
