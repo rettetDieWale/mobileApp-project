@@ -1,5 +1,6 @@
 package com.example.fithub.main.trainingplan;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,11 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
@@ -67,6 +70,15 @@ public class ExerciseFragment extends Fragment {
 
     setImageViewSwitcher();
     setVideoViewSwitcher();
+
+    final ImageButton deleteButton = view.findViewById(R.id.button_delete);
+    deleteButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            deleteExerciseData();
+          }
+        });
 
     final Button saveExerciseDataButton = (Button) view.findViewById(R.id.button_save_exercise);
     saveExerciseDataButton.setOnClickListener(
@@ -246,6 +258,19 @@ public class ExerciseFragment extends Fragment {
             + youtubeId
             + "\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
     return fullUrl;
+  }
+
+  /** Deletes the exercise data from storage. */
+  public void deleteExerciseData() {
+    try {
+      DatabaseManager.appDatabase.exerciseDataDao().delete(this.exerciseData);
+    } catch (SQLiteConstraintException sqLiteConstraintException) {
+      Toast.makeText(
+              getActivity(),
+              " Übungsdaten werden noch in einem Trainingsplan benötigt!",
+              Toast.LENGTH_LONG)
+          .show();
+    }
   }
 
   /** Initializes a spinner . */

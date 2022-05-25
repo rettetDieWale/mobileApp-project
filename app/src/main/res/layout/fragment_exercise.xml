@@ -22,16 +22,39 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/exercise_spinner"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/loading"
-                android:minHeight="32dp" />
+                android:layout_height="match_parent">
+
+                <Spinner
+                    android:id="@+id/exercise_spinner"
+                    android:layout_width="410dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/loading"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_delete" />
+
+                <ImageButton
+                    android:id="@+id/button_delete"
+                    android:layout_width="112dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/delete"
+                    android:src="@android:drawable/ic_delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ViewSwitcher
                 android:id="@+id/viewSwitcherTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="0dp">
 
