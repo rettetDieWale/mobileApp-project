@@ -17,9 +17,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
+import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseFragment extends Fragment {
   private TextView InstructionTextArea, exerciseTitle;
@@ -66,6 +70,8 @@ public class ExerciseFragment extends Fragment {
             updateExerciseData();
           }
         });
+
+    initSpinner();
 
     return view;
   }
@@ -237,6 +243,20 @@ public class ExerciseFragment extends Fragment {
             + youtubeId
             + "\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
     return fullUrl;
+  }
+
+  /** Initializes a spinner . */
+  public void initSpinner() {
+    final List<ExerciseData> exerciseDataList =
+        DatabaseManager.appDatabase.exerciseDataDao().getAll();
+
+    final ArrayList<String> exerciseDataNames = new ArrayList<>();
+    for (int i = 0; i < exerciseDataList.size(); i++) {
+      exerciseDataNames.add(exerciseDataList.get(i).getName());
+    }
+
+    final TemplateSpinner spinner =
+        new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, exerciseDataNames);
   }
 
   @Override
