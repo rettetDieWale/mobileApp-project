@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
+import com.example.fithub.main.components.Item;
 import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
@@ -250,13 +253,29 @@ public class ExerciseFragment extends Fragment {
     final List<ExerciseData> exerciseDataList =
         DatabaseManager.appDatabase.exerciseDataDao().getAll();
 
-    final ArrayList<String> exerciseDataNames = new ArrayList<>();
+    ArrayList<Item> items = new ArrayList<Item>();
+
     for (int i = 0; i < exerciseDataList.size(); i++) {
-      exerciseDataNames.add(exerciseDataList.get(i).getName());
+      int exerciseId = exerciseDataList.get(i).getExerciseDataId();
+      String exerciseName = exerciseDataList.get(i).getName();
+      items.add(new Item(exerciseId, exerciseName));
     }
 
-    final TemplateSpinner spinner =
-        new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, exerciseDataNames);
+    final TemplateSpinner templateSpinner =
+        new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, items);
+
+    final Spinner spinner = templateSpinner.getSpinner();
+
+    spinner.setOnItemSelectedListener(
+        new AdapterView.OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+            Item spinnerValue = (Item) adapterView.getItemAtPosition(position);
+          }
+
+          @Override
+          public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
   }
 
   @Override
