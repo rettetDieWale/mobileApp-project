@@ -31,6 +31,7 @@ public class FirstFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+    // TODO: only for test purpose
     DatabaseManager.initDatabase(getActivity());
     DatabaseManager.addTemplates(getActivity());
 

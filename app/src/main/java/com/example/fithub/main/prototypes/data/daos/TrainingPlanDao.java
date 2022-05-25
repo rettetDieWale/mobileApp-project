@@ -18,6 +18,9 @@ public interface TrainingPlanDao {
   @Delete
   void delete(TrainingPlan trainingPlan);
 
-  @Query("SELECT * FROM TrainingPlan")
+  @Query("SELECT * FROM TRAINING_PLAN")
   List<TrainingPlan> getAll();
+
+  @Query("SELECT * FROM TRAINING_PLAN WHERE trainingPlanId = :trainingPlanId")
+  TrainingPlan getById(int trainingPlanId);
 }

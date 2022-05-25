@@ -17,6 +17,7 @@ import com.example.fithub.R;
 import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.PlanEntry;
+import com.example.fithub.main.prototypes.data.TrainingPlan;
 
 import java.util.List;
 
@@ -37,17 +38,29 @@ public class TrainingPlanFragment extends Fragment {
     final Bundle bundle = getArguments();
     final int trainingPlanId = bundle.getInt("trainingPlanId");
 
+    getTrainingPlanData(trainingPlanId);
+    initSpinner();
+
+    return view;
+  }
+
+  /**
+   * Gets data for the current training plan from storage and adds content to fragment components.
+   */
+  public void getTrainingPlanData(int trainingPlanId) {
+    TrainingPlan currentTrainingPlan =
+        DatabaseManager.appDatabase.trainingPlanDao().getById(trainingPlanId);
+
+    String trainingPlanName = currentTrainingPlan.getName();
+
     List<PlanEntry> planEntryList =
         DatabaseManager.appDatabase.planEntryDao().getPlanEntrieListById(trainingPlanId);
 
     final TextView nameTextView = (TextView) view.findViewById(R.id.training_plan_name);
 
-    nameTextView.setText("Testplan 1");
+    nameTextView.setText(trainingPlanName);
 
-    initSpinner();
     initTable(planEntryList);
-
-    return view;
   }
 
   /** Initializes the table dynamically with trainings plan details. */

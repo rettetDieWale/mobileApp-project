@@ -24,11 +24,12 @@ import java.util.List;
 public class TrainingPlanOverviewFragment extends Fragment {
 
   private List<String> names;
+  private View view;
 
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    final View view = inflater.inflate(R.layout.fragment_training_plan_overview, container, false);
+    this.view = inflater.inflate(R.layout.fragment_training_plan_overview, container, false);
 
     final Button returnButton = view.findViewById(R.id.button_trainingplan_return);
     returnButton.setOnClickListener(
@@ -48,7 +49,14 @@ public class TrainingPlanOverviewFragment extends Fragment {
           public void onClick(View view) {}
         });
 
-    names = new ArrayList<>();
+    initializeListView();
+
+    return view;
+  }
+
+  public void initializeListView() {
+    this.names = new ArrayList<>();
+
     List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();
     int[] trainingPlanIds = new int[trainingPlanList.size()];
 
@@ -61,8 +69,6 @@ public class TrainingPlanOverviewFragment extends Fragment {
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setAdapter(
         new ListAdapter(names, trainingPlanIds, TrainingPlanOverviewFragment.this));
-
-    return view;
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
