@@ -1,5 +1,6 @@
 package com.example.fithub.main.trainingplan;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,16 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.fithub.R;
 import com.example.fithub.main.components.Item;
@@ -68,12 +72,21 @@ public class ExerciseFragment extends Fragment {
     setImageViewSwitcher();
     setVideoViewSwitcher();
 
+    final ImageButton deleteButton = view.findViewById(R.id.button_delete);
+    deleteButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            deleteExerciseData();
+          }
+        });
+
     final Button saveExerciseDataButton = (Button) view.findViewById(R.id.button_save_exercise);
     saveExerciseDataButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            updateExerciseData();
+            updateExerciseDataFromTextViews();
           }
         });
 
@@ -193,8 +206,11 @@ public class ExerciseFragment extends Fragment {
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /** updates the title and instruction for the exercise object of this fragment. */
-  public void updateExerciseData() {
+  /**
+   * updates the title and instruction for the exercise object of this fragment with instruction and
+   * title taken from the textViews
+   */
+  public void updateExerciseDataFromTextViews() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
   }
@@ -248,6 +264,21 @@ public class ExerciseFragment extends Fragment {
     return fullUrl;
   }
 
+  /** Deletes the exercise data from storage. */
+  public void deleteExerciseData() {
+    try {
+      DatabaseManager.appDatabase.exerciseDataDao().delete(this.exerciseData);
+      Navigation.findNavController(view).popBackStack();
+
+    } catch (SQLiteConstraintException sqLiteConstraintException) {
+      Toast.makeText(
+              getActivity(),
+              " Übungsdaten werden noch in einem Trainingsplan benötigt!",
+              Toast.LENGTH_LONG)
+          .show();
+    }
+  }
+
   /** Initializes a spinner . */
   public void initSpinner() {
     // create items and fill them with id and strings
@@ -274,8 +305,7 @@ public class ExerciseFragment extends Fragment {
             Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
             int id = spinnerItem.getId();
 
-            ExerciseData exerciseData =
-                DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
+            exerciseData = DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
             setExerciseContent(exerciseData);
           }
 

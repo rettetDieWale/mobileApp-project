@@ -54,7 +54,7 @@ public class Templates {
     final List<ExerciseData> exerciseDataList = createExerciseDataTemplates();
 
     planEntryList.add(
-        new PlanEntry(1, "0kg", "0x0", exerciseDataList.get(0).getExerciseDataId(), 1));
+        new PlanEntry(1, "0kg", "0x0", exerciseDataList.get(1).getExerciseDataId(), 1));
     planEntryList.add(
         new PlanEntry(2, "5kg", "3x12", exerciseDataList.get(1).getExerciseDataId(), 1));
     planEntryList.add(
