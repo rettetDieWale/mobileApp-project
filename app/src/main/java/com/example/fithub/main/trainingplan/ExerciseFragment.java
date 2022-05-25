@@ -20,6 +20,7 @@ import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.fithub.R;
 import com.example.fithub.main.components.Item;
@@ -267,6 +268,8 @@ public class ExerciseFragment extends Fragment {
   public void deleteExerciseData() {
     try {
       DatabaseManager.appDatabase.exerciseDataDao().delete(this.exerciseData);
+      Navigation.findNavController(view).popBackStack();
+
     } catch (SQLiteConstraintException sqLiteConstraintException) {
       Toast.makeText(
               getActivity(),
