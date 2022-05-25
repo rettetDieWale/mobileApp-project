@@ -103,6 +103,7 @@ public class ExerciseFragment extends Fragment {
           public void onClick(View view) {
             imageViewSwitcher.showNext();
             loadExerciseImage(imageEditText.getText().toString());
+
             exerciseData.setImageUrl(imageEditText.getText().toString());
           }
         });
@@ -134,7 +135,9 @@ public class ExerciseFragment extends Fragment {
             videoWebView.setVisibility(View.VISIBLE);
             videoViewSwitcher.showNext();
             loadExerciseVideo(videoEditText.getText().toString());
+
             exerciseData.setVideoUrl(videoEditText.getText().toString());
+
             videoTextView.setText(exerciseData.getVideoUrl());
           }
         });
@@ -176,7 +179,8 @@ public class ExerciseFragment extends Fragment {
   }
 
   /**
-   * Set the attributes of a exercise for the connected layout components.
+   * Set the attributes of a exercise for the connected layout components. Doesn't touch the
+   * exercise object of the fragment.
    *
    * @param exerciseData from storage which data should be used
    */
@@ -189,7 +193,7 @@ public class ExerciseFragment extends Fragment {
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /** */
+  /** updates the title and instruction for the exercise object of this fragment. */
   public void updateExerciseData() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
