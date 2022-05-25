@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
-import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
@@ -39,7 +38,6 @@ public class TrainingPlanFragment extends Fragment {
     final int trainingPlanId = bundle.getInt("trainingPlanId");
 
     getTrainingPlanData(trainingPlanId);
-    initSpinner();
 
     return view;
   }
@@ -70,7 +68,7 @@ public class TrainingPlanFragment extends Fragment {
     final int FIRST = 0;
     PlanEntry startupTemplateExercise;
 
-    setNewExerciseButton(view, 1);
+    setNewExerciseButton(1);
 
     for (int i = 0; i < planEntryList.size(); i++) {
       addTableRow(tableLayout, planEntryList.get(i));
@@ -139,17 +137,16 @@ public class TrainingPlanFragment extends Fragment {
     tableLayout.addView(tableRow);
   }
 
-  /** Initializes a spinner with a list of templates. */
-  public void initSpinner() {
-    final TemplateSpinner spinner =
-        new TemplateSpinner(view, getActivity(), R.id.spinner_training_plan);
-  }
-
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
   }
 
-  public void setNewExerciseButton(View view, int exerciseDataId) {
+  /**
+   * Add the on click listener for the button to create new exercises.
+   *
+   * @param exerciseDataId of standard template
+   */
+  public void setNewExerciseButton(int exerciseDataId) {
     final Button buttonExercise = (Button) view.findViewById(R.id.button_exercise);
     buttonExercise.setOnClickListener(
         new View.OnClickListener() {

@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -17,9 +19,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
+import com.example.fithub.main.components.Item;
+import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseFragment extends Fragment {
   private TextView InstructionTextArea, exerciseTitle;
@@ -41,10 +48,13 @@ public class ExerciseFragment extends Fragment {
     final Bundle bundle = getArguments();
     final int exerciseDataId = bundle.getInt("exerciseDataId");
 
+    this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
+    this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
+
     this.exerciseData =
         DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(exerciseDataId);
 
-    setExerciseContent(exerciseData);
+    initSpinner();
 
     configureTextViewSwitcher(
         R.id.viewSwitcherTitle, R.id.exercise_name, R.id.editTextInputName, R.id.submitButtonName);
@@ -93,6 +103,7 @@ public class ExerciseFragment extends Fragment {
           public void onClick(View view) {
             imageViewSwitcher.showNext();
             loadExerciseImage(imageEditText.getText().toString());
+
             exerciseData.setImageUrl(imageEditText.getText().toString());
           }
         });
@@ -124,7 +135,9 @@ public class ExerciseFragment extends Fragment {
             videoWebView.setVisibility(View.VISIBLE);
             videoViewSwitcher.showNext();
             loadExerciseVideo(videoEditText.getText().toString());
+
             exerciseData.setVideoUrl(videoEditText.getText().toString());
+
             videoTextView.setText(exerciseData.getVideoUrl());
           }
         });
@@ -166,7 +179,8 @@ public class ExerciseFragment extends Fragment {
   }
 
   /**
-   * Set the attributes of a exercise for the connected layout components.
+   * Set the attributes of a exercise for the connected layout components. Doesn't touch the
+   * exercise object of the fragment.
    *
    * @param exerciseData from storage which data should be used
    */
@@ -175,19 +189,14 @@ public class ExerciseFragment extends Fragment {
     loadExerciseImage(exerciseData.getImageUrl());
     loadExerciseVideo(exerciseData.getVideoUrl());
 
-    this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
     this.InstructionTextArea.setText(exerciseData.getInstruction());
-
-    this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /** */
+  /** updates the title and instruction for the exercise object of this fragment. */
   public void updateExerciseData() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
-
-    DatabaseManager.appDatabase.exerciseDataDao().update(this.exerciseData);
   }
 
   /**
@@ -237,6 +246,49 @@ public class ExerciseFragment extends Fragment {
             + youtubeId
             + "\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
     return fullUrl;
+  }
+
+  /** Initializes a spinner . */
+  public void initSpinner() {
+    // create items and fill them with id and strings
+    final List<ExerciseData> exerciseDataList =
+        DatabaseManager.appDatabase.exerciseDataDao().getAll();
+    ArrayList<Item> items = new ArrayList<Item>();
+
+    for (int i = 0; i < exerciseDataList.size(); i++) {
+      int exerciseId = exerciseDataList.get(i).getExerciseDataId();
+      String exerciseName = exerciseDataList.get(i).getName();
+      items.add(new Item(exerciseId, exerciseName));
+    }
+
+    // init spinner
+    final TemplateSpinner templateSpinner =
+        new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, items);
+
+    // set item selection listener
+    final Spinner spinner = templateSpinner.getSpinner();
+    spinner.setOnItemSelectedListener(
+        new AdapterView.OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+            Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
+            int id = spinnerItem.getId();
+
+            ExerciseData exerciseData =
+                DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
+            setExerciseContent(exerciseData);
+          }
+
+          @Override
+          public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+    // pre select item fitting the exercise
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i).getId() == this.exerciseData.getExerciseDataId()) {
+        templateSpinner.setItemSelected(items.get(i));
+      }
+    }
   }
 
   @Override
