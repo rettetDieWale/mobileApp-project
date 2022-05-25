@@ -85,7 +85,7 @@ public class ExerciseFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            updateExerciseData();
+            updateExerciseDataFromTextViews();
           }
         });
 
@@ -205,8 +205,11 @@ public class ExerciseFragment extends Fragment {
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
-  /** updates the title and instruction for the exercise object of this fragment. */
-  public void updateExerciseData() {
+  /**
+   * updates the title and instruction for the exercise object of this fragment with instruction and
+   * title taken from the textViews
+   */
+  public void updateExerciseDataFromTextViews() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
   }
@@ -299,8 +302,7 @@ public class ExerciseFragment extends Fragment {
             Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
             int id = spinnerItem.getId();
 
-            ExerciseData exerciseData =
-                DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
+            exerciseData = DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
             setExerciseContent(exerciseData);
           }
 
