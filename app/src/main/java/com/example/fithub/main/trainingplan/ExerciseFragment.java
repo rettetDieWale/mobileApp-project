@@ -48,10 +48,13 @@ public class ExerciseFragment extends Fragment {
     final Bundle bundle = getArguments();
     final int exerciseDataId = bundle.getInt("exerciseDataId");
 
+    this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
+    this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
+
     this.exerciseData =
         DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(exerciseDataId);
 
-    setExerciseContent(exerciseData);
+    initSpinner();
 
     configureTextViewSwitcher(
         R.id.viewSwitcherTitle, R.id.exercise_name, R.id.editTextInputName, R.id.submitButtonName);
@@ -73,8 +76,6 @@ public class ExerciseFragment extends Fragment {
             updateExerciseData();
           }
         });
-
-    initSpinner();
 
     return view;
   }
@@ -184,10 +185,7 @@ public class ExerciseFragment extends Fragment {
     loadExerciseImage(exerciseData.getImageUrl());
     loadExerciseVideo(exerciseData.getVideoUrl());
 
-    this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
     this.InstructionTextArea.setText(exerciseData.getInstruction());
-
-    this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
     this.exerciseTitle.setText(exerciseData.getName());
   }
 
@@ -195,8 +193,6 @@ public class ExerciseFragment extends Fragment {
   public void updateExerciseData() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
-
-    DatabaseManager.appDatabase.exerciseDataDao().update(this.exerciseData);
   }
 
   /**
@@ -250,9 +246,9 @@ public class ExerciseFragment extends Fragment {
 
   /** Initializes a spinner . */
   public void initSpinner() {
+    // create items and fill them with id and strings
     final List<ExerciseData> exerciseDataList =
         DatabaseManager.appDatabase.exerciseDataDao().getAll();
-
     ArrayList<Item> items = new ArrayList<Item>();
 
     for (int i = 0; i < exerciseDataList.size(); i++) {
@@ -261,21 +257,34 @@ public class ExerciseFragment extends Fragment {
       items.add(new Item(exerciseId, exerciseName));
     }
 
+    // init spinner
     final TemplateSpinner templateSpinner =
         new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, items);
 
+    // set item selection listener
     final Spinner spinner = templateSpinner.getSpinner();
-
     spinner.setOnItemSelectedListener(
         new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-            Item spinnerValue = (Item) adapterView.getItemAtPosition(position);
+            Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
+            int id = spinnerItem.getId();
+
+            ExerciseData exerciseData =
+                DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
+            setExerciseContent(exerciseData);
           }
 
           @Override
           public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+
+    // pre select item fitting the exercise
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i).getId() == this.exerciseData.getExerciseDataId()) {
+        templateSpinner.setItemSelected(items.get(i));
+      }
+    }
   }
 
   @Override
