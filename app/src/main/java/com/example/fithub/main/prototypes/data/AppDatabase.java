@@ -7,6 +7,7 @@ import com.example.fithub.main.prototypes.data.daos.ExerciseDataDao;
 import com.example.fithub.main.prototypes.data.daos.PlanEntryDao;
 import com.example.fithub.main.prototypes.data.daos.TrainingPlanDao;
 
+/** Singleton database object for application. */
 @Database(
     entities = {TrainingPlan.class, PlanEntry.class, ExerciseData.class},
     version = 1)

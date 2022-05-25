@@ -3,7 +3,7 @@ package com.example.fithub.main.prototypes.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "training_plan")
 public class TrainingPlan {
   @PrimaryKey private int trainingPlanId;
   private String name;

@@ -11,11 +11,17 @@ import com.example.fithub.main.storage.Serializer;
 
 import java.util.List;
 
+/** Access API for database object over the whole app. */
 public class DatabaseManager {
 
   public static AppDatabase appDatabase;
   public static Serializer serializer;
 
+  /**
+   * Initializes singleton database object.
+   *
+   * @param context of application
+   */
   public static void initDatabase(Context context) {
     RoomDatabase.Builder appDatabaseBuilder =
         Room.databaseBuilder(context, AppDatabase.class, "fitHub-database");
@@ -24,6 +30,7 @@ public class DatabaseManager {
     serializer = new Serializer();
   }
 
+  /** remove all tables from database. */
   public static void clearDatabase() {
     AsyncTask.execute(
         new Runnable() {
@@ -34,6 +41,11 @@ public class DatabaseManager {
         });
   }
 
+  /**
+   * load templates into database.
+   *
+   * @param context of Application
+   */
   public static void addTemplates(Context context) {
 
     appDatabase.clearAllTables();

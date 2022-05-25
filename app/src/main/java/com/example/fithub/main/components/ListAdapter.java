@@ -15,12 +15,18 @@ import com.example.fithub.R;
 
 import java.util.List;
 
+/** List adapter class for containing training plans. */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
   private List<String> list;
   private int[] elementIdList;
   private Fragment fragment;
 
+  /**
+   * @param list of strings (training plan names)
+   * @param elementIdList id of each training plan in the list
+   * @param fragment current fragment
+   */
   public ListAdapter(List<String> list, int[] elementIdList, Fragment fragment) {
     this.list = list;
     this.elementIdList = elementIdList;
