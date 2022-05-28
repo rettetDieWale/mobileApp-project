@@ -27,6 +27,7 @@ import com.example.fithub.main.components.Item;
 import com.example.fithub.main.components.TemplateSpinner;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
+import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class ExerciseFragment extends Fragment {
 
   private View view;
   private ExerciseData exerciseData;
+  private int entryId;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ExerciseFragment extends Fragment {
 
     final Bundle bundle = getArguments();
     final int exerciseDataId = bundle.getInt("exerciseDataId");
+    this.entryId = bundle.getInt("entryId");
 
     this.InstructionTextArea = this.view.findViewById(R.id.exercise_text_area);
     this.exerciseTitle = this.view.findViewById(R.id.exercise_name);
@@ -87,6 +90,8 @@ public class ExerciseFragment extends Fragment {
           @Override
           public void onClick(View view) {
             updateExerciseDataFromTextViews();
+            updateExerciseStorage();
+            updateEntryId();
           }
         });
 
@@ -213,6 +218,19 @@ public class ExerciseFragment extends Fragment {
   public void updateExerciseDataFromTextViews() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
+  }
+
+  /** Updates the current exercise in storage. */
+  public void updateExerciseStorage() {
+    DatabaseManager.appDatabase.exerciseDataDao().update(this.exerciseData);
+  }
+
+  /** Update entry id in training plan table so it points to the new/changed data. */
+  public void updateEntryId() {
+    PlanEntry planEntry = DatabaseManager.appDatabase.planEntryDao().getPlanEntryById(entryId);
+    planEntry.setExerciseDataId(this.exerciseData.getExerciseDataId());
+
+    DatabaseManager.appDatabase.planEntryDao().update(planEntry);
   }
 
   /**
