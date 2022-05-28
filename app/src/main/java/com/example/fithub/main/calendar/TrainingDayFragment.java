@@ -10,13 +10,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentTrainingDayBinding;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.TrainingDay;
+
+import java.util.Date;
+import java.util.List;
 
 public class TrainingDayFragment extends Fragment {
 
   private FragmentTrainingDayBinding binding;
+
+  private View view;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -27,23 +36,23 @@ public class TrainingDayFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
+    this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
-    return inflater.inflate(R.layout.fragment_training_day, container, false);
+    //ToDo:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    DatabaseManager.appDatabase.trainingDayDao().insert(new TrainingDay(0, new Date(), 1));
+    //-------------------------------------------------------------
+    //FragmentManager fm = getChildFragmentManager();
+    FragmentManager fm = getChildFragmentManager();
+    List<Fragment> fml = fm.getFragments();
+    Fragment f = fm.findFragmentById(R.id.trainingPlanFragment);
+    Bundle b = new Bundle();
+    b.putInt("trainingPlanId", 1);
+    fml.get(0).setArguments(b);
+    return view;
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     setDate();
-    Spinner spinner = (Spinner) view.findViewById(R.id.spinner_training_day);
-    // Create an ArrayAdapter using the string array and a default spinner layout
-    ArrayAdapter<CharSequence> adapter =
-        ArrayAdapter.createFromResource(
-            getActivity(), R.array.template_array, android.R.layout.simple_spinner_item);
-
-    // Specify the layout to use when the list of choices appears
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-    // Apply the adapter to the spinner
-    spinner.setAdapter(adapter);
 
     super.onViewCreated(view, savedInstanceState);
   }
