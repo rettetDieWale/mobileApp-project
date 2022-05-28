@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,6 +21,7 @@ import com.example.fithub.main.prototypes.data.TrainingPlan;
 import java.util.List;
 
 public class TrainingPlanFragment extends Fragment {
+  private final int STANDARD_TEMPLATE_ID = 1;
   private View view;
 
   @Override
@@ -34,8 +35,27 @@ public class TrainingPlanFragment extends Fragment {
 
     this.view = inflater.inflate(R.layout.fragment_training_plan, container, false);
 
+    final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout_include);
+
     final Bundle bundle = getArguments();
     final int trainingPlanId = bundle.getInt("trainingPlanId");
+
+    final ImageButton addButton = view.findViewById(R.id.addButton);
+    addButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            PlanEntry planEntry =
+                new PlanEntry(0, "0kg", "3x12 ", STANDARD_TEMPLATE_ID, trainingPlanId);
+            DatabaseManager.appDatabase.planEntryDao().insert(planEntry);
+
+            // need to fetch last entry from the list because ids are auto generated
+            List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
+            planEntry = planEntryList.get(planEntryList.size() - 1);
+
+            addTableRow(tableLayout, planEntry);
+          }
+        });
 
     getTrainingPlanData(trainingPlanId);
 
@@ -67,8 +87,6 @@ public class TrainingPlanFragment extends Fragment {
 
     final int FIRST = 0;
     PlanEntry startupTemplateExercise;
-
-    setNewExerciseButton(1);
 
     for (int i = 0; i < planEntryList.size(); i++) {
       addTableRow(tableLayout, planEntryList.get(i));
@@ -148,7 +166,7 @@ public class TrainingPlanFragment extends Fragment {
    * @param exerciseDataId of standard template
    */
   public void setNewExerciseButton(int exerciseDataId) {
-    final Button buttonExercise = (Button) view.findViewById(R.id.button_exercise);
+    final ImageButton buttonExercise = view.findViewById(R.id.addButton);
     buttonExercise.setOnClickListener(
         new View.OnClickListener() {
           @Override

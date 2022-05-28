@@ -41,14 +41,6 @@ public class TrainingPlanOverviewFragment extends Fragment {
           }
         });
 
-    // TODO: ONLY FOR TEST PURPOSE WILL BE DELETED LATER
-    final Button tpButton = view.findViewById(R.id.button_tp_for_test);
-    tpButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {}
-        });
-
     initializeListView();
 
     return view;

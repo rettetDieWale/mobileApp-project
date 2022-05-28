@@ -222,7 +222,26 @@ public class ExerciseFragment extends Fragment {
 
   /** Updates the current exercise in storage. */
   public void updateExerciseStorage() {
-    DatabaseManager.appDatabase.exerciseDataDao().update(this.exerciseData);
+    if (this.exerciseData.getExerciseDataId() == 1) {
+      final ExerciseData copyExerciseData =
+          new ExerciseData(
+              0,
+              this.exerciseData.getName(),
+              this.exerciseData.getInstruction(),
+              this.exerciseData.getImageUrl(),
+              this.exerciseData.getVideoUrl());
+
+      this.exerciseData = copyExerciseData;
+      DatabaseManager.appDatabase.exerciseDataDao().insert(this.exerciseData);
+
+      // updated id needs to be fetched because its auto generated when inserted into storage
+      List<ExerciseData> exerciseDataList = DatabaseManager.appDatabase.exerciseDataDao().getAll();
+      ExerciseData updatedExerciseData = exerciseDataList.get(exerciseDataList.size() - 1);
+      this.exerciseData = updatedExerciseData;
+
+    } else {
+      DatabaseManager.appDatabase.exerciseDataDao().update(this.exerciseData);
+    }
   }
 
   /** Update entry id in training plan table so it points to the new/changed data. */

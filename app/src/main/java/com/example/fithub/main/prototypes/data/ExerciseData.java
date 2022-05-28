@@ -7,7 +7,9 @@ import java.io.Serializable;
 
 @Entity(tableName = "exercise_data")
 public class ExerciseData implements Serializable {
-  @PrimaryKey public int exerciseDataId;
+  @PrimaryKey(autoGenerate = true)
+  public int exerciseDataId;
+
   private String instruction;
   private String name;
   private String imageUrl;
