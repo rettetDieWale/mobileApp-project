@@ -50,6 +50,7 @@ public class TrainingPlanFragment extends Fragment {
                 new PlanEntry(0, "0kg", "3x12 ", STANDARD_TEMPLATE_ID, trainingPlanId);
             DatabaseManager.appDatabase.planEntryDao().insert(planEntry);
 
+            // need to fetch last entry from the list because ids are auto generated
             List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
             planEntry = planEntryList.get(planEntryList.size() - 1);
 
