@@ -1,5 +1,6 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/table_layout"
     android:layout_width="fill_parent"
@@ -52,6 +53,20 @@
         <!-- Table Data -->
         <!-- added in code -->
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="3">
+
+        <ImageButton
+            android:id="@+id/addButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:contentDescription="@string/add"
+            app:srcCompat="@android:drawable/ic_input_add" />
     </TableRow>
 
 </TableLayout>

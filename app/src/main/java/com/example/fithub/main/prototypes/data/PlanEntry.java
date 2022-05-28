@@ -13,7 +13,8 @@ import androidx.room.PrimaryKey;
           childColumns = {"exerciseDataId"})
     })
 public class PlanEntry {
-  @PrimaryKey public int entryId;
+  @PrimaryKey(autoGenerate = true)
+  public int entryId;
 
   private String weight;
   private String repeats;
