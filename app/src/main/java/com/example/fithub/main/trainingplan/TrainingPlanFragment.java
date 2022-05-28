@@ -36,6 +36,8 @@ public class TrainingPlanFragment extends Fragment {
 
     this.view = inflater.inflate(R.layout.fragment_training_plan, container, false);
 
+    final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout_include);
+
     final Bundle bundle = getArguments();
     final int trainingPlanId = bundle.getInt("trainingPlanId");
 
@@ -44,11 +46,14 @@ public class TrainingPlanFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            final TableLayout tableLayout =
-                (TableLayout) view.findViewById(R.id.table_layout_include);
             PlanEntry planEntry =
                 new PlanEntry(0, "0kg", "3x12 ", STANDARD_TEMPLATE_ID, trainingPlanId);
             DatabaseManager.appDatabase.planEntryDao().insert(planEntry);
+
+            List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
+            planEntry = planEntryList.get(planEntryList.size() - 1);
+
+            addTableRow(tableLayout, planEntry);
           }
         });
 
