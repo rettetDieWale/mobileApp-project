@@ -9,6 +9,7 @@ import androidx.room.Query;
 import com.example.fithub.main.prototypes.data.TrainingDay;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -26,4 +27,6 @@ public interface TrainingDayDao {
     @Query("SELECT * FROM TRAINING_DAY WHERE trainingDayId = :trainingDayId")
     TrainingDay getById(int trainingDayId);
 
+    @Query("SELECT * FROM TRAINING_DAY WHERE date = :date")
+    TrainingDay getByDate(Date date);
 }
