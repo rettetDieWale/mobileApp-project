@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -167,7 +166,7 @@ public class TrainingPlanFragment extends Fragment {
    * @param exerciseDataId of standard template
    */
   public void setNewExerciseButton(int exerciseDataId) {
-    final Button buttonExercise = (Button) view.findViewById(1);
+    final ImageButton buttonExercise = view.findViewById(R.id.addButton);
     buttonExercise.setOnClickListener(
         new View.OnClickListener() {
           @Override
