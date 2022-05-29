@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -35,9 +34,6 @@ public class TrainingPlanOverviewFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.fragment_training_plan_overview, container, false);
 
-    this.planNameInput = view.findViewById(R.id.planNameInput);
-    planNameInput.setText("Trainingsplan Name", TextView.BufferType.EDITABLE);
-
     final Button returnButton = view.findViewById(R.id.button_trainingplan_return);
     returnButton.setOnClickListener(
         new View.OnClickListener() {
@@ -58,7 +54,7 @@ public class TrainingPlanOverviewFragment extends Fragment {
 
             DatabaseManager.appDatabase
                 .trainingPlanDao()
-                .insert(new TrainingPlan(0, planNameInput.getEditableText().toString()));
+                .insert(new TrainingPlan(0, "Trainingsplan Name"));
             updateListView();
           }
         });

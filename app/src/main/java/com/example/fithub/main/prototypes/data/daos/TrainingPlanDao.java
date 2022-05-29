@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.fithub.main.prototypes.data.TrainingPlan;
 
@@ -17,6 +18,9 @@ public interface TrainingPlanDao {
 
   @Delete
   void delete(TrainingPlan trainingPlan);
+
+  @Update
+  void update(TrainingPlan trainingPlan);
 
   @Query("SELECT * FROM TRAINING_PLAN")
   List<TrainingPlan> getAll();

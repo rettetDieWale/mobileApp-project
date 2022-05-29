@@ -17,12 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/planNameInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/training_plan"></com.google.android.material.textfield.TextInputEditText>
-
             <include
                 android:id="@+id/include3"
                 layout="@layout/fragment_list_layout"
