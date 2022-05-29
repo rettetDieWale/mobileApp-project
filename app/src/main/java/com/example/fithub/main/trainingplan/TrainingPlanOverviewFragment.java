@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.components.ListAdapter;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +28,15 @@ public class TrainingPlanOverviewFragment extends Fragment {
 
   private List<String> names;
   private View view;
+  private TextInputEditText planNameInput;
 
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.fragment_training_plan_overview, container, false);
+
+    this.planNameInput = view.findViewById(R.id.planNameInput);
+    planNameInput.setText("Trainingsplan Name", TextView.BufferType.EDITABLE);
 
     final Button returnButton = view.findViewById(R.id.button_trainingplan_return);
     returnButton.setOnClickListener(
@@ -49,7 +55,10 @@ public class TrainingPlanOverviewFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            DatabaseManager.appDatabase.trainingPlanDao().insert(new TrainingPlan(0, "Testplan"));
+
+            DatabaseManager.appDatabase
+                .trainingPlanDao()
+                .insert(new TrainingPlan(0, planNameInput.getEditableText().toString()));
             updateListView();
           }
         });
