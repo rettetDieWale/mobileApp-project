@@ -1,6 +1,8 @@
 package com.example.fithub.main.trainingplan;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.example.fithub.R;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -142,11 +145,29 @@ public class TrainingPlanFragment extends Fragment {
     textViewExercise.setPadding(10, 10, 10, 10);
     textViewExercise.setLayoutParams(layoutParams);
 
-    final TextView textViewWeight = new TextView(getActivity());
+    final TextView textViewWeight = new TextInputEditText(getActivity());
     textViewWeight.setText(trainingPlanEntry.getWeight());
     textViewWeight.setTextSize(14);
     textViewWeight.setPadding(10, 10, 10, 10);
     textViewWeight.setLayoutParams(layoutParams);
+    textViewWeight.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+          @Override
+          public void afterTextChanged(Editable editable) {
+            PlanEntry planeEntry =
+                DatabaseManager.appDatabase
+                    .planEntryDao()
+                    .getPlanEntryById(trainingPlanEntry.getEntryId());
+            planeEntry.setWeight(editable.toString());
+            DatabaseManager.appDatabase.planEntryDao().update(planeEntry);
+          }
+        });
 
     final TextView textViewRepeats = new TextView(getActivity());
     textViewRepeats.setText(trainingPlanEntry.getRepeats());
