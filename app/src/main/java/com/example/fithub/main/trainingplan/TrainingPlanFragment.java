@@ -23,6 +23,7 @@ import java.util.List;
 public class TrainingPlanFragment extends Fragment {
   private final int STANDARD_TEMPLATE_ID = 1;
   private View view;
+  private int trainingPlanId;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -38,24 +39,7 @@ public class TrainingPlanFragment extends Fragment {
     final TableLayout tableLayout = (TableLayout) view.findViewById(R.id.table_layout_include);
 
     final Bundle bundle = getArguments();
-    final int trainingPlanId = bundle.getInt("trainingPlanId");
-
-    final ImageButton addButton = view.findViewById(R.id.addButton);
-    addButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            PlanEntry planEntry =
-                new PlanEntry(0, "0kg", "3x12 ", STANDARD_TEMPLATE_ID, trainingPlanId);
-            DatabaseManager.appDatabase.planEntryDao().insert(planEntry);
-
-            // need to fetch last entry from the list because ids are auto generated
-            List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
-            planEntry = planEntryList.get(planEntryList.size() - 1);
-
-            addTableRow(tableLayout, planEntry);
-          }
-        });
+    this.trainingPlanId = bundle.getInt("trainingPlanId");
 
     getTrainingPlanData(trainingPlanId);
 
@@ -88,11 +72,47 @@ public class TrainingPlanFragment extends Fragment {
     final int FIRST = 0;
     PlanEntry startupTemplateExercise;
 
+    attachAddButton(tableLayout);
+
     for (int i = 0; i < planEntryList.size(); i++) {
       addTableRow(tableLayout, planEntryList.get(i));
     }
   }
 
+  /**
+   * Attaches the button to add exercises into the table.
+   *
+   * @param tableLayout the button is attached to
+   */
+  public void attachAddButton(TableLayout tableLayout) {
+    final ImageButton addButton = new ImageButton(getActivity());
+    addButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_add));
+
+    final TableRow tableRow = new TableRow(getActivity());
+    final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
+    layoutParams.width = TableRow.LayoutParams.MATCH_PARENT;
+    layoutParams.height = TableRow.LayoutParams.MATCH_PARENT;
+    layoutParams.span = 3;
+
+    tableRow.addView(addButton);
+    tableLayout.addView(tableRow);
+
+    addButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            PlanEntry planEntry =
+                new PlanEntry(0, "0kg", "3x12 ", STANDARD_TEMPLATE_ID, trainingPlanId);
+            DatabaseManager.appDatabase.planEntryDao().insert(planEntry);
+
+            // need to fetch last entry from the list because ids are auto generated
+            List<PlanEntry> planEntryList = DatabaseManager.appDatabase.planEntryDao().getAll();
+            planEntry = planEntryList.get(planEntryList.size() - 1);
+
+            addTableRow(tableLayout, planEntry);
+          }
+        });
+  }
   /**
    * Add entry to the table.
    *
@@ -134,9 +154,25 @@ public class TrainingPlanFragment extends Fragment {
     textViewRepeats.setPadding(10, 10, 10, 10);
     textViewRepeats.setLayoutParams(layoutParams);
 
+    final ImageButton deleteRowButton = new ImageButton(getActivity());
+    deleteRowButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_delete));
+
+    deleteRowButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            DatabaseManager.appDatabase.planEntryDao().delete(trainingPlanEntry);
+            // position 0+1 are used for header and add button (don't remove those)
+            final int FIRST_DATA_POSITION = 1;
+            tableLayout.removeViews(FIRST_DATA_POSITION, tableLayout.getChildCount() - 1);
+            getTrainingPlanData(trainingPlanId);
+          }
+        });
+
     tableRow.addView(textViewExercise);
     tableRow.addView(textViewWeight);
     tableRow.addView(textViewRepeats);
+    tableRow.addView(deleteRowButton);
 
     textViewRepeats.setTextSize(14);
 
@@ -158,25 +194,6 @@ public class TrainingPlanFragment extends Fragment {
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-  }
-
-  /**
-   * Add the on click listener for the button to create new exercises.
-   *
-   * @param exerciseDataId of standard template
-   */
-  public void setNewExerciseButton(int exerciseDataId) {
-    final ImageButton buttonExercise = view.findViewById(R.id.addButton);
-    buttonExercise.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Bundle args = new Bundle();
-            args.putInt("exerciseDataId", exerciseDataId);
-            NavHostFragment.findNavController(TrainingPlanFragment.this)
-                .navigate(R.id.action_training_plan_to_exercise, args);
-          }
-        });
   }
 
   @Override
