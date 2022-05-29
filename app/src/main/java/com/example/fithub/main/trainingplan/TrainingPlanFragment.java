@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -80,9 +81,20 @@ public class TrainingPlanFragment extends Fragment {
     List<PlanEntry> planEntryList =
         DatabaseManager.appDatabase.planEntryDao().getPlanEntryListByPlanId(trainingPlanId);
 
-    final TextView nameTextView = (TextView) view.findViewById(R.id.training_plan_name);
+    final TextInputEditText inputPlanName = view.findViewById(R.id.inputPlanName);
+    inputPlanName.setText(trainingPlanName);
 
-    nameTextView.setText(trainingPlanName);
+    final Button changePlanNameButton = view.findViewById(R.id.buttonChangeName);
+    changePlanNameButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            final TrainingPlan trainingPlan =
+                DatabaseManager.appDatabase.trainingPlanDao().getById(trainingPlanId);
+            trainingPlan.setName(inputPlanName.getEditableText().toString());
+            DatabaseManager.appDatabase.trainingPlanDao().update(trainingPlan);
+          }
+        });
 
     initTable(planEntryList);
   }

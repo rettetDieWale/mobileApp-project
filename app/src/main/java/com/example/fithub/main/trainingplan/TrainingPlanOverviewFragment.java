@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.components.ListAdapter;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class TrainingPlanOverviewFragment extends Fragment {
 
   private List<String> names;
   private View view;
+  private TextInputEditText planNameInput;
 
   @Override
   public View onCreateView(
@@ -41,12 +44,26 @@ public class TrainingPlanOverviewFragment extends Fragment {
           }
         });
 
-    initializeListView();
+    updateListView();
+
+    final ImageButton buttonAddPlan = view.findViewById(R.id.buttonAddPlan);
+    buttonAddPlan.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+            DatabaseManager.appDatabase
+                .trainingPlanDao()
+                .insert(new TrainingPlan(0, "Trainingsplan Name"));
+            updateListView();
+          }
+        });
 
     return view;
   }
 
-  public void initializeListView() {
+  /** Updates the recycler view /list view with all training plans from storage. */
+  public void updateListView() {
     this.names = new ArrayList<>();
 
     List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();

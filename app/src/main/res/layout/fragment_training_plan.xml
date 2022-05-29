@@ -34,11 +34,18 @@
                 android:contentDescription="@string/appbar_title_exercise"
                 android:minHeight="48dp" />
 
-            <TextView
-                android:id="@+id/training_plan_name"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputPlanName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/loading" />
+                android:layout_height="wrap_content"
+                android:hint="@string/training_plan"
+                android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
+
+            <Button
+                android:id="@+id/buttonChangeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Namen aktualisieren" />
 
             <include
                 android:id="@+id/table_layout_include"
