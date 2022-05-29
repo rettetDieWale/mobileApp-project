@@ -46,6 +46,25 @@ public class TrainingPlanFragment extends Fragment {
 
     getTrainingPlanData(trainingPlanId);
 
+    final ImageButton deletePlanButton = view.findViewById(R.id.deletePlanButton);
+    deletePlanButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            List<PlanEntry> planEntryList =
+                DatabaseManager.appDatabase.planEntryDao().getPlanEntryListByPlanId(trainingPlanId);
+            for (int i = 0; i < planEntryList.size(); i++) {
+              DatabaseManager.appDatabase.planEntryDao().delete(planEntryList.get(i));
+            }
+
+            DatabaseManager.appDatabase
+                .trainingPlanDao()
+                .delete(DatabaseManager.appDatabase.trainingPlanDao().getById(trainingPlanId));
+
+            getActivity().onBackPressed();
+          }
+        });
+
     return view;
   }
 
@@ -59,7 +78,7 @@ public class TrainingPlanFragment extends Fragment {
     String trainingPlanName = currentTrainingPlan.getName();
 
     List<PlanEntry> planEntryList =
-        DatabaseManager.appDatabase.planEntryDao().getPlanEntrieListById(trainingPlanId);
+        DatabaseManager.appDatabase.planEntryDao().getPlanEntryListByPlanId(trainingPlanId);
 
     final TextView nameTextView = (TextView) view.findViewById(R.id.training_plan_name);
 
