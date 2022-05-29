@@ -20,6 +20,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/deletePlanButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/delete"
+                android:src="@android:drawable/ic_menu_delete" />
+
             <Spinner
                 android:id="@+id/spinner_training_plan"
                 android:layout_width="match_parent"
