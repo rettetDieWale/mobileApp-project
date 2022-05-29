@@ -169,11 +169,30 @@ public class TrainingPlanFragment extends Fragment {
           }
         });
 
-    final TextView textViewRepeats = new TextView(getActivity());
+    final TextView textViewRepeats = new TextInputEditText(getActivity());
     textViewRepeats.setText(trainingPlanEntry.getRepeats());
     textViewRepeats.setTextSize(14);
     textViewRepeats.setPadding(10, 10, 10, 10);
     textViewRepeats.setLayoutParams(layoutParams);
+    textViewRepeats.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+          @Override
+          public void afterTextChanged(Editable editable) {
+            PlanEntry planeEntry =
+                DatabaseManager.appDatabase
+                    .planEntryDao()
+                    .getPlanEntryById(trainingPlanEntry.getEntryId());
+
+            planeEntry.setRepeats(editable.toString());
+            DatabaseManager.appDatabase.planEntryDao().update(planeEntry);
+          }
+        });
 
     final ImageButton deleteRowButton = new ImageButton(getActivity());
     deleteRowButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_delete));
