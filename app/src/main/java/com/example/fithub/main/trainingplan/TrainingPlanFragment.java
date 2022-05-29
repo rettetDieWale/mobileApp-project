@@ -79,7 +79,11 @@ public class TrainingPlanFragment extends Fragment {
     }
   }
 
-  /** */
+  /**
+   * Attaches the button to add exercises into the table.
+   *
+   * @param tableLayout the button is attached to
+   */
   public void attachAddButton(TableLayout tableLayout) {
     final ImageButton addButton = new ImageButton(getActivity());
     addButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_add));
