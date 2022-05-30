@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.main.calendar.CalendarActivity;
@@ -19,6 +20,7 @@ import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
+import com.example.fithub.main.trainingplan.TrainingPlanActivity;
 
 public class FirstFragment extends Fragment {
 
@@ -64,7 +66,7 @@ public class FirstFragment extends Fragment {
   private void createOnClickListeners(View view) {
 
     // Buttons are not initialized in initComponents() to reduce redundant code
-    final Button calendarButton = (Button) view.findViewById(R.id.button_home);
+    final ImageButton calendarButton = view.findViewById(R.id.button_calendar);
     calendarButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -74,34 +76,23 @@ public class FirstFragment extends Fragment {
           }
         });
 
-    final Button addExperienceButton = (Button) view.findViewById(R.id.button_add_experience);
-    addExperienceButton.setOnClickListener(
+    final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
+    analysisButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View v) {
-            experienceBar.addExperience(30);
-            updateExperienceBar();
+          public void onClick(View view) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_PieChartFragment);
           }
         });
 
-    final Button subtractExperienceButton =
-        (Button) view.findViewById(R.id.button_subtract_experience);
-    subtractExperienceButton.setOnClickListener(
+    final ImageButton trainingPlanButton = view.findViewById(R.id.training_plans_button);
+    trainingPlanButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View v) {
-            experienceBar.subtractExperience(30);
-            updateExperienceBar();
-          }
-        });
-
-    final Button resetExperienceButton = (Button) view.findViewById(R.id.button_reset_experience);
-    resetExperienceButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            resetExperienceBar();
-            updateExperienceBar();
+          public void onClick(View view) {
+            Intent intent = new Intent(getActivity(), TrainingPlanActivity.class);
+            startActivity(intent);
           }
         });
   }

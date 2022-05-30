@@ -7,66 +7,99 @@
     android:layout_height="match_parent"
     tools:context=".main.FirstFragment">
 
+    <ImageButton
+        android:id="@+id/button_analysis"
+        style="@style/icon_style"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/analysis_speakable"
+        android:src="@drawable/analytics_icon"
+        app:layout_constraintBottom_toTopOf="@+id/include2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.487" />
+
+    <TextView
+        android:id="@+id/analysis_text"
+        style="@style/icon_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appbar_title_analysis"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.170"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_analysis"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/button_calendar"
+        style="@style/icon_style"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/calendar_speakable"
+        android:src="@drawable/calendar_icon"
+        app:layout_constraintBottom_toTopOf="@+id/include2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.487" />
+
     <include
         android:id="@+id/include2"
         layout="@layout/experience_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/button_home"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.382" />
 
-    <Button
-        android:id="@+id/button_home"
+    <TextView
+        android:id="@+id/calendar_text"
+        style="@style/icon_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/appbar_title_calender"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_add_experience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="216dp"
-        android:text="@string/add"
-        app:layout_constraintBottom_toTopOf="@+id/button_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.665"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button_subtract_experience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="264dp"
-        android:text="@string/sub"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button_reset_experience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="78dp"
-        android:text="reset"
-        app:layout_constraintBottom_toTopOf="@+id/button_home"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintTop_toBottomOf="@+id/button_calendar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/training_plans_button"
+        style="@style/icon_style"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:contentDescription="@string/training_plan_speakable"
+        android:src="@drawable/fitness_plan_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.181" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/icon_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appbar_title_training_plan_overview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/training_plans_button"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
