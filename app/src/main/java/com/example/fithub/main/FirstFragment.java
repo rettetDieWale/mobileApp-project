@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
 import com.example.fithub.main.calendar.CalendarActivity;
@@ -71,6 +72,16 @@ public class FirstFragment extends Fragment {
           public void onClick(View v) {
             Intent intent = new Intent(getActivity(), CalendarActivity.class);
             startActivity(intent);
+          }
+        });
+
+    final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
+    analysisButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_PieChartFragment);
           }
         });
   }

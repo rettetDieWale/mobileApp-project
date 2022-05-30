@@ -22,16 +22,6 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    /**
-     * FrameLayout layout = new FrameLayout(this); layout.setLayoutParams(new
-     * ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-     * ViewGroup.LayoutParams.MATCH_PARENT)); layout.setId(R.id.listLayout); setContentView(layout);
-     *
-     * <p>FragmentManager manager = getSupportFragmentManager();
-     *
-     * <p>manager.beginTransaction().add(R.id.listLayout, new
-     * MusclesTrainedListFragment()).commit();
-     */
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
