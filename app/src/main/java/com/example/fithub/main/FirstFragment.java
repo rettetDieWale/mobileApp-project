@@ -20,6 +20,7 @@ import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
+import com.example.fithub.main.trainingplan.TrainingPlanActivity;
 
 public class FirstFragment extends Fragment {
 
@@ -82,6 +83,16 @@ public class FirstFragment extends Fragment {
           public void onClick(View view) {
             NavHostFragment.findNavController(FirstFragment.this)
                 .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+          }
+        });
+
+    final ImageButton trainingPlanButton = view.findViewById(R.id.training_plans_button);
+    trainingPlanButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent = new Intent(getActivity(), TrainingPlanActivity.class);
+            startActivity(intent);
           }
         });
   }

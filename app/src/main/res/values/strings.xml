@@ -12,7 +12,7 @@
     <string name="appbar_title_calender">Kalender</string>
     <string name="appbar_title_home">Startseite</string>
     <string name="appbar_title_analysis">Analyse</string>
-    <string name="appbar_title_training_plan_overview">Trainingspläne verwalten</string>
+    <string name="appbar_title_training_plan_overview">Trainingspläne</string>
     <string name="appbar_title_training_day">Trainingstag</string>
     <string name="appbar_title_training_period">Zeitraumplanung</string>
     <string name="appbar_title_training_plan">Trainingsplan</string>
@@ -47,5 +47,6 @@
     <string name="delete">löschen</string>
     <string name="analysis_speakable">analysis_icon</string>
     <string name="calendar_speakable">calendar_icon</string>
+    <string name="training_plan_speakable">training_plan_icon</string>
 
 </resources>
