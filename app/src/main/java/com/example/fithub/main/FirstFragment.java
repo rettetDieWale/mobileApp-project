@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -64,44 +64,13 @@ public class FirstFragment extends Fragment {
   private void createOnClickListeners(View view) {
 
     // Buttons are not initialized in initComponents() to reduce redundant code
-    final Button calendarButton = (Button) view.findViewById(R.id.button_home);
+    final ImageButton calendarButton = view.findViewById(R.id.button_calendar);
     calendarButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
             Intent intent = new Intent(getActivity(), CalendarActivity.class);
             startActivity(intent);
-          }
-        });
-
-    final Button addExperienceButton = (Button) view.findViewById(R.id.button_add_experience);
-    addExperienceButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            experienceBar.addExperience(30);
-            updateExperienceBar();
-          }
-        });
-
-    final Button subtractExperienceButton =
-        (Button) view.findViewById(R.id.button_subtract_experience);
-    subtractExperienceButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            experienceBar.subtractExperience(30);
-            updateExperienceBar();
-          }
-        });
-
-    final Button resetExperienceButton = (Button) view.findViewById(R.id.button_reset_experience);
-    resetExperienceButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            resetExperienceBar();
-            updateExperienceBar();
           }
         });
   }
