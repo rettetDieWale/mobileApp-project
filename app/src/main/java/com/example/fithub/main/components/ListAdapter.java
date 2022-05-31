@@ -57,7 +57,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
             args.putInt("trainingPlanId", elementIdList[finalPosition]);
 
             NavHostFragment.findNavController(fragment)
-                .navigate(R.id.action_training_plan_overview_to_training_plan, args);
+                .navigate(R.id.action_trainingPlanOverviewFragment_to_trainingPlanFragment, args);
           }
         });
   }

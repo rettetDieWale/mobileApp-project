@@ -307,7 +307,7 @@ public class TrainingPlanFragment extends Fragment {
             args.putInt("entryId", trainingPlanEntry.getEntryId());
 
             NavHostFragment.findNavController(TrainingPlanFragment.this)
-                .navigate(R.id.action_training_plan_to_exercise, args);
+                .navigate(R.id.action_trainingPlanFragment_to_exerciseFragment, args);
           }
         });
 
