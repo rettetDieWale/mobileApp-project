@@ -34,6 +34,7 @@ public class TrainingPlanFragment extends Fragment {
   private View view;
   private TrainingPlan currentTrainingPlan;
   private TableLayout tableLayout;
+  private int actionId;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class TrainingPlanFragment extends Fragment {
 
     final Bundle bundle = getArguments();
     final int trainingPlanId = bundle.getInt("trainingPlanId");
+    this.actionId = bundle.getInt("actionId");
 
     setCurrentPlanObject(trainingPlanId);
     updateTrainingPlanTable();
@@ -306,8 +308,14 @@ public class TrainingPlanFragment extends Fragment {
             args.putInt("exerciseDataId", trainingPlanEntry.getExerciseDataId());
             args.putInt("entryId", trainingPlanEntry.getEntryId());
 
+            // navigation to  exercise is possible from either training day or training plan
+            int targetActionId = 0;
+            if (actionId == 0)
+              targetActionId = R.id.action_trainingPlanFragment_to_exerciseFragment;
+            else targetActionId = R.id.action_trainingDayFragment_to_exerciseFragment;
+
             NavHostFragment.findNavController(TrainingPlanFragment.this)
-                .navigate(R.id.action_training_plan_to_exercise, args);
+                .navigate(targetActionId, args);
           }
         });
 

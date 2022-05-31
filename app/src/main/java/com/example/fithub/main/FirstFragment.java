@@ -1,6 +1,5 @@
 package com.example.fithub.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
-import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
-import com.example.fithub.main.trainingplan.TrainingPlanActivity;
 
 public class FirstFragment extends Fragment {
 
@@ -71,8 +68,8 @@ public class FirstFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), CalendarActivity.class);
-            startActivity(intent);
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_calenderOverviewFragment);
           }
         });
 
@@ -91,8 +88,8 @@ public class FirstFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), TrainingPlanActivity.class);
-            startActivity(intent);
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_trainingPlanOverviewFragment);
           }
         });
   }

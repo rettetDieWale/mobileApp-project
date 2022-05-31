@@ -43,7 +43,7 @@ public class CalenderOverviewFragment extends Fragment {
             args.putSerializable("date", date);
 
             NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                .navigate(R.id.action_calendar_overview_to_training_day, args);
+                .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
           }
         });
 

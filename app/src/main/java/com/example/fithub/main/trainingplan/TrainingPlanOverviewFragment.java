@@ -1,6 +1,5 @@
 package com.example.fithub.main.trainingplan;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
-import com.example.fithub.main.calendar.CalendarActivity;
 import com.example.fithub.main.components.ListAdapter;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
@@ -38,10 +36,7 @@ public class TrainingPlanOverviewFragment extends Fragment {
     returnButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
-          public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), CalendarActivity.class);
-            startActivity(intent);
-          }
+          public void onClick(View view) {}
         });
 
     updateListView();
