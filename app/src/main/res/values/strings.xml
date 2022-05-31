@@ -49,5 +49,8 @@
     <string name="calendar_speakable">calendar_icon</string>
     <string name="training_plan_speakable">training_plan_icon</string>
     <string name="home_speakable">home_icon</string>
+    <string name="_25_trainingstage">25 Trainingstage</string>
+    <string name="letzter_trainingstag_am_31_05_2022">Letzter Trainingstag am 31.05.2022</string>
+    <string name="n_chster_trainingstag_am_01_06_2022">Nächster Trainingstag am 01.06.2022</string>
 
 </resources>
