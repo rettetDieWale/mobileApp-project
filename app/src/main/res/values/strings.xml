@@ -48,5 +48,6 @@
     <string name="analysis_speakable">analysis_icon</string>
     <string name="calendar_speakable">calendar_icon</string>
     <string name="training_plan_speakable">training_plan_icon</string>
+    <string name="home_speakable">home_icon</string>
 
 </resources>
