@@ -13,15 +13,12 @@
         android:layout_width="75dp"
         android:layout_height="70dp"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="40dp"
         android:contentDescription="@string/analysis_speakable"
         android:src="@drawable/analytics_icon"
-        app:layout_constraintBottom_toTopOf="@+id/include2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.487" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/analysis_text"
@@ -31,7 +28,7 @@
         android:text="@string/appbar_title_analysis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.170"
+        app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_analysis"
         app:layout_constraintVertical_bias="0.0" />
@@ -42,14 +39,11 @@
         android:layout_width="75dp"
         android:layout_height="70dp"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="40dp"
         android:contentDescription="@string/calendar_speakable"
         android:src="@drawable/calendar_icon"
-        app:layout_constraintBottom_toTopOf="@+id/include2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.487" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include2"
@@ -58,9 +52,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.424" />
 
     <TextView
         android:id="@+id/calendar_text"
@@ -80,14 +75,13 @@
         style="@style/icon_style"
         android:layout_width="75dp"
         android:layout_height="70dp"
+        android:layout_marginTop="100dp"
         android:contentDescription="@string/training_plan_speakable"
         android:src="@drawable/fitness_plan_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="0.867"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -97,7 +91,7 @@
         android:text="@string/appbar_title_training_plan_overview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintHorizontal_bias="0.916"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/training_plans_button"
         app:layout_constraintVertical_bias="0.0" />
@@ -119,7 +113,7 @@
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.197" />
+        app:layout_constraintVertical_bias="0.355" />
 
     <TextView
         android:id="@+id/textView11"
@@ -128,10 +122,10 @@
         android:text="nächster Trainingstag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.171" />
+        app:layout_constraintVertical_bias="0.309" />
 
     <TextView
         android:id="@+id/textView13"
@@ -160,9 +154,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/divider11"
@@ -173,7 +165,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -182,11 +174,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
         android:layout_marginTop="36dp"
+        android:contentDescription="@string/appbar_title_training_day"
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
         app:layout_constraintBottom_toBottomOf="@+id/divider11"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/divider10"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.125" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
