@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.fithub.R;
@@ -38,15 +35,16 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
-    //ToDo:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // ToDo:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     DatabaseManager.appDatabase.trainingDayDao().insert(new TrainingDay(0, new Date(), 1));
-    //-------------------------------------------------------------
-    //FragmentManager fm = getChildFragmentManager();
+    // -------------------------------------------------------------
+    // FragmentManager fm = getChildFragmentManager();
     FragmentManager fm = getChildFragmentManager();
     List<Fragment> fml = fm.getFragments();
     Fragment f = fm.findFragmentById(R.id.trainingPlanFragment);
     Bundle b = new Bundle();
     b.putInt("trainingPlanId", 1);
+    b.putInt("actionId", 1);
     fml.get(0).setArguments(b);
     return view;
   }
@@ -57,7 +55,7 @@ public class TrainingDayFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
-  private void setDate(){
+  private void setDate() {
     Bundle bundle = getArguments();
     String date = null;
     if (bundle != null) {
@@ -66,5 +64,4 @@ public class TrainingDayFragment extends Fragment {
     TextView tv = (TextView) getView().findViewById(R.id.dateText);
     tv.setText(date);
   }
-
 }
