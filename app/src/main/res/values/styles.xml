@@ -10,4 +10,9 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
+    <style name="toolbar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_appbar</item>
+    </style>
 </resources>
