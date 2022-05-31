@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph2"
-    android:label="@string/appbar_title_training_plan_overview" />

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_trainingPlanOverviewFragment"
             app:destination="@id/trainingPlanOverviewFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_calenderOverviewFragment"
+            app:destination="@id/calenderOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/PieChartFragment"
@@ -44,4 +47,18 @@
         android:name="com.example.fithub.main.trainingplan.ExerciseFragment"
         android:label="fragment_exercise"
         tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/calenderOverviewFragment"
+        android:name="com.example.fithub.main.calendar.CalenderOverviewFragment"
+        android:label="fragment_calender_overview"
+        tools:layout="@layout/fragment_calender_overview">
+        <action
+            android:id="@+id/action_calenderOverviewFragment_to_trainingDayFragment"
+            app:destination="@id/trainingDayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingDayFragment"
+        android:name="com.example.fithub.main.calendar.TrainingDayFragment"
+        android:label="fragment_training_day"
+        tools:layout="@layout/fragment_training_day" />
 </navigation>
