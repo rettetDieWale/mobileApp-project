@@ -1,11 +1,9 @@
 package com.example.fithub.main.calendar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
-import com.example.fithub.main.MainActivity;
 
 public class CalenderOverviewFragment extends Fragment {
 
@@ -70,18 +67,7 @@ public class CalenderOverviewFragment extends Fragment {
    *
    * @param view the buttons where added into layout xml
    */
-  private void createOnClickListeners(View view) {
-
-    final Button back = (Button) view.findViewById(R.id.button_calender_return);
-    back.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-          }
-        });
-  }
+  private void createOnClickListeners(View view) {}
 
   @Override
   public void onDestroyView() {

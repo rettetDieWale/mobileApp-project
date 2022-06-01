@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -31,13 +30,6 @@ public class TrainingPlanOverviewFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     this.view = inflater.inflate(R.layout.fragment_training_plan_overview, container, false);
-
-    final Button returnButton = view.findViewById(R.id.button_trainingplan_return);
-    returnButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {}
-        });
 
     updateListView();
 
