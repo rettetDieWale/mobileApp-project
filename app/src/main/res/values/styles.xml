@@ -21,4 +21,9 @@
         <item name="android:layout_margin">20dp</item>
         <item name="android:padding">20dp</item>
     </style>
+
+    <style name="small_buttons" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/seetrough_button</item>
+        <item name="android:tint">@color/primary_dark</item>
+    </style>
 </resources>

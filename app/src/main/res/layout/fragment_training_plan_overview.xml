@@ -34,9 +34,10 @@
                 style="@style/icon_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="15dp"
                 android:contentDescription="@string/add"
                 android:minHeight="48dp"
                 android:src="@android:drawable/ic_menu_add" />

@@ -3,6 +3,7 @@ package com.example.fithub.main.trainingplan;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,7 +171,8 @@ public class TrainingPlanFragment extends Fragment {
 
   /** Attaches the button to add exercises into the table. */
   public void attachAddButton() {
-    final ImageButton addButton = new ImageButton(getActivity());
+    final ImageButton addButton =
+        new ImageButton(new ContextThemeWrapper(getActivity(), R.style.small_buttons), null, 0);
     addButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_add));
 
     final TableRow tableRow = new TableRow(getActivity());
@@ -280,7 +282,8 @@ public class TrainingPlanFragment extends Fragment {
           }
         });
 
-    final ImageButton deleteRowButton = new ImageButton(getActivity());
+    final ImageButton deleteRowButton =
+        new ImageButton(new ContextThemeWrapper(getActivity(), R.style.small_buttons), null, 0);
     deleteRowButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_delete));
 
     deleteRowButton.setOnClickListener(
