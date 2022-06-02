@@ -12,8 +12,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,10 +24,17 @@
 
             <ImageButton
                 android:id="@+id/deletePlanButton"
+                style="@style/icon_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="15dp"
                 android:contentDescription="@string/delete"
-                android:src="@android:drawable/ic_menu_delete" />
+                android:minHeight="48dp"
+                android:src="@android:drawable/ic_menu_delete"
+                app:tint="@color/icons" />
 
             <Spinner
                 android:id="@+id/spinner_training_plan"
@@ -45,6 +54,10 @@
                 android:id="@+id/buttonChangeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="15dp"
                 android:text="Namen aktualisieren" />
 
             <include
