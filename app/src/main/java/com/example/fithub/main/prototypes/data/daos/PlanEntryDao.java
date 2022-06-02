@@ -21,6 +21,9 @@ public interface PlanEntryDao {
   @Query("SELECT * FROM TRAININGPLAN_ENTRY WHERE entryId = :entryId")
   PlanEntry getPlanEntryById(int entryId);
 
+  @Query("SELECT COUNT(trainingPlanId) FROM TRAININGPLAN_ENTRY WHERE trainingPlanId = :planId")
+  int getCountByPlanId(int planId);
+
   @Insert
   void insert(PlanEntry planEntry);
 
