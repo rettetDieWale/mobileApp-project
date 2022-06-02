@@ -8,7 +8,7 @@
     <string name="date">dd/mm/yyyy</string>
 
     <!-- Strings used for AppBar -->
-    <string name="appbar_item_name_analysis">Analyse</string>
+    <string name="appbar_item_name_analysis">Analyse &amp; Statistik</string>
     <string name="appbar_title_calender">Kalender</string>
     <string name="appbar_title_home">Startseite</string>
     <string name="appbar_title_analysis">Analyse</string>
@@ -16,7 +16,7 @@
     <string name="appbar_title_training_day">Trainingstag</string>
     <string name="appbar_title_training_period">Zeitraumplanung</string>
     <string name="appbar_title_training_plan">Trainingsplan</string>
-    <string name="appbar_title_exercise">Übung 1</string>
+    <string name="appbar_title_exercise">Übung</string>
 
     <!-- Strings for Button Text -->
     <string name="next">Nächstes</string>
@@ -25,7 +25,6 @@
     <string name="training_day">Trainingstage</string>
     <string name="training_period">Zeitraumplanung</string>
     <string name="training_plan">Trainingsplan</string>
-    <string name="exerciseData">Übung erstellen</string>
     <string name="save">Speichern</string>
     <string name="add">+</string>
     <string name="sub">-</string>

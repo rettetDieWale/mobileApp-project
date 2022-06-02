@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
 
 import java.util.List;
 
@@ -45,13 +46,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
     position = holder.getAdapterPosition();
 
-    holder.textView.setText(list.get(position));
+    holder.planName.setText(list.get(position));
     int finalPosition = position;
 
-    holder.textView.setOnClickListener(
+    int entriesCount =
+        DatabaseManager.appDatabase.planEntryDao().getCountByPlanId(elementIdList[finalPosition]);
+    holder.entryNumberView.setText(Integer.toString(entriesCount) + " Übungen");
+
+    holder.planName.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
+
+            view.setBackgroundColor(fragment.getResources().getColor(R.color.primary_light));
 
             Bundle args = new Bundle();
             args.putInt("trainingPlanId", elementIdList[finalPosition]);
@@ -70,11 +77,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
   static class MyViewHolder extends RecyclerView.ViewHolder {
 
-    TextView textView;
+    TextView planName;
+    TextView entryNumberView;
 
     public MyViewHolder(@NonNull View itemView) {
       super(itemView);
-      textView = itemView.findViewById(R.id.textView);
+      planName = itemView.findViewById(R.id.plan_name);
+      entryNumberView = itemView.findViewById(R.id.entry_number);
     }
   }
 }
