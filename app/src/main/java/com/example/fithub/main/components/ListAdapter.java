@@ -58,6 +58,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
           @Override
           public void onClick(View view) {
 
+            view.setBackgroundColor(fragment.getResources().getColor(R.color.primary_light));
+
             Bundle args = new Bundle();
             args.putInt("trainingPlanId", elementIdList[finalPosition]);
             args.putInt("actionId", 0);
