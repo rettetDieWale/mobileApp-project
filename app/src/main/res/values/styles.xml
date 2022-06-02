@@ -15,4 +15,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/rounded_appbar</item>
     </style>
+
+    <style name="list_item" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/list_item_box</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:padding">20dp</item>
+    </style>
 </resources>
