@@ -20,7 +20,8 @@ public class TemplateSpinner {
    * @param spinnerId R.id of the component the adapter is set
    * @param items list with items for spinner selection
    */
-  public TemplateSpinner(View view, Context context, int spinnerId, ArrayList<Item> items) {
+  public TemplateSpinner(
+      final View view, final Context context, final int spinnerId, final ArrayList<Item> items) {
 
     this.spinner = (Spinner) view.findViewById(spinnerId);
 
@@ -33,8 +34,13 @@ public class TemplateSpinner {
     this.spinner.setAdapter(adapter);
   }
 
-  public void setItemSelected(Item item) {
-    int position = this.adapter.getPosition(item);
+  /**
+   * Set the spinner selection on item.
+   *
+   * @param item the spinner should select
+   */
+  public void setItemSelected(final Item item) {
+    final int position = this.adapter.getPosition(item);
     this.spinner.setSelection(position);
   }
 

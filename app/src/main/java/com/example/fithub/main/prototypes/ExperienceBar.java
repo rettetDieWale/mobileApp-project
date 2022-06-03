@@ -46,6 +46,11 @@ public class ExperienceBar {
     return MAX_EXPERIENCE;
   }
 
+  /**
+   * Add experience to total exp calculating new exp when a level up is reached.
+   *
+   * @param experience to add
+   */
   public void addExperience(int experience) {
     progress = progress + experience;
 
@@ -55,6 +60,11 @@ public class ExperienceBar {
     }
   }
 
+  /**
+   * Just for test purpose, is never used in any case.
+   *
+   * @param experience to subtract
+   */
   public void subtractExperience(int experience) {
     progress = progress - experience;
 

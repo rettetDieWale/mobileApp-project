@@ -19,18 +19,15 @@ import java.util.List;
 /** List adapter class for containing training plans. */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-  private List<String> list;
-  private int[] elementIdList;
+  private List<Item> items;
   private Fragment fragment;
 
   /**
-   * @param list of strings (training plan names)
-   * @param elementIdList id of each training plan in the list
+   * @param items for the list
    * @param fragment current fragment
    */
-  public ListAdapter(List<String> list, int[] elementIdList, Fragment fragment) {
-    this.list = list;
-    this.elementIdList = elementIdList;
+  public ListAdapter(final List<Item> items, final Fragment fragment) {
+    this.items = items;
     this.fragment = fragment;
   }
 
@@ -44,13 +41,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-    position = holder.getAdapterPosition();
+    final int finalPosition = holder.getAdapterPosition();
 
-    holder.planName.setText(list.get(position));
-    int finalPosition = position;
+    holder.planName.setText(items.get(position).getName());
 
-    int entriesCount =
-        DatabaseManager.appDatabase.planEntryDao().getCountByPlanId(elementIdList[finalPosition]);
+    final int entriesCount =
+        DatabaseManager.appDatabase
+            .planEntryDao()
+            .getCountByPlanId(items.get(finalPosition).getId());
     holder.entryNumberView.setText(Integer.toString(entriesCount) + " Übungen");
 
     holder.planName.setOnClickListener(
@@ -60,8 +58,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
             view.setBackgroundColor(fragment.getResources().getColor(R.color.primary_light));
 
-            Bundle args = new Bundle();
-            args.putInt("trainingPlanId", elementIdList[finalPosition]);
+            final Bundle args = new Bundle();
+            args.putInt("trainingPlanId", items.get(finalPosition).getId());
             args.putInt("actionId", 0);
 
             NavHostFragment.findNavController(fragment)
@@ -72,7 +70,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
   @Override
   public int getItemCount() {
-    return list.size();
+    return items.size();
   }
 
   static class MyViewHolder extends RecyclerView.ViewHolder {
