@@ -1,7 +1,8 @@
 package com.example.fithub.main.components;
 
 /**
- * Item class for spinner items, needed because otherwise spinner can only use simple data types.
+ * Item class for spinner and list items, needed because otherwise spinner/list can only use simple
+ * data types.
  */
 public class Item {
   private int id;

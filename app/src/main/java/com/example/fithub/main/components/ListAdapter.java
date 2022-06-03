@@ -19,8 +19,7 @@ import java.util.List;
 /** List adapter class for containing training plans. */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
 
-  private List<String> list;
-  private int[] elementIdList;
+  private List<Item> items;
   private Fragment fragment;
 
   /**
@@ -28,9 +27,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
    * @param elementIdList id of each training plan in the list
    * @param fragment current fragment
    */
-  public ListAdapter(List<String> list, int[] elementIdList, Fragment fragment) {
-    this.list = list;
-    this.elementIdList = elementIdList;
+  public ListAdapter(List<Item> items, Fragment fragment) {
+    this.items = items;
     this.fragment = fragment;
   }
 
@@ -46,11 +44,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
     position = holder.getAdapterPosition();
 
-    holder.planName.setText(list.get(position));
+    holder.planName.setText(items.get(position).getName());
     int finalPosition = position;
 
     int entriesCount =
-        DatabaseManager.appDatabase.planEntryDao().getCountByPlanId(elementIdList[finalPosition]);
+        DatabaseManager.appDatabase
+            .planEntryDao()
+            .getCountByPlanId(items.get(finalPosition).getId());
     holder.entryNumberView.setText(Integer.toString(entriesCount) + " Übungen");
 
     holder.planName.setOnClickListener(
@@ -61,7 +61,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
             view.setBackgroundColor(fragment.getResources().getColor(R.color.primary_light));
 
             Bundle args = new Bundle();
-            args.putInt("trainingPlanId", elementIdList[finalPosition]);
+            args.putInt("trainingPlanId", items.get(finalPosition).getId());
             args.putInt("actionId", 0);
 
             NavHostFragment.findNavController(fragment)
@@ -72,7 +72,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
   @Override
   public int getItemCount() {
-    return list.size();
+    return items.size();
   }
 
   static class MyViewHolder extends RecyclerView.ViewHolder {

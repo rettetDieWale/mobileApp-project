@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fithub.R;
+import com.example.fithub.main.components.Item;
 import com.example.fithub.main.components.ListAdapter;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
@@ -51,20 +52,18 @@ public class TrainingPlanOverviewFragment extends Fragment {
 
   /** Updates the recycler view /list view with all training plans from storage. */
   public void updateListView() {
-    this.names = new ArrayList<>();
 
     List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();
-    int[] trainingPlanIds = new int[trainingPlanList.size()];
+    List<Item> trainingPlanItems = new ArrayList<>();
 
     for (int i = 0; i < trainingPlanList.size(); i++) {
-      names.add(trainingPlanList.get(i).getName());
-      trainingPlanIds[i] = trainingPlanList.get(i).getTrainingPlanId();
+      trainingPlanItems.add(
+          new Item(trainingPlanList.get(i).getTrainingPlanId(), trainingPlanList.get(i).getName()));
     }
 
     final RecyclerView recyclerView = view.findViewById(R.id.listLayout);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    recyclerView.setAdapter(
-        new ListAdapter(names, trainingPlanIds, TrainingPlanOverviewFragment.this));
+    recyclerView.setAdapter(new ListAdapter(trainingPlanItems, TrainingPlanOverviewFragment.this));
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
