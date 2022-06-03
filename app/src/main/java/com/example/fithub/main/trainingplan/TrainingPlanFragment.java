@@ -87,12 +87,16 @@ public class TrainingPlanFragment extends Fragment {
    *
    * @param planId of the plan object
    */
-  public void setCurrentPlanObject(int planId) {
+  private void setCurrentPlanObject(final int planId) {
     this.currentTrainingPlan = DatabaseManager.appDatabase.trainingPlanDao().getById(planId);
   }
 
-  public void initPlanSpinner() {
-    // create items and fill them with id and strings
+  /**
+   * Create training plan items for the spinner.
+   *
+   * @return list of items
+   */
+  private ArrayList<Item> createItemList() {
     final List<TrainingPlan> trainingPlanList =
         DatabaseManager.appDatabase.trainingPlanDao().getAll();
 
@@ -104,17 +108,23 @@ public class TrainingPlanFragment extends Fragment {
       items.add(new Item(trainingPlanId, trainingPlanName));
     }
 
-    // init spinner
-    final TemplateSpinner templateSpinner =
-        new TemplateSpinner(view, getActivity(), R.id.spinner_training_plan, items);
+    return items;
+  }
 
+  /**
+   * Adds an item selection listener to the spinner that fetches the chosen training plan data from
+   * storage and sets the fragment content accordingly.
+   *
+   * @param templateSpinner that item selection listener is attached to
+   */
+  private void setItemSelectionListener(final TemplateSpinner templateSpinner) {
     final Spinner spinner = templateSpinner.getSpinner();
     spinner.setOnItemSelectedListener(
         new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-            Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
-            int id = spinnerItem.getId();
+            final Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
+            final int id = spinnerItem.getId();
             setCurrentPlanObject(id);
             resetTableRows();
             updateTrainingPlanTable();
@@ -123,6 +133,17 @@ public class TrainingPlanFragment extends Fragment {
           @Override
           public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+  }
+
+  /** Initializes the training plan spinner. */
+  private void initPlanSpinner() {
+
+    final ArrayList<Item> items = createItemList();
+
+    final TemplateSpinner templateSpinner =
+        new TemplateSpinner(view, getActivity(), R.id.spinner_training_plan, items);
+
+    setItemSelectionListener(templateSpinner);
 
     for (int i = 0; i < items.size(); i++) {
       if (items.get(i).getId() == this.currentTrainingPlan.getTrainingPlanId()) {
@@ -132,11 +153,11 @@ public class TrainingPlanFragment extends Fragment {
   }
 
   /** Updates the training plan table and puts all entries from storage inside it. */
-  public void updateTrainingPlanTable() {
+  private void updateTrainingPlanTable() {
 
     final String trainingPlanName = this.currentTrainingPlan.getName();
 
-    List<PlanEntry> planEntryList =
+    final List<PlanEntry> planEntryList =
         DatabaseManager.appDatabase
             .planEntryDao()
             .getPlanEntryListByPlanId(this.currentTrainingPlan.getTrainingPlanId());
@@ -160,7 +181,7 @@ public class TrainingPlanFragment extends Fragment {
   }
 
   /** Initializes the table dynamically with trainings plan details. */
-  public void initTable(List<PlanEntry> planEntryList) {
+  private void initTable(final List<PlanEntry> planEntryList) {
 
     attachAddButton();
 
@@ -170,7 +191,7 @@ public class TrainingPlanFragment extends Fragment {
   }
 
   /** Attaches the button to add exercises into the table. */
-  public void attachAddButton() {
+  private void attachAddButton() {
     final ImageButton addButton =
         new ImageButton(new ContextThemeWrapper(getActivity(), R.style.small_buttons), null, 0);
     addButton.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_add));
@@ -210,8 +231,8 @@ public class TrainingPlanFragment extends Fragment {
    *
    * @param trainingPlanEntry exercise data for the table entry
    */
-  void addTableRow(PlanEntry trainingPlanEntry) {
-    TableRow tableRow = new TableRow(getActivity());
+  private void addTableRow(final PlanEntry trainingPlanEntry) {
+    final TableRow tableRow = new TableRow(getActivity());
     tableRow.setLayoutParams(
         new TableRow.LayoutParams(
             TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
@@ -220,7 +241,6 @@ public class TrainingPlanFragment extends Fragment {
     final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams();
     layoutParams.width = 0;
     layoutParams.height = TableRow.LayoutParams.WRAP_CONTENT;
-    // layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
     layoutParams.weight = 1.0f;
 
     final TextView textViewExercise = new TextView(getActivity());
@@ -248,7 +268,7 @@ public class TrainingPlanFragment extends Fragment {
 
           @Override
           public void afterTextChanged(Editable editable) {
-            PlanEntry planeEntry =
+            final PlanEntry planeEntry =
                 DatabaseManager.appDatabase
                     .planEntryDao()
                     .getPlanEntryById(trainingPlanEntry.getEntryId());
@@ -272,7 +292,7 @@ public class TrainingPlanFragment extends Fragment {
 
           @Override
           public void afterTextChanged(Editable editable) {
-            PlanEntry planeEntry =
+            final PlanEntry planeEntry =
                 DatabaseManager.appDatabase
                     .planEntryDao()
                     .getPlanEntryById(trainingPlanEntry.getEntryId());

@@ -326,38 +326,41 @@ public class ExerciseFragment extends Fragment {
     }
   }
 
+  /**
+   * Creates item out of exercises for a list and sets their id and string values.
+   *
+   * @return list of items
+   */
   private ArrayList<Item> createItems() {
-    // create items and fill them with id and strings
+
     final List<ExerciseData> exerciseDataList =
         DatabaseManager.appDatabase.exerciseDataDao().getAll();
     ArrayList<Item> items = new ArrayList<Item>();
 
     for (int i = 0; i < exerciseDataList.size(); i++) {
       int exerciseId = exerciseDataList.get(i).getExerciseDataId();
-      String exerciseName = exerciseDataList.get(i).getName();
+      final String exerciseName = exerciseDataList.get(i).getName();
       items.add(new Item(exerciseId, exerciseName));
     }
 
     return items;
   }
 
-  /** Initializes a spinner . */
-  private void initSpinner() {
-
-    final ArrayList<Item> items = createItems();
-
-    // init spinner
-    final TemplateSpinner templateSpinner =
-        new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, items);
-
-    // set item selection listener
+  /**
+   * Adds an item selection listener to the spinner that fetches the chosen exercise data from
+   * storage and sets the fragment content accordingly.
+   *
+   * @param templateSpinner that item selection listener is attached to
+   */
+  private void setItemSelectionListener(final TemplateSpinner templateSpinner) {
     final Spinner spinner = templateSpinner.getSpinner();
+
     spinner.setOnItemSelectedListener(
         new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-            Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
-            int id = spinnerItem.getId();
+            final Item spinnerItem = (Item) adapterView.getItemAtPosition(position);
+            final int id = spinnerItem.getId();
 
             exerciseData = DatabaseManager.appDatabase.exerciseDataDao().getExerciseData(id);
             setExerciseContent(exerciseData);
@@ -366,8 +369,20 @@ public class ExerciseFragment extends Fragment {
           @Override
           public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+  }
 
-    // pre select item fitting the exercise
+  /** Initializes the exercise spinner . */
+  private void initSpinner() {
+
+    final ArrayList<Item> items = createItems();
+
+    final TemplateSpinner templateSpinner =
+        new TemplateSpinner(view, getActivity(), R.id.exercise_spinner, items);
+
+    setItemSelectionListener(templateSpinner);
+
+    // pre select item fitting the exercise otherwise chosen exercise from training plan fragment
+    // gets overloaded
     for (int i = 0; i < items.size(); i++) {
       if (items.get(i).getId() == this.exerciseData.getExerciseDataId()) {
         templateSpinner.setItemSelected(items.get(i));
