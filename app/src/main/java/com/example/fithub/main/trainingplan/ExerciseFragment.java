@@ -272,17 +272,19 @@ public class ExerciseFragment extends Fragment {
   public void loadExerciseVideo(String url) {
 
     String frameVideo = parseVideoUrl(url);
-    WebView displayYoutubeVideo = (WebView) this.view.findViewById(R.id.exercise_webview);
-    displayYoutubeVideo.setWebViewClient(
+    WebView embeddedVideoView = (WebView) this.view.findViewById(R.id.exercise_webview);
+    embeddedVideoView.setWebViewClient(
         new WebViewClient() {
           @Override
           public boolean shouldOverrideUrlLoading(WebView view, String Url) {
             return false;
           }
         });
-    WebSettings webSettings = displayYoutubeVideo.getSettings();
+    embeddedVideoView.setInitialScale(220);
+    WebSettings webSettings = embeddedVideoView.getSettings();
     webSettings.setJavaScriptEnabled(true);
-    displayYoutubeVideo.loadData(frameVideo, "text/html", "utf-8");
+
+    embeddedVideoView.loadData(frameVideo, "text/html", "utf-8");
   }
 
   /**

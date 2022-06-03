@@ -25,12 +25,11 @@
             <ImageButton
                 android:id="@+id/deletePlanButton"
                 style="@style/icon_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="70dp"
-                android:layout_marginBottom="15dp"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="295dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="0dp"
                 android:contentDescription="@string/delete"
                 android:minHeight="48dp"
                 android:src="@android:drawable/ic_menu_delete"
@@ -38,15 +37,16 @@
 
             <Spinner
                 android:id="@+id/spinner_training_plan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/spinner_style"
+                android:layout_width="400dp"
+                android:layout_height="50dp"
                 android:contentDescription="@string/appbar_title_exercise"
                 android:minHeight="48dp" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputPlanName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="400dp"
+                android:layout_height="50dp"
                 android:hint="@string/training_plan"
                 android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
 

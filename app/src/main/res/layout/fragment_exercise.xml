@@ -24,23 +24,30 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:id="@+id/exercise_spinner"
-                    android:layout_width="410dp"
-                    android:layout_height="48dp"
+                    style="@style/spinner_style"
+                    android:layout_width="400dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="5dp"
                     android:contentDescription="@string/loading"
                     android:minHeight="48dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_delete" />
+                    app:layout_constraintTop_toBottomOf="@+id/button_delete"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageButton
                     android:id="@+id/button_delete"
-                    android:layout_width="112dp"
-                    android:layout_height="48dp"
+                    style="@style/icon_style"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
                     android:contentDescription="@string/delete"
                     android:src="@android:drawable/ic_menu_delete"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -118,10 +125,9 @@
 
             <WebView
                 android:id="@+id/exercise_webview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </WebView>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp" />
 
             <ViewSwitcher
                 android:id="@+id/viewSwitcherVideo"
@@ -146,6 +152,10 @@
                 android:id="@+id/button_save_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="15dp"
                 android:text="@string/save" />
         </LinearLayout>
     </ScrollView>
