@@ -28,8 +28,8 @@
 
                 <Spinner
                     android:id="@+id/exercise_spinner"
-                    android:layout_width="410dp"
-                    android:layout_height="48dp"
+                    android:layout_width="400dp"
+                    android:layout_height="50dp"
                     android:contentDescription="@string/loading"
                     android:minHeight="48dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -39,8 +39,11 @@
 
                 <ImageButton
                     android:id="@+id/button_delete"
-                    android:layout_width="112dp"
-                    android:layout_height="48dp"
+                    style="@style/icon_style"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
                     android:contentDescription="@string/delete"
                     android:src="@android:drawable/ic_menu_delete"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -146,6 +149,10 @@
                 android:id="@+id/button_save_exercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="15dp"
                 android:text="@string/save" />
         </LinearLayout>
     </ScrollView>
