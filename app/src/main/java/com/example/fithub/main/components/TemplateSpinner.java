@@ -33,6 +33,11 @@ public class TemplateSpinner {
     this.spinner.setAdapter(adapter);
   }
 
+  /**
+   * Set the spinner selection on item.
+   *
+   * @param item the spinner should select
+   */
   public void setItemSelected(Item item) {
     int position = this.adapter.getPosition(item);
     this.spinner.setSelection(position);
