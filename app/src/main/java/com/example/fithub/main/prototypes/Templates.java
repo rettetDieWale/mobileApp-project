@@ -48,6 +48,11 @@ public class Templates {
     return exerciseData;
   }
 
+  /**
+   * Add some exercises to the training plan templates.
+   *
+   * @return training plan with entries.
+   */
   public List<PlanEntry> createPlanEntryTemplates() {
     final List<PlanEntry> planEntryList = new ArrayList<>();
 
@@ -63,6 +68,11 @@ public class Templates {
     return planEntryList;
   }
 
+  /**
+   * create training plans with entries.
+   *
+   * @return list of training plans.
+   */
   public List<TrainingPlan> createTrainingPlanTemplates() {
     final List<TrainingPlan> trainingPlanList = new ArrayList<>();
 

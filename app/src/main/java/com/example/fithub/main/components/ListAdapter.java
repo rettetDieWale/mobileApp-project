@@ -23,11 +23,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
   private Fragment fragment;
 
   /**
-   * @param list of strings (training plan names)
-   * @param elementIdList id of each training plan in the list
+   * @param items for the list
    * @param fragment current fragment
    */
-  public ListAdapter(List<Item> items, Fragment fragment) {
+  public ListAdapter(final List<Item> items, final Fragment fragment) {
     this.items = items;
     this.fragment = fragment;
   }
@@ -42,10 +41,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-    position = holder.getAdapterPosition();
+    int finalPosition = holder.getAdapterPosition();
 
     holder.planName.setText(items.get(position).getName());
-    int finalPosition = position;
 
     int entriesCount =
         DatabaseManager.appDatabase
