@@ -24,7 +24,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:id="@+id/exercise_spinner"
@@ -125,10 +125,9 @@
 
             <WebView
                 android:id="@+id/exercise_webview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </WebView>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp" />
 
             <ViewSwitcher
                 android:id="@+id/viewSwitcherVideo"
