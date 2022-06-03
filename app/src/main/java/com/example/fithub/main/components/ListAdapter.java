@@ -41,11 +41,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-    int finalPosition = holder.getAdapterPosition();
+    final int finalPosition = holder.getAdapterPosition();
 
     holder.planName.setText(items.get(position).getName());
 
-    int entriesCount =
+    final int entriesCount =
         DatabaseManager.appDatabase
             .planEntryDao()
             .getCountByPlanId(items.get(finalPosition).getId());
@@ -58,7 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
             view.setBackgroundColor(fragment.getResources().getColor(R.color.primary_light));
 
-            Bundle args = new Bundle();
+            final Bundle args = new Bundle();
             args.putInt("trainingPlanId", items.get(finalPosition).getId());
             args.putInt("actionId", 0);
 

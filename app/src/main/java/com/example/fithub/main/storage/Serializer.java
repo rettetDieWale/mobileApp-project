@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 public class Serializer {
 
   /** gson converter object */
-  Gson gson;
+  private Gson gson;
 
   /**
    * Serialize objects into json and stores them into a file.

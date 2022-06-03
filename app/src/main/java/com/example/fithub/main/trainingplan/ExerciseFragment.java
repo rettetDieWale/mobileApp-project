@@ -99,7 +99,7 @@ public class ExerciseFragment extends Fragment {
   }
 
   /** Make image clickable so url for exercise image can be manually changed. */
-  public void setImageViewSwitcher() {
+  private void setImageViewSwitcher() {
     final ViewSwitcher imageViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherImage);
     final ImageView imageView = (ImageView) view.findViewById(R.id.exercise_image);
     final EditText imageEditText = (EditText) view.findViewById(R.id.editTextInputImage);
@@ -128,11 +128,13 @@ public class ExerciseFragment extends Fragment {
   }
 
   /** make url under video clickable to it can be edited and changed manually. */
-  public void setVideoViewSwitcher() {
+  private void setVideoViewSwitcher() {
     final ViewSwitcher videoViewSwitcher = (ViewSwitcher) view.findViewById(R.id.viewSwitcherVideo);
+
     final WebView videoWebView = (WebView) view.findViewById(R.id.exercise_webview);
     final TextView videoTextView = (TextView) view.findViewById(R.id.videoUrl_textView);
     videoTextView.setText(exerciseData.getVideoUrl());
+
     final EditText videoEditText = (EditText) view.findViewById(R.id.editTextInputVideo);
     final Button submitButtonVideo = (Button) view.findViewById(R.id.submitButtonVideo);
 
@@ -169,8 +171,11 @@ public class ExerciseFragment extends Fragment {
    * @param editTextId id for input field that pops up on click
    * @param submitButtonId id for the button to submit input and switch back to textview
    */
-  public void configureTextViewSwitcher(
-      int viewSwitcherId, int textViewId, int editTextId, int submitButtonId) {
+  private void configureTextViewSwitcher(
+      final int viewSwitcherId,
+      final int textViewId,
+      final int editTextId,
+      final int submitButtonId) {
 
     final ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(viewSwitcherId);
     final TextView textView = (TextView) view.findViewById(textViewId);
@@ -202,7 +207,7 @@ public class ExerciseFragment extends Fragment {
    *
    * @param exerciseData from storage which data should be used
    */
-  public void setExerciseContent(ExerciseData exerciseData) {
+  private void setExerciseContent(final ExerciseData exerciseData) {
 
     loadExerciseImage(exerciseData.getImageUrl());
     loadExerciseVideo(exerciseData.getVideoUrl());
@@ -215,13 +220,13 @@ public class ExerciseFragment extends Fragment {
    * updates the title and instruction for the exercise object of this fragment with instruction and
    * title taken from the textViews
    */
-  public void updateExerciseDataFromTextViews() {
+  private void updateExerciseDataFromTextViews() {
     this.exerciseData.setName(exerciseTitle.getText().toString());
     this.exerciseData.setInstruction(InstructionTextArea.getText().toString());
   }
 
   /** Updates the current exercise in storage. */
-  public void updateExerciseStorage() {
+  private void updateExerciseStorage() {
     if (this.exerciseData.getExerciseDataId() == 1) {
       final ExerciseData copyExerciseData =
           new ExerciseData(
@@ -235,8 +240,9 @@ public class ExerciseFragment extends Fragment {
       DatabaseManager.appDatabase.exerciseDataDao().insert(this.exerciseData);
 
       // updated id needs to be fetched because its auto generated when inserted into storage
-      List<ExerciseData> exerciseDataList = DatabaseManager.appDatabase.exerciseDataDao().getAll();
-      ExerciseData updatedExerciseData = exerciseDataList.get(exerciseDataList.size() - 1);
+      final List<ExerciseData> exerciseDataList =
+          DatabaseManager.appDatabase.exerciseDataDao().getAll();
+      final ExerciseData updatedExerciseData = exerciseDataList.get(exerciseDataList.size() - 1);
       this.exerciseData = updatedExerciseData;
 
     } else {
@@ -245,8 +251,9 @@ public class ExerciseFragment extends Fragment {
   }
 
   /** Update entry id in training plan table so it points to the new/changed data. */
-  public void updateEntryId() {
-    PlanEntry planEntry = DatabaseManager.appDatabase.planEntryDao().getPlanEntryById(entryId);
+  private void updateEntryId() {
+    final PlanEntry planEntry =
+        DatabaseManager.appDatabase.planEntryDao().getPlanEntryById(entryId);
     planEntry.setExerciseDataId(this.exerciseData.getExerciseDataId());
 
     DatabaseManager.appDatabase.planEntryDao().update(planEntry);
@@ -257,7 +264,7 @@ public class ExerciseFragment extends Fragment {
    *
    * @param url to web image (should be https for picasso)
    */
-  public void loadExerciseImage(String url) {
+  private void loadExerciseImage(final String url) {
 
     final ImageView imageView = this.view.findViewById(R.id.exercise_image);
     Picasso.get().load(url).placeholder(R.drawable.klimmzug).into(imageView);
@@ -269,10 +276,11 @@ public class ExerciseFragment extends Fragment {
   }
 
   /** Load an video inside the webview that is located in the exercise fragment from youtube. */
-  public void loadExerciseVideo(String url) {
+  private void loadExerciseVideo(final String url) {
 
-    String frameVideo = parseVideoUrl(url);
-    WebView embeddedVideoView = (WebView) this.view.findViewById(R.id.exercise_webview);
+    final String frameVideo = parseVideoUrl(url);
+    final WebView embeddedVideoView = (WebView) this.view.findViewById(R.id.exercise_webview);
+
     embeddedVideoView.setWebViewClient(
         new WebViewClient() {
           @Override
@@ -280,10 +288,10 @@ public class ExerciseFragment extends Fragment {
             return false;
           }
         });
-    embeddedVideoView.setInitialScale(220);
-    WebSettings webSettings = embeddedVideoView.getSettings();
-    webSettings.setJavaScriptEnabled(true);
 
+    embeddedVideoView.setInitialScale(220);
+    final WebSettings webSettings = embeddedVideoView.getSettings();
+    webSettings.setJavaScriptEnabled(true);
     embeddedVideoView.loadData(frameVideo, "text/html", "utf-8");
   }
 
@@ -293,10 +301,10 @@ public class ExerciseFragment extends Fragment {
    * @param url given from user generally in format like: https://youtu.be/LnhpKTXeIeg
    * @return full iframe url that can be put into a WebView component
    */
-  public String parseVideoUrl(String url) {
-    String[] separatedUrl = url.split("/");
-    String youtubeId = separatedUrl[separatedUrl.length - 1];
-    String fullUrl =
+  private String parseVideoUrl(final String url) {
+    final String[] separatedUrl = url.split("/");
+    final String youtubeId = separatedUrl[separatedUrl.length - 1];
+    final String fullUrl =
         "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/"
             + youtubeId
             + "\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
@@ -304,7 +312,7 @@ public class ExerciseFragment extends Fragment {
   }
 
   /** Deletes the exercise data from storage. */
-  public void deleteExerciseData() {
+  private void deleteExerciseData() {
     try {
       DatabaseManager.appDatabase.exerciseDataDao().delete(this.exerciseData);
       Navigation.findNavController(view).popBackStack();
@@ -318,8 +326,7 @@ public class ExerciseFragment extends Fragment {
     }
   }
 
-  /** Initializes a spinner . */
-  public void initSpinner() {
+  private ArrayList<Item> createItems() {
     // create items and fill them with id and strings
     final List<ExerciseData> exerciseDataList =
         DatabaseManager.appDatabase.exerciseDataDao().getAll();
@@ -330,6 +337,14 @@ public class ExerciseFragment extends Fragment {
       String exerciseName = exerciseDataList.get(i).getName();
       items.add(new Item(exerciseId, exerciseName));
     }
+
+    return items;
+  }
+
+  /** Initializes a spinner . */
+  private void initSpinner() {
+
+    final ArrayList<Item> items = createItems();
 
     // init spinner
     final TemplateSpinner templateSpinner =
