@@ -24,6 +24,16 @@
 
     <style name="small_buttons" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">@drawable/seetrough_button</item>
-        <item name="android:tint">@color/primary_dark</item>
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:tint">@color/icons</item>
     </style>
 </resources>

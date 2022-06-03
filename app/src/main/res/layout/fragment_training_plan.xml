@@ -37,9 +37,9 @@
 
             <Spinner
                 android:id="@+id/spinner_training_plan"
+                style="@style/spinner_style"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
                 android:contentDescription="@string/appbar_title_exercise"
                 android:minHeight="48dp" />
 
