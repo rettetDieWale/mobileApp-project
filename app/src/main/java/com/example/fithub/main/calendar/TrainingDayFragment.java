@@ -24,6 +24,7 @@ public class TrainingDayFragment extends Fragment {
   private FragmentTrainingDayBinding binding;
 
   private View view;
+  private TextView dateTextView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class TrainingDayFragment extends Fragment {
           public void onClick(View view) {
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .insert(new TrainingDay(0, new Date(), 1, 1));
+                .insert(new TrainingDay(0, new Date(dateTextView.getText().toString()), 1, 1));
           }
         });
 
@@ -71,7 +72,7 @@ public class TrainingDayFragment extends Fragment {
     if (bundle != null) {
       date = (String) bundle.getSerializable("date");
     }
-    final TextView tv = (TextView) getView().findViewById(R.id.dateText);
-    tv.setText(date);
+    this.dateTextView = (TextView) getView().findViewById(R.id.dateText);
+    dateTextView.setText(date);
   }
 }
