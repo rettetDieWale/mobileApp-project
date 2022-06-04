@@ -16,7 +16,8 @@ import java.util.Date;
     })
 public class TrainingDay {
 
-  @PrimaryKey private int trainingDayId;
+  @PrimaryKey(autoGenerate = true)
+  private int trainingDayId;
 
   private int trainingPlanId;
 

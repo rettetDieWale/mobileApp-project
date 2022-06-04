@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import com.example.fithub.databinding.FragmentTrainingDayBinding;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingDay;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class TrainingDayFragment extends Fragment {
 
   private View view;
   private TextView dateTextView;
+  private EditText wellBeingView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,8 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
-    // -------------------------------------------------------------
+    this.wellBeingView = this.view.findViewById(R.id.well_being_value);
+
     final FragmentManager fragmentManager = getChildFragmentManager();
     final List<Fragment> fragmentList = fragmentManager.getFragments();
 
@@ -46,14 +51,29 @@ public class TrainingDayFragment extends Fragment {
     b.putInt("actionId", 1);
     fragmentList.get(0).setArguments(b);
 
+    setDate();
+    final Date date = parseDateString(dateTextView.getText().toString());
+    if (date == null) {
+      // TODO::
+    }
+    final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
+
+    DatabaseManager.appDatabase
+        .trainingDayDao()
+        .insert(
+            new TrainingDay(0, parseDateString(dateTextView.getText().toString()), 1, wellBeing));
+
     final Button saveButton = this.view.findViewById(R.id.save_training_day);
     saveButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
+
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .insert(new TrainingDay(0, new Date(dateTextView.getText().toString()), 1, 1));
+                .update(
+                    new TrainingDay(
+                        0, parseDateString(dateTextView.getText().toString()), 1, wellBeing));
           }
         });
 
@@ -61,18 +81,29 @@ public class TrainingDayFragment extends Fragment {
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-    setDate();
 
     super.onViewCreated(view, savedInstanceState);
   }
 
+  private Date parseDateString(final String dateString) {
+    Date date = null;
+    try {
+      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+      date = dateFormat.parse(dateString);
+    } catch (ParseException parseException) {
+
+    }
+
+    return date;
+  }
+
   private void setDate() {
     Bundle bundle = getArguments();
-    String date = null;
+    String dateString = null;
     if (bundle != null) {
-      date = (String) bundle.getSerializable("date");
+      dateString = (String) bundle.getSerializable("date");
     }
-    this.dateTextView = (TextView) getView().findViewById(R.id.dateText);
-    dateTextView.setText(date);
+    this.dateTextView = this.view.findViewById(R.id.dateText);
+    this.dateTextView.setText(dateString);
   }
 }
