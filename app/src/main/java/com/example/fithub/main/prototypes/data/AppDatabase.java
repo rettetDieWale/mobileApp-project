@@ -4,7 +4,6 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.fithub.main.Converters;
 import com.example.fithub.main.prototypes.data.daos.ExerciseDataDao;
 import com.example.fithub.main.prototypes.data.daos.PlanEntryDao;
 import com.example.fithub.main.prototypes.data.daos.TrainingDayDao;

@@ -16,16 +16,13 @@ import java.util.Date;
     })
 public class TrainingDay {
 
-  @PrimaryKey private int trainingDayId;
+  @PrimaryKey private Date date;
 
   private int trainingPlanId;
 
-  private Date date;
-
   private int wellBeing;
 
-  public TrainingDay(int trainingDayId, Date date, int trainingPlanId, int wellBeing) {
-    this.trainingDayId = trainingDayId;
+  public TrainingDay(Date date, int trainingPlanId, int wellBeing) {
     this.date = date;
     this.trainingPlanId = trainingPlanId;
     this.wellBeing = wellBeing;
@@ -53,13 +50,5 @@ public class TrainingDay {
 
   public void setTrainingPlanId(int trainingPlanId) {
     this.trainingPlanId = trainingPlanId;
-  }
-
-  public int getTrainingDayId() {
-    return trainingDayId;
-  }
-
-  public void setTrainingDayId(int trainingDayId) {
-    this.trainingDayId = trainingDayId;
   }
 }
