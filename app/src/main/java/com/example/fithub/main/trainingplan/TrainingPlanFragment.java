@@ -38,6 +38,7 @@ public class TrainingPlanFragment extends Fragment {
   private TrainingPlan currentTrainingPlan;
   private TableLayout tableLayout;
   private int actionId;
+  private TemplateSpinner templateSpinner;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -64,13 +65,20 @@ public class TrainingPlanFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            List<PlanEntry> planEntryList =
-                DatabaseManager.appDatabase.planEntryDao().getPlanEntryListByPlanId(trainingPlanId);
-            for (int i = 0; i < planEntryList.size(); i++) {
-              DatabaseManager.appDatabase.planEntryDao().delete(planEntryList.get(i));
-            }
+
+            final Item item = (Item) templateSpinner.getSpinner().getSelectedItem();
+
+            setCurrentPlanObject(item.getId());
 
             try {
+
+              List<PlanEntry> planEntryList =
+                  DatabaseManager.appDatabase
+                      .planEntryDao()
+                      .getPlanEntryListByPlanId(trainingPlanId);
+              for (int i = 0; i < planEntryList.size(); i++) {
+                DatabaseManager.appDatabase.planEntryDao().delete(planEntryList.get(i));
+              }
 
               DatabaseManager.appDatabase
                   .trainingPlanDao()
@@ -152,7 +160,7 @@ public class TrainingPlanFragment extends Fragment {
 
     final ArrayList<Item> items = createItemList();
 
-    final TemplateSpinner templateSpinner =
+    this.templateSpinner =
         new TemplateSpinner(view, getActivity(), R.id.spinner_training_plan, items);
 
     setItemSelectionListener(templateSpinner);
