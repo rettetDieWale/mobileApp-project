@@ -51,29 +51,24 @@ public class TrainingDayFragment extends Fragment {
     b.putInt("actionId", 1);
     fragmentList.get(0).setArguments(b);
 
-    setDate();
-    final Date date = parseDateString(dateTextView.getText().toString());
-    if (date == null) {
-      // TODO::
-    }
-    final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
-
-    DatabaseManager.appDatabase
-        .trainingDayDao()
-        .insert(
-            new TrainingDay(0, parseDateString(dateTextView.getText().toString()), 1, wellBeing));
-
     final Button saveButton = this.view.findViewById(R.id.save_training_day);
     saveButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
 
+            setDate();
+            final Date date = parseDateString(dateTextView.getText().toString());
+            if (date == null) {
+              // TODO::
+            }
+            final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
+
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .update(
+                .insert(
                     new TrainingDay(
-                        0, parseDateString(dateTextView.getText().toString()), 1, wellBeing));
+                        parseDateString(dateTextView.getText().toString()), 1, wellBeing));
           }
         });
 

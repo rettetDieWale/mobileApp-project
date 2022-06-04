@@ -22,14 +22,11 @@ public interface TrainingDayDao {
   @Delete
   void delete(TrainingDay trainingDay);
 
-  @Update(onConflict = OnConflictStrategy.REPLACE)
+  @Update()
   void update(TrainingDay trainingDay);
 
   @Query("SELECT * FROM TRAINING_DAY")
   List<TrainingPlan> getAll();
-
-  @Query("SELECT * FROM TRAINING_DAY WHERE trainingDayId = :trainingDayId")
-  TrainingDay getById(int trainingDayId);
 
   @Query("SELECT * FROM TRAINING_DAY WHERE date = :date")
   TrainingDay getByDate(Date date);
