@@ -48,6 +48,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!-- text view to display selected items-->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="15dp"
+                android:background="@android:drawable/editbox_background"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:drawablePadding="16dp"
+                android:hint="Muskelgruppe(n) auswählen"
+                android:padding="12dp" />
+
             <Button
                 android:id="@+id/save_training_day"
                 android:layout_width="wrap_content"
