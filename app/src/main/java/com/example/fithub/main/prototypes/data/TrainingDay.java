@@ -7,51 +7,59 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(
-        tableName = "training_day",
-        foreignKeys= {
-        @ForeignKey(
-                entity = TrainingPlan.class,
-                parentColumns = {"trainingPlanId"},
-                childColumns = {"trainingPlanId"})
-})
+    tableName = "training_day",
+    foreignKeys = {
+      @ForeignKey(
+          entity = TrainingPlan.class,
+          parentColumns = {"trainingPlanId"},
+          childColumns = {"trainingPlanId"})
+    })
 public class TrainingDay {
 
-    @PrimaryKey
-    private int trainingDayId;
+  @PrimaryKey private int trainingDayId;
 
-    private int trainingPlanId;
+  private int trainingPlanId;
 
-    private Date date;
+  private Date date;
 
-    public Date getDate() {
-        return date;
-    }
+  private int wellBeing;
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public TrainingDay(int trainingDayId, Date date, int trainingPlanId, int wellBeing) {
+    this.trainingDayId = trainingDayId;
+    this.date = date;
+    this.trainingPlanId = trainingPlanId;
+    this.wellBeing = wellBeing;
+  }
 
-    public void setTrainingDayId(int trainingDayId) {
-        this.trainingDayId = trainingDayId;
-    }
+  public int getWellBeing() {
+    return wellBeing;
+  }
 
-    public int getTrainingPlanId() {
-        return trainingPlanId;
-    }
+  public void setWellBeing(int wellBeing) {
+    this.wellBeing = wellBeing;
+  }
 
+  public Date getDate() {
+    return date;
+  }
 
-    public void setTrainingPlanId(int trainingPlanId) {
-        this.trainingPlanId = trainingPlanId;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    public int getTrainingDayId() {
-        return trainingDayId;
-    }
+  public int getTrainingPlanId() {
+    return trainingPlanId;
+  }
 
-    public TrainingDay(int trainingDayId, Date date, int trainingPlanId) {
-        this.trainingDayId = trainingDayId;
-        this.date = date;
-        this.trainingPlanId = trainingPlanId;
-    }
+  public void setTrainingPlanId(int trainingPlanId) {
+    this.trainingPlanId = trainingPlanId;
+  }
 
+  public int getTrainingDayId() {
+    return trainingDayId;
+  }
+
+  public void setTrainingDayId(int trainingDayId) {
+    this.trainingDayId = trainingDayId;
+  }
 }

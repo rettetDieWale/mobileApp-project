@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,17 +36,26 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
-    // ToDo:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    DatabaseManager.appDatabase.trainingDayDao().insert(new TrainingDay(0, new Date(), 1));
     // -------------------------------------------------------------
-    // FragmentManager fm = getChildFragmentManager();
-    FragmentManager fm = getChildFragmentManager();
-    List<Fragment> fml = fm.getFragments();
-    Fragment f = fm.findFragmentById(R.id.trainingPlanFragment);
-    Bundle b = new Bundle();
+    final FragmentManager fragmentManager = getChildFragmentManager();
+    final List<Fragment> fragmentList = fragmentManager.getFragments();
+
+    final Bundle b = new Bundle();
     b.putInt("trainingPlanId", 1);
     b.putInt("actionId", 1);
-    fml.get(0).setArguments(b);
+    fragmentList.get(0).setArguments(b);
+
+    final Button saveButton = this.view.findViewById(R.id.save_training_day);
+    saveButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            DatabaseManager.appDatabase
+                .trainingDayDao()
+                .insert(new TrainingDay(0, new Date(), 1, 1));
+          }
+        });
+
     return view;
   }
 
@@ -61,7 +71,7 @@ public class TrainingDayFragment extends Fragment {
     if (bundle != null) {
       date = (String) bundle.getSerializable("date");
     }
-    TextView tv = (TextView) getView().findViewById(R.id.dateText);
+    final TextView tv = (TextView) getView().findViewById(R.id.dateText);
     tv.setText(date);
   }
 }

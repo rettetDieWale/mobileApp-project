@@ -1,5 +1,6 @@
 package com.example.fithub.main.trainingplan;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -68,11 +70,21 @@ public class TrainingPlanFragment extends Fragment {
               DatabaseManager.appDatabase.planEntryDao().delete(planEntryList.get(i));
             }
 
-            DatabaseManager.appDatabase
-                .trainingPlanDao()
-                .delete(DatabaseManager.appDatabase.trainingPlanDao().getById(trainingPlanId));
+            try {
 
-            getActivity().onBackPressed();
+              DatabaseManager.appDatabase
+                  .trainingPlanDao()
+                  .delete(DatabaseManager.appDatabase.trainingPlanDao().getById(trainingPlanId));
+
+              getActivity().onBackPressed();
+
+            } catch (SQLiteConstraintException sqLiteConstraintException) {
+              Toast.makeText(
+                      getActivity(),
+                      " Trainingsplan wird noch ein einem Trainingstag verwendet!",
+                      Toast.LENGTH_LONG)
+                  .show();
+            }
           }
         });
 
