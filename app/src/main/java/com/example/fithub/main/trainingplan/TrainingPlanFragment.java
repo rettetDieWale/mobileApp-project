@@ -93,14 +93,14 @@ public class TrainingPlanFragment extends Fragment {
                 Toast.makeText(
                         getActivity(),
                         " Trainingsplan wird noch ein einem Trainingstag verwendet!",
-                        Toast.LENGTH_LONG)
+                        Toast.LENGTH_SHORT)
                     .show();
               }
             } else {
               Toast.makeText(
                       getActivity(),
                       "Standard Templates können nicht gelöscht werden!",
-                      Toast.LENGTH_LONG)
+                      Toast.LENGTH_SHORT)
                   .show();
             }
           }
