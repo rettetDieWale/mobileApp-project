@@ -1,5 +1,6 @@
 package com.example.fithub.main.calendar;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.TrainingDay;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
+import java.util.Date;
+import java.util.List;
 
 public class CalenderOverviewFragment extends Fragment {
 
@@ -23,51 +31,40 @@ public class CalenderOverviewFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
-    initComponents(view);
 
-    // TODO: Code NOCH VERSCHIEBEN
-    // super.onCreate(savedInstanceState);
-    // setContentView(R.layout.newact);
-    CalendarView calendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
-    calendarView.setOnDateChangeListener(
-        new CalendarView.OnDateChangeListener() {
+    CompactCalendarView compactCalendarView = view.findViewById(R.id.compactcalendar_view);
+    compactCalendarView.setUseThreeLetterAbbreviation(true);
 
+    // set events
+    List<TrainingDay> trainingDays = DatabaseManager.appDatabase.trainingDayDao().getAll();
+
+    for (int i = 0; i < trainingDays.size(); i++) {
+      Date trainingDayDate = trainingDays.get(i).getDate();
+
+      Event event = new Event(Color.BLUE, trainingDayDate.getTime(), "training_day");
+      compactCalendarView.addEvent(event, true);
+    }
+
+    compactCalendarView.setListener(
+        new CompactCalendarView.CompactCalendarViewListener() {
           @Override
-          public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+          public void onDayClick(Date dateClicked) {
             Bundle args = new Bundle();
-            month = month + 1;
-            String date = dayOfMonth + "-" + month + "-" + year;
-            args.putSerializable("date", date);
-
+            args.putSerializable("date", dateClicked);
             NavHostFragment.findNavController(CalenderOverviewFragment.this)
                 .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
           }
+
+          @Override
+          public void onMonthScroll(Date firstDayOfNewMonth) {}
         });
 
     return view;
   }
 
-  /**
-   * Initialize components and add them to the fragment so they can be accessed in code.
-   *
-   * @param view the components where added into layout xml
-   */
-  private void initComponents(View view) {
-
-    this.simpleCalendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
-    createOnClickListeners(view);
-  }
-
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
   }
-
-  /**
-   * Creates onClick listeners for buttons and initializes them.
-   *
-   * @param view the buttons where added into layout xml
-   */
-  private void createOnClickListeners(View view) {}
 
   @Override
   public void onDestroyView() {

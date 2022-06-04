@@ -67,29 +67,39 @@ public class TrainingPlanFragment extends Fragment {
           public void onClick(View view) {
 
             final Item item = (Item) templateSpinner.getSpinner().getSelectedItem();
-
             setCurrentPlanObject(item.getId());
 
-            try {
+            if (!(currentTrainingPlan.getTrainingPlanId() == STANDARD_TEMPLATE_ID)) {
+              try {
 
-              List<PlanEntry> planEntryList =
-                  DatabaseManager.appDatabase
-                      .planEntryDao()
-                      .getPlanEntryListByPlanId(trainingPlanId);
-              for (int i = 0; i < planEntryList.size(); i++) {
-                DatabaseManager.appDatabase.planEntryDao().delete(planEntryList.get(i));
+                List<PlanEntry> planEntryList =
+                    DatabaseManager.appDatabase
+                        .planEntryDao()
+                        .getPlanEntryListByPlanId(currentTrainingPlan.getTrainingPlanId());
+                for (int i = 0; i < planEntryList.size(); i++) {
+                  DatabaseManager.appDatabase.planEntryDao().delete(planEntryList.get(i));
+                }
+
+                DatabaseManager.appDatabase
+                    .trainingPlanDao()
+                    .delete(
+                        DatabaseManager.appDatabase
+                            .trainingPlanDao()
+                            .getById(currentTrainingPlan.getTrainingPlanId()));
+
+                getActivity().onBackPressed();
+
+              } catch (SQLiteConstraintException sqLiteConstraintException) {
+                Toast.makeText(
+                        getActivity(),
+                        " Trainingsplan wird noch ein einem Trainingstag verwendet!",
+                        Toast.LENGTH_LONG)
+                    .show();
               }
-
-              DatabaseManager.appDatabase
-                  .trainingPlanDao()
-                  .delete(DatabaseManager.appDatabase.trainingPlanDao().getById(trainingPlanId));
-
-              getActivity().onBackPressed();
-
-            } catch (SQLiteConstraintException sqLiteConstraintException) {
+            } else {
               Toast.makeText(
                       getActivity(),
-                      " Trainingsplan wird noch ein einem Trainingstag verwendet!",
+                      "Standard Templates können nicht gelöscht werden!",
                       Toast.LENGTH_LONG)
                   .show();
             }

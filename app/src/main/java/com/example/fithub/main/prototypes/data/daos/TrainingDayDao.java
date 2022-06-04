@@ -8,7 +8,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.fithub.main.prototypes.data.TrainingDay;
-import com.example.fithub.main.prototypes.data.TrainingPlan;
 
 import java.util.Date;
 import java.util.List;
@@ -26,7 +25,7 @@ public interface TrainingDayDao {
   void update(TrainingDay trainingDay);
 
   @Query("SELECT * FROM TRAINING_DAY")
-  List<TrainingPlan> getAll();
+  List<TrainingDay> getAll();
 
   @Query("SELECT * FROM TRAINING_DAY WHERE date = :date")
   TrainingDay getByDate(Date date);
