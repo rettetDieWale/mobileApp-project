@@ -18,11 +18,8 @@ import com.example.fithub.main.prototypes.data.TrainingDay;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class CalenderOverviewFragment extends Fragment {
 
@@ -35,31 +32,16 @@ public class CalenderOverviewFragment extends Fragment {
 
     final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
 
-    // TODO: Code NOCH VERSCHIEBEN
-
-    TrainingDay trainingDay =
-        DatabaseManager.appDatabase
-            .trainingDayDao()
-            .getByDate(DateConverter.parseStringToDate("03-06-2022"));
-
-    /// TEST CALENDAR TODO:
-
     CompactCalendarView compactCalendarView = view.findViewById(R.id.compactcalendar_view);
     compactCalendarView.setUseThreeLetterAbbreviation(true);
 
-    final SimpleDateFormat simpleDateFormat =
-        new SimpleDateFormat("dd-MM-yyyyy", Locale.getDefault());
-
-    final Date date = DateConverter.parseStringToDate("01-06-2022");
-
-    // set event
-    List<Event> events = new ArrayList<>();
+    // set events
     List<TrainingDay> trainingDays = DatabaseManager.appDatabase.trainingDayDao().getAll();
 
     for (int i = 0; i < trainingDays.size(); i++) {
       Date trainingDayDate = trainingDays.get(i).getDate();
 
-      Event event = new Event(Color.BLUE, trainingDayDate.getTime(), "Description");
+      Event event = new Event(Color.BLUE, trainingDayDate.getTime(), "training_day");
       compactCalendarView.addEvent(event, true);
     }
 

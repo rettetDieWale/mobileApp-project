@@ -42,15 +42,25 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
-    this.wellBeingView = this.view.findViewById(R.id.well_being_value);
-
     final FragmentManager fragmentManager = getChildFragmentManager();
     final List<Fragment> fragmentList = fragmentManager.getFragments();
+    this.wellBeingView = this.view.findViewById(R.id.well_being_value);
 
     setDate();
 
+    final TextView dateTextView = this.view.findViewById(R.id.dateText);
+    final Date date = DateConverter.parseStringToDate(dateTextView.getText().toString());
+
+    // possibility of training day not existing
+    TrainingDay trainingDay = DatabaseManager.appDatabase.trainingDayDao().getByDate(date);
+    if (trainingDay == null) {
+      trainingDay = new TrainingDay(date, 1, 1);
+    }
+
+    this.wellBeingView.setText(String.valueOf(trainingDay.getWellBeing()));
+
     final Bundle b = new Bundle();
-    b.putInt("trainingPlanId", 1);
+    b.putInt("trainingPlanId", trainingDay.getTrainingPlanId());
     b.putInt("actionId", 1);
 
     fragmentList.get(0).setArguments(b);
@@ -62,13 +72,7 @@ public class TrainingDayFragment extends Fragment {
           @Override
           public void onClick(View view) {
 
-            final Date date = DateConverter.parseStringToDate(dateTextView.getText().toString());
-            if (date == null) {
-              // TODO::
-            }
-
             final String dateString = dateTextView.getText().toString();
-
             final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
 
             final Spinner spinner =
@@ -82,7 +86,6 @@ public class TrainingDayFragment extends Fragment {
                     new TrainingDay(DateConverter.parseStringToDate(dateString), id, wellBeing));
           }
         });
-
     return view;
   }
 
@@ -91,6 +94,7 @@ public class TrainingDayFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
+  /** Set the text view date value. */
   private void setDate() {
     Bundle bundle = getArguments();
     Date date = null;
