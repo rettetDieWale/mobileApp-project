@@ -372,4 +372,8 @@ public class TrainingPlanFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
   }
+
+  public TrainingPlan getCurrentTrainingPlan() {
+    return this.currentTrainingPlan;
+  }
 }
