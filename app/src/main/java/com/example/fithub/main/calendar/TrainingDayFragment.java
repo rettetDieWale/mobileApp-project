@@ -98,7 +98,7 @@ public class TrainingDayFragment extends Fragment {
       date = (Date) bundle.getSerializable("date");
     }
     this.dateTextView = this.view.findViewById(R.id.dateText);
-    final String dateString = DateConverter.parseStringToDate(date);
+    final String dateString = DateConverter.parseDateToString(date);
     this.dateTextView.setText(dateString);
   }
 }

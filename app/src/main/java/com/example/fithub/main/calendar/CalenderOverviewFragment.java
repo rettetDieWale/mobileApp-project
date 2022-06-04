@@ -19,7 +19,9 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CalenderOverviewFragment extends Fragment {
@@ -51,8 +53,15 @@ public class CalenderOverviewFragment extends Fragment {
     final Date date = DateConverter.parseStringToDate("01-06-2022");
 
     // set event
-    Event event = new Event(Color.BLUE, date.getTime(), "Description");
-    compactCalendarView.addEvent(event, true);
+    List<Event> events = new ArrayList<>();
+    List<TrainingDay> trainingDays = DatabaseManager.appDatabase.trainingDayDao().getAll();
+
+    for (int i = 0; i < trainingDays.size(); i++) {
+      Date trainingDayDate = trainingDays.get(i).getDate();
+
+      Event event = new Event(Color.BLUE, trainingDayDate.getTime(), "Description");
+      compactCalendarView.addEvent(event, true);
+    }
 
     compactCalendarView.setListener(
         new CompactCalendarView.CompactCalendarViewListener() {

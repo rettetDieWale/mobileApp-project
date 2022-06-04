@@ -25,7 +25,7 @@ public class DateConverter {
     return date;
   }
 
-  public static String parseStringToDate(final Date date) {
+  public static String parseDateToString(final Date date) {
     String stringDate = dateFormat.format(date);
     return stringDate;
   }
