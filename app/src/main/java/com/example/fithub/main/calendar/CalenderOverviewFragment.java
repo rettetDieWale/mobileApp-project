@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fithub.R;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.TrainingDay;
+
+import java.util.Calendar;
 
 public class CalenderOverviewFragment extends Fragment {
 
@@ -26,9 +30,16 @@ public class CalenderOverviewFragment extends Fragment {
     initComponents(view);
 
     // TODO: Code NOCH VERSCHIEBEN
-    // super.onCreate(savedInstanceState);
-    // setContentView(R.layout.newact);
-    CalendarView calendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
+
+    TrainingDay trainingDay =
+        DatabaseManager.appDatabase
+            .trainingDayDao()
+            .getByDate(DateConverter.parseDateString("03-06-2022"));
+
+    final CalendarView calendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
+
+    Calendar calendar = Calendar.getInstance();
+
     calendarView.setOnDateChangeListener(
         new CalendarView.OnDateChangeListener() {
 

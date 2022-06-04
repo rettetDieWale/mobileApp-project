@@ -19,8 +19,6 @@ import com.example.fithub.main.components.Item;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingDay;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class TrainingDayFragment extends Fragment {
           @Override
           public void onClick(View view) {
 
-            final Date date = parseDateString(dateTextView.getText().toString());
+            final Date date = DateConverter.parseDateString(dateTextView.getText().toString());
             if (date == null) {
               // TODO::
             }
@@ -80,7 +78,7 @@ public class TrainingDayFragment extends Fragment {
 
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .insert(new TrainingDay(parseDateString(dateString), id, wellBeing));
+                .insert(new TrainingDay(DateConverter.parseDateString(dateString), id, wellBeing));
           }
         });
 
@@ -90,18 +88,6 @@ public class TrainingDayFragment extends Fragment {
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
     super.onViewCreated(view, savedInstanceState);
-  }
-
-  private Date parseDateString(final String dateString) {
-    Date date = null;
-    try {
-      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-      date = dateFormat.parse(dateString);
-    } catch (ParseException parseException) {
-
-    }
-
-    return date;
   }
 
   private void setDate() {
