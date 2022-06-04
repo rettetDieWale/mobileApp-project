@@ -36,16 +36,16 @@ public class TrainingDayFragment extends Fragment {
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
     // ToDo:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    DatabaseManager.appDatabase.trainingDayDao().insert(new TrainingDay(0, new Date(), 1));
+    DatabaseManager.appDatabase.trainingDayDao().insert(new TrainingDay(0, new Date(), 1, 1));
     // -------------------------------------------------------------
-    // FragmentManager fm = getChildFragmentManager();
-    FragmentManager fm = getChildFragmentManager();
-    List<Fragment> fml = fm.getFragments();
-    Fragment f = fm.findFragmentById(R.id.trainingPlanFragment);
-    Bundle b = new Bundle();
+    final FragmentManager fragmentManager = getChildFragmentManager();
+    final List<Fragment> fragmentList = fragmentManager.getFragments();
+
+    final Bundle b = new Bundle();
     b.putInt("trainingPlanId", 1);
     b.putInt("actionId", 1);
-    fml.get(0).setArguments(b);
+    fragmentList.get(0).setArguments(b);
+
     return view;
   }
 
