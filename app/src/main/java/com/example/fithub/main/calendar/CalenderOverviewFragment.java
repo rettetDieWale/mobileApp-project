@@ -36,7 +36,7 @@ public class CalenderOverviewFragment extends Fragment {
           public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
             Bundle args = new Bundle();
             month = month + 1;
-            String date = dayOfMonth + "/" + month + "/" + year;
+            String date = year + "-" + month + "-" + dayOfMonth;
             args.putSerializable("date", date);
 
             NavHostFragment.findNavController(CalenderOverviewFragment.this)
