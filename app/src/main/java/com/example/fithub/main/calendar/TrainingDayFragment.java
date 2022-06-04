@@ -61,7 +61,7 @@ public class TrainingDayFragment extends Fragment {
     if (bundle != null) {
       date = (String) bundle.getSerializable("date");
     }
-    TextView tv = (TextView) getView().findViewById(R.id.dateText);
+    final TextView tv = (TextView) getView().findViewById(R.id.dateText);
     tv.setText(date);
   }
 }
