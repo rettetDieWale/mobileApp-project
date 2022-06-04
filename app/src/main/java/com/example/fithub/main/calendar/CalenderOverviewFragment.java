@@ -1,5 +1,6 @@
 package com.example.fithub.main.calendar;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.fithub.R;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingDay;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CalenderOverviewFragment extends Fragment {
 
@@ -37,9 +42,6 @@ public class CalenderOverviewFragment extends Fragment {
             .getByDate(DateConverter.parseDateString("03-06-2022"));
 
     final CalendarView calendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
-
-    Calendar calendar = Calendar.getInstance();
-
     calendarView.setOnDateChangeListener(
         new CalendarView.OnDateChangeListener() {
 
@@ -54,6 +56,20 @@ public class CalenderOverviewFragment extends Fragment {
                 .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
           }
         });
+
+    /// TEST CALENDAR TODO:
+
+    CompactCalendarView compactCalendarView = view.findViewById(R.id.compactcalendar_view);
+    compactCalendarView.setUseThreeLetterAbbreviation(true);
+
+    final SimpleDateFormat simpleDateFormat =
+        new SimpleDateFormat("dd-MM-yyyyy", Locale.getDefault());
+
+    final Date date = DateConverter.parseDateString("01-06-2022");
+
+    // set event
+    Event event = new Event(Color.BLUE, date.getTime(), "Description");
+    compactCalendarView.addEvent(event, true);
 
     return view;
   }
