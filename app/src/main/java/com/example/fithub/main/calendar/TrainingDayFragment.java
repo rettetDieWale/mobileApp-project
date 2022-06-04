@@ -62,7 +62,7 @@ public class TrainingDayFragment extends Fragment {
           @Override
           public void onClick(View view) {
 
-            final Date date = DateConverter.parseDateString(dateTextView.getText().toString());
+            final Date date = DateConverter.parseStringToDate(dateTextView.getText().toString());
             if (date == null) {
               // TODO::
             }
@@ -78,7 +78,8 @@ public class TrainingDayFragment extends Fragment {
 
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .insert(new TrainingDay(DateConverter.parseDateString(dateString), id, wellBeing));
+                .insert(
+                    new TrainingDay(DateConverter.parseStringToDate(dateString), id, wellBeing));
           }
         });
 
@@ -92,11 +93,12 @@ public class TrainingDayFragment extends Fragment {
 
   private void setDate() {
     Bundle bundle = getArguments();
-    String dateString = null;
+    Date date = null;
     if (bundle != null) {
-      dateString = (String) bundle.getSerializable("date");
+      date = (Date) bundle.getSerializable("date");
     }
     this.dateTextView = this.view.findViewById(R.id.dateText);
+    final String dateString = DateConverter.parseStringToDate(date);
     this.dateTextView.setText(dateString);
   }
 }

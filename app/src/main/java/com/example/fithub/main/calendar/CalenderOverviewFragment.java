@@ -32,30 +32,13 @@ public class CalenderOverviewFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
-    initComponents(view);
 
     // TODO: Code NOCH VERSCHIEBEN
 
     TrainingDay trainingDay =
         DatabaseManager.appDatabase
             .trainingDayDao()
-            .getByDate(DateConverter.parseDateString("03-06-2022"));
-
-    final CalendarView calendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
-    calendarView.setOnDateChangeListener(
-        new CalendarView.OnDateChangeListener() {
-
-          @Override
-          public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-            Bundle args = new Bundle();
-            month = month + 1;
-            String date = dayOfMonth + "-" + month + "-" + year;
-            args.putSerializable("date", date);
-
-            NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
-          }
-        });
+            .getByDate(DateConverter.parseStringToDate("03-06-2022"));
 
     /// TEST CALENDAR TODO:
 
@@ -65,36 +48,32 @@ public class CalenderOverviewFragment extends Fragment {
     final SimpleDateFormat simpleDateFormat =
         new SimpleDateFormat("dd-MM-yyyyy", Locale.getDefault());
 
-    final Date date = DateConverter.parseDateString("01-06-2022");
+    final Date date = DateConverter.parseStringToDate("01-06-2022");
 
     // set event
     Event event = new Event(Color.BLUE, date.getTime(), "Description");
     compactCalendarView.addEvent(event, true);
 
+    compactCalendarView.setListener(
+        new CompactCalendarView.CompactCalendarViewListener() {
+          @Override
+          public void onDayClick(Date dateClicked) {
+            Bundle args = new Bundle();
+            args.putSerializable("date", dateClicked);
+            NavHostFragment.findNavController(CalenderOverviewFragment.this)
+                .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
+          }
+
+          @Override
+          public void onMonthScroll(Date firstDayOfNewMonth) {}
+        });
+
     return view;
-  }
-
-  /**
-   * Initialize components and add them to the fragment so they can be accessed in code.
-   *
-   * @param view the components where added into layout xml
-   */
-  private void initComponents(View view) {
-
-    this.simpleCalendarView = (CalendarView) view.findViewById(R.id.simpleCalendarView);
-    createOnClickListeners(view);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
   }
-
-  /**
-   * Creates onClick listeners for buttons and initializes them.
-   *
-   * @param view the buttons where added into layout xml
-   */
-  private void createOnClickListeners(View view) {}
 
   @Override
   public void onDestroyView() {

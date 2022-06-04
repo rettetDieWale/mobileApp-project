@@ -6,20 +6,27 @@ import java.util.Date;
 
 public class DateConverter {
 
+  static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
   /**
    * Convert a string into a date object with the format: dd-MM-yyyy
    *
    * @param dateString
    * @return date
    */
-  public static Date parseDateString(final String dateString) {
+  public static Date parseStringToDate(final String dateString) {
     Date date = null;
     try {
-      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
       date = dateFormat.parse(dateString);
     } catch (ParseException parseException) {
 
     }
     return date;
+  }
+
+  public static String parseStringToDate(final Date date) {
+    String stringDate = dateFormat.format(date);
+    return stringDate;
   }
 }
