@@ -35,4 +35,9 @@ public interface TrainingDayDao {
   @Transaction
   @Query("SELECT * FROM training_day")
   public List<TrainingDayWithMuscleGroups> getTrainingDaysWithMuscleGroups();
+
+  @Transaction
+  @Query("SELECT * FROM training_day WHERE date = :trainingDayDate")
+  public List<TrainingDayWithMuscleGroups> getTrainingDaysWithMuscleGroupsByDate(
+      Date trainingDayDate);
 }

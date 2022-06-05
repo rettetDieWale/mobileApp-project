@@ -19,8 +19,10 @@ import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentTrainingDayBinding;
 import com.example.fithub.main.components.Item;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.MuscleGroup;
 import com.example.fithub.main.prototypes.data.TrainingDay;
 import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
+import com.example.fithub.main.prototypes.data.relations.TrainingDayWithMuscleGroups;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +59,33 @@ public class TrainingDayFragment extends Fragment {
     muscleGroupView = view.findViewById(R.id.muscle_group_view);
     selectedMuscleGroups = new boolean[muscleGroupArray.length];
     muscleGroupList = new ArrayList<>();
+
+    // :TODO test
+    // get muscle group data
+
+    Date trainingDayDate = DateConverter.parseStringToDate(dateTextView.getText().toString());
+
+    List<TrainingDayWithMuscleGroups> trainingDayWithMuscleGroups =
+        DatabaseManager.appDatabase
+            .trainingDayDao()
+            .getTrainingDaysWithMuscleGroupsByDate(trainingDayDate);
+
+    if (trainingDayWithMuscleGroups.size() != 0) {
+      List<MuscleGroup> storedMuscleGroupData = trainingDayWithMuscleGroups.get(0).muscleGroupList;
+
+      final StringBuilder stringBuilder = new StringBuilder();
+      for (int i = 0; i < storedMuscleGroupData.size(); i++) {
+        final int muscleGroupId = storedMuscleGroupData.get(i).muscleGroupId;
+        final String muscleGroupName = storedMuscleGroupData.get(i).getMuscleGroupName();
+
+        selectedMuscleGroups[muscleGroupId] = true;
+        muscleGroupList.add(muscleGroupId);
+
+        stringBuilder.append(muscleGroupName);
+        if (i != storedMuscleGroupData.size() - 1) stringBuilder.append(", ");
+      }
+      muscleGroupView.setText(stringBuilder.toString());
+    }
 
     muscleGroupView.setOnClickListener(
         new View.OnClickListener() {
@@ -147,8 +176,6 @@ public class TrainingDayFragment extends Fragment {
             DatabaseManager.appDatabase
                 .trainingDayDao()
                 .insert(new TrainingDay(trainingDayDate, id, wellBeing));
-
-            // muscle grp
 
             for (int i = 0; i < muscleGroupList.size(); i++) {
               DatabaseManager.appDatabase
