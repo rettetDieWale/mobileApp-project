@@ -1,5 +1,7 @@
 package com.example.fithub.main.calendar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,19 +19,28 @@ import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentTrainingDayBinding;
 import com.example.fithub.main.components.Item;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.MuscleGroup;
 import com.example.fithub.main.prototypes.data.TrainingDay;
+import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
+import com.example.fithub.main.prototypes.data.relations.TrainingDayWithMuscleGroups;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class TrainingDayFragment extends Fragment {
 
-  private FragmentTrainingDayBinding binding;
+  boolean[] selectedMuscleGroups;
+  ArrayList<Integer> muscleGroupList;
+  String[] muscleGroupArray = {"Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"};
 
+  private FragmentTrainingDayBinding binding;
   private View view;
   private TextView dateTextView;
   private EditText wellBeingView;
   private Fragment trainingPlanFragment;
+  private TextView muscleGroupView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +53,159 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
+    loadTrainingDayData();
+    addSaveButtonListener();
+
+    muscleGroupView = view.findViewById(R.id.muscle_group_view);
+    selectedMuscleGroups = new boolean[muscleGroupArray.length];
+    muscleGroupList = new ArrayList<>();
+
+    // :TODO test
+    // get muscle group data
+
+    Date trainingDayDate = DateConverter.parseStringToDate(dateTextView.getText().toString());
+
+    List<TrainingDayWithMuscleGroups> trainingDayWithMuscleGroups =
+        DatabaseManager.appDatabase
+            .trainingDayDao()
+            .getTrainingDaysWithMuscleGroupsByDate(trainingDayDate);
+
+    if (trainingDayWithMuscleGroups.size() != 0) {
+      List<MuscleGroup> storedMuscleGroupData = trainingDayWithMuscleGroups.get(0).muscleGroupList;
+
+      final StringBuilder stringBuilder = new StringBuilder();
+      for (int i = 0; i < storedMuscleGroupData.size(); i++) {
+        final int muscleGroupId = storedMuscleGroupData.get(i).muscleGroupId;
+        final String muscleGroupName = storedMuscleGroupData.get(i).getMuscleGroupName();
+
+        selectedMuscleGroups[muscleGroupId] = true;
+        muscleGroupList.add(muscleGroupId);
+
+        stringBuilder.append(muscleGroupName);
+        if (i != storedMuscleGroupData.size() - 1) stringBuilder.append(", ");
+      }
+      muscleGroupView.setText(stringBuilder.toString());
+    }
+
+    muscleGroupView.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Muskelgruppe(n) auswählen");
+            builder.setCancelable(false);
+
+            builder.setMultiChoiceItems(
+                muscleGroupArray,
+                selectedMuscleGroups,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                    if (b) {
+                      muscleGroupList.add(i);
+                      Collections.sort(muscleGroupList);
+                    } else {
+                      muscleGroupList.remove(Integer.valueOf(i));
+                    }
+                  }
+                });
+
+            builder.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int j = 0; j < muscleGroupList.size(); j++) {
+                      stringBuilder.append(muscleGroupArray[muscleGroupList.get(j)]);
+                      if (j != muscleGroupList.size() - 1) stringBuilder.append(", ");
+                    }
+                    muscleGroupView.setText(stringBuilder.toString());
+                  }
+                });
+
+            builder.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                  }
+                });
+
+            builder.setNeutralButton(
+                "Clear all",
+                new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {
+                    for (int j = 0; j < selectedMuscleGroups.length; j++) {
+                      selectedMuscleGroups[j] = false;
+                      muscleGroupList.clear();
+                      muscleGroupView.setText("");
+                    }
+                  }
+                });
+            builder.show();
+          }
+        });
+
+    return view;
+  }
+
+  /**
+   * Adds functionality to the save button so it saves training day data into storage upon being
+   * pressed.
+   */
+  private void addSaveButtonListener() {
+    final Button saveButton = this.view.findViewById(R.id.save_training_day);
+    saveButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+            final String dateString = dateTextView.getText().toString();
+            final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
+
+            final Spinner spinner =
+                trainingPlanFragment.getView().findViewById(R.id.spinner_training_plan);
+            final Item item = (Item) spinner.getSelectedItem();
+            final int id = item.getId();
+
+            Date trainingDayDate = DateConverter.parseStringToDate(dateString);
+
+            DatabaseManager.appDatabase
+                .trainingDayDao()
+                .insert(new TrainingDay(trainingDayDate, id, wellBeing));
+
+            for (int i = 0; i < muscleGroupList.size(); i++) {
+              DatabaseManager.appDatabase
+                  .trainingDayMuscleGroupCrossRefDao()
+                  .insert(
+                      new TrainingDayMuscleGroupCrossRef(trainingDayDate, muscleGroupList.get(i)));
+            }
+          }
+        });
+  }
+
+  /**
+   * initializes the training plan fragment that is included with the proper details.
+   *
+   * @param trainingDay which plan data should be used
+   */
+  private void setupTrainingPlanFragment(TrainingDay trainingDay) {
     final FragmentManager fragmentManager = getChildFragmentManager();
     final List<Fragment> fragmentList = fragmentManager.getFragments();
+
+    final Bundle b = new Bundle();
+    b.putInt("trainingPlanId", trainingDay.getTrainingPlanId());
+    b.putInt("actionId", 1);
+
+    fragmentList.get(0).setArguments(b);
+    this.trainingPlanFragment = fragmentList.get(0);
+  }
+
+  /** Setup components with training day data from storage. */
+  private void loadTrainingDayData() {
     this.wellBeingView = this.view.findViewById(R.id.well_being_value);
 
     setDate();
@@ -59,34 +221,7 @@ public class TrainingDayFragment extends Fragment {
 
     this.wellBeingView.setText(String.valueOf(trainingDay.getWellBeing()));
 
-    final Bundle b = new Bundle();
-    b.putInt("trainingPlanId", trainingDay.getTrainingPlanId());
-    b.putInt("actionId", 1);
-
-    fragmentList.get(0).setArguments(b);
-    this.trainingPlanFragment = fragmentList.get(0);
-
-    final Button saveButton = this.view.findViewById(R.id.save_training_day);
-    saveButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-
-            final String dateString = dateTextView.getText().toString();
-            final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
-
-            final Spinner spinner =
-                trainingPlanFragment.getView().findViewById(R.id.spinner_training_plan);
-            final Item item = (Item) spinner.getSelectedItem();
-            final int id = item.getId();
-
-            DatabaseManager.appDatabase
-                .trainingDayDao()
-                .insert(
-                    new TrainingDay(DateConverter.parseStringToDate(dateString), id, wellBeing));
-          }
-        });
-    return view;
+    setupTrainingPlanFragment(trainingDay);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

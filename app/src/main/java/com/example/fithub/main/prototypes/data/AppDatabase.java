@@ -5,13 +5,22 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.fithub.main.prototypes.data.daos.ExerciseDataDao;
+import com.example.fithub.main.prototypes.data.daos.MuscleGroupDao;
 import com.example.fithub.main.prototypes.data.daos.PlanEntryDao;
 import com.example.fithub.main.prototypes.data.daos.TrainingDayDao;
+import com.example.fithub.main.prototypes.data.daos.TrainingDayMuscleGroupCrossRefDao;
 import com.example.fithub.main.prototypes.data.daos.TrainingPlanDao;
 
 /** Singleton database object for application. */
 @Database(
-    entities = {TrainingPlan.class, PlanEntry.class, ExerciseData.class, TrainingDay.class},
+    entities = {
+      TrainingPlan.class,
+      PlanEntry.class,
+      ExerciseData.class,
+      TrainingDay.class,
+      MuscleGroup.class,
+      TrainingDayMuscleGroupCrossRef.class
+    },
     version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -22,4 +31,8 @@ public abstract class AppDatabase extends RoomDatabase {
   public abstract PlanEntryDao planEntryDao();
 
   public abstract TrainingDayDao trainingDayDao();
+
+  public abstract MuscleGroupDao muscleGroupDao();
+
+  public abstract TrainingDayMuscleGroupCrossRefDao trainingDayMuscleGroupCrossRefDao();
 }

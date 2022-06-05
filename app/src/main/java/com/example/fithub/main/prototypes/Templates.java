@@ -1,6 +1,8 @@
 package com.example.fithub.main.prototypes;
 
+import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.ExerciseData;
+import com.example.fithub.main.prototypes.data.MuscleGroup;
 import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
 
@@ -83,5 +85,13 @@ public class Templates {
     trainingPlanList.add(trainingPlanTemplate2);
 
     return trainingPlanList;
+  }
+
+  public void addMuscleGroups() {
+    String[] muscleGroupArray = {"Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"};
+
+    for (int i = 0; i < muscleGroupArray.length; i++) {
+      DatabaseManager.appDatabase.muscleGroupDao().insert(new MuscleGroup(i, muscleGroupArray[i]));
+    }
   }
 }
