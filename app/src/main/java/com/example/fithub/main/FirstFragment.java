@@ -55,7 +55,7 @@ public class FirstFragment extends Fragment {
         d.set(Calendar.MILLISECOND, 0);
 
         nextTrainingDay = DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(d.getTime());
-        if(nextTrainingDay != null) {
+        if (nextTrainingDay != null) {
             TextView dateText = view.findViewById(R.id.textView10);
             TextView amountEx = view.findViewById(R.id.textView13);
 
@@ -107,19 +107,19 @@ public class FirstFragment extends Fragment {
                     }
                 });
 
-            if(nextTrainingDay!=null) {
-                final ImageButton imageButton = view.findViewById(R.id.imageButton);
-                imageButton.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Bundle args = new Bundle();
-                                args.putSerializable("date", nextTrainingDay.getDate());
-                                NavHostFragment.findNavController(FirstFragment.this)
-                                        .navigate(R.id.action_FirstFragment_to_trainingDayFragment, args);
-                            }
-                        });
-            }
+        if (nextTrainingDay != null) {
+            final ImageButton imageButton = view.findViewById(R.id.imageButton);
+            imageButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle args = new Bundle();
+                            args.putSerializable("date", nextTrainingDay.getDate());
+                            NavHostFragment.findNavController(FirstFragment.this)
+                                    .navigate(R.id.action_FirstFragment_to_trainingDayFragment, args);
+                        }
+                    });
+        }
 
         final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
         analysisButton.setOnClickListener(
