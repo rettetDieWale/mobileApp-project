@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.fithub.R;
 import com.example.fithub.main.prototypes.MuscleGroupChart;
+import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.MuscleGroup;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 import com.github.mikephil.charting.charts.PieChart;
@@ -51,19 +53,37 @@ public class PieChartFragment extends Fragment {
     renderChart(pieEntries);
   }
 
+  /**
+   * Parses the number of training days by muscle groups and add them to the array map data.
+   *
+   * @return muscleData as ArrayMap(muscle group:string, count:string)
+   */
+  private ArrayMap<String, String> parseMuscleGroupData() {
+
+    final List<MuscleGroup> muscleGroupList = DatabaseManager.appDatabase.muscleGroupDao().getAll();
+    final ArrayMap<String, String> muscleData = new ArrayMap<>();
+
+    for (int i = 0; i < muscleGroupList.size(); i++) {
+      final String muscleGroupName = muscleGroupList.get(i).getMuscleGroupName();
+      final int muscleGroupId = muscleGroupList.get(i).getMuscleGroupId();
+      final int count =
+          DatabaseManager.appDatabase
+              .trainingDayMuscleGroupCrossRefDao()
+              .countByMuscleGroupId(muscleGroupId);
+      muscleData.put(muscleGroupName, String.valueOf(count));
+    }
+
+    return muscleData;
+  }
+
   /** Fills the pie chart with initial data. Useful when files are corrupted or not existing. */
   private void resetChart() {
+
     // raw test data for testing purposes only
-    final ArrayMap<String, String> MuscleData = new ArrayMap<>();
-    MuscleData.put("Schultern", "18.5f");
-    MuscleData.put("Brust", "26.7f");
-    MuscleData.put("Rücken", "10.1f");
-    MuscleData.put("Arme", "24.0f");
-    MuscleData.put("Beine", "30.8f");
-    MuscleData.put("Bauch", "11.4f");
+    final ArrayMap<String, String> muscleData = parseMuscleGroupData();
 
     this.muscleGroupChart = new MuscleGroupChart();
-    this.muscleGroupChart.addDataAll(MuscleData);
+    this.muscleGroupChart.addDataAll(muscleData);
   }
 
   /**
@@ -72,7 +92,7 @@ public class PieChartFragment extends Fragment {
    * @param pieEntries that are rendered into the chart.
    */
   private void renderChart(final List<PieEntry> pieEntries) {
-    final PieDataSet set = new PieDataSet(pieEntries, "Muskelgruppen trainiert");
+    final PieDataSet set = new PieDataSet(pieEntries, "Gruppen");
     this.chart.setEntryLabelColor(Color.BLACK);
 
     final int[] Colors = {
