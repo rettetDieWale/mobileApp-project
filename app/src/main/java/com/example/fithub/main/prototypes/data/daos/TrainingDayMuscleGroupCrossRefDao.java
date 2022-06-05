@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
@@ -19,4 +20,8 @@ public interface TrainingDayMuscleGroupCrossRefDao {
 
   @Delete
   public void delete(TrainingDayMuscleGroupCrossRef trainingDayMuscleGroupCrossRef);
+
+  @Query(
+      "SELECT COUNT (muscleGroupId) FROM TrainingDayMuscleGroupCrossRef WHERE muscleGroupId = :muscleGroupId")
+  public int countByMuscleGroupId(int muscleGroupId);
 }
