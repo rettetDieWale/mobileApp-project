@@ -67,5 +67,7 @@ public class DatabaseManager {
     for (int i = 0; i < trainingPlanList.size(); i++) {
       appDatabase.trainingPlanDao().insert(trainingPlanList.get(i));
     }
+
+    templates.addMuscleGroups();
   }
 }
