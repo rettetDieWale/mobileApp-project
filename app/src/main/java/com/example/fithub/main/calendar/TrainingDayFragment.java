@@ -20,6 +20,7 @@ import com.example.fithub.databinding.FragmentTrainingDayBinding;
 import com.example.fithub.main.components.Item;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingDay;
+import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -141,10 +142,20 @@ public class TrainingDayFragment extends Fragment {
             final Item item = (Item) spinner.getSelectedItem();
             final int id = item.getId();
 
+            Date trainingDayDate = DateConverter.parseStringToDate(dateString);
+
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .insert(
-                    new TrainingDay(DateConverter.parseStringToDate(dateString), id, wellBeing));
+                .insert(new TrainingDay(trainingDayDate, id, wellBeing));
+
+            // muscle grp
+
+            for (int i = 0; i < muscleGroupList.size(); i++) {
+              DatabaseManager.appDatabase
+                  .trainingDayMuscleGroupCrossRefDao()
+                  .insert(
+                      new TrainingDayMuscleGroupCrossRef(trainingDayDate, muscleGroupList.get(i)));
+            }
           }
         });
   }
