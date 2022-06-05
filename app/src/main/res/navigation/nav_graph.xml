@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_calenderOverviewFragment"
             app:destination="@id/calenderOverviewFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_trainingDayFragment"
+            app:destination="@id/trainingDayFragment" />
     </fragment>
     <fragment
         android:id="@+id/PieChartFragment"

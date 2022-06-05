@@ -40,4 +40,9 @@ public interface TrainingDayDao {
   @Query("SELECT * FROM training_day WHERE date = :trainingDayDate")
   public List<TrainingDayWithMuscleGroups> getTrainingDaysWithMuscleGroupsByDate(
       Date trainingDayDate);
+
+  @Transaction
+  @Query("SELECT * FROM training_day WHERE date >= :now ORDER BY date ASC LIMIT 1")
+  public TrainingDay getNextTrainingDay(Date now);
+
 }
