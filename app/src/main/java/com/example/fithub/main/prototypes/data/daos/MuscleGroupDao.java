@@ -3,9 +3,12 @@ package com.example.fithub.main.prototypes.data.daos;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.fithub.main.prototypes.data.MuscleGroup;
+
+import java.util.List;
 
 @Dao
 public interface MuscleGroupDao {
@@ -18,4 +21,7 @@ public interface MuscleGroupDao {
 
   @Update
   void update(MuscleGroup muscleGroup);
+
+  @Query("SELECT * FROM musclegroup")
+  List<MuscleGroup> getAll();
 }

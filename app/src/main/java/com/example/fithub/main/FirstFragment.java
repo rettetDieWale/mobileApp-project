@@ -31,6 +31,7 @@ import java.util.List;
 
 public class FirstFragment extends Fragment {
 
+
     private ProgressBar progressBar;
     private TextView levelLabel, progressLabel;
     private ExperienceBar experienceBar;
@@ -189,5 +190,93 @@ public class FirstFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+  private ProgressBar progressBar;
+  private TextView levelLabel, progressLabel;
+  private ExperienceBar experienceBar;
+
+  @Nullable
+  @Override
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+    // TODO: only for test purpose
+    DatabaseManager.initDatabase(getActivity());
+    // DatabaseManager.addTemplates(getActivity());
+
+    final View view = inflater.inflate(R.layout.fragment_first, container, false);
+    initComponents(view);
+    return view;
+  }
+
+  /**
+   * Initialize components and add them to the fragment so they can be accessed in code.
+   *
+   * @param view the components where added into layout xml
+   */
+  private void initComponents(View view) {
+
+    this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
+    this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
+
+    createOnClickListeners(view);
+
+    initExperienceBar();
+  }
+
+  /**
+   * Creates onClick listeners for buttons and initializes them.
+   *
+   * @param view the buttons where added into layout xml
+   */
+  private void createOnClickListeners(View view) {
+
+    // Buttons are not initialized in initComponents() to reduce redundant code
+    final ImageButton calendarButton = view.findViewById(R.id.button_calendar);
+    calendarButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_calenderOverviewFragment);
+          }
+        });
+
+    final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
+    analysisButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+          }
+        });
+
+    final ImageButton trainingPlanButton = view.findViewById(R.id.training_plans_button);
+    trainingPlanButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_trainingPlanOverviewFragment);
+          }
+        });
+  }
+
+  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+  }
+
+  /** initializes the experience bar with saved values. */
+  private void initExperienceBar() {
+    final Serializer serializer = new Serializer();
+    this.experienceBar =
+        (ExperienceBar)
+            serializer.deserialize(
+                getActivity(), ExperienceBar.class, Savefile.EXPERIENCE_BAR_SAVEFILE);
+
+    // if file cant be serialized from a new exp bar needs to be created
+    if (this.experienceBar == null) {
+      resetExperienceBar();
     }
 }
