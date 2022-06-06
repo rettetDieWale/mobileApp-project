@@ -60,6 +60,26 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ViewSwitcher
+                android:id="@+id/viewSwitcherImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp">
+
+                <ImageView
+                    android:id="@+id/exercise_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="31dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <include
+                    layout="@layout/input_link_exercise_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </ViewSwitcher>
+
+            <ViewSwitcher
                 android:id="@+id/viewSwitcherTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +89,12 @@
                     android:id="@+id/exercise_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/loading" />
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="@string/loading"
+                    android:textColor="@color/primary"
+                    android:textSize="40dp" />
 
                 <include
                     android:id="@+id/input_exercise_name"
@@ -98,26 +123,6 @@
 
                 <include
                     layout="@layout/input_text_exercise_instruction"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </ViewSwitcher>
-
-            <ViewSwitcher
-                android:id="@+id/viewSwitcherImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp">
-
-                <ImageView
-                    android:id="@+id/exercise_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="31dp"
-                    tools:src="@tools:sample/avatars" />
-
-                <include
-                    layout="@layout/input_link_exercise_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
