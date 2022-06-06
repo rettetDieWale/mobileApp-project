@@ -37,6 +37,7 @@ public interface TrainingDayMuscleGroupCrossRefDao {
                   "AND date < :now AND date > :limit")
   public int countPastDays(int muscleGroupId, Date now, Date limit);
 
+  @Query(
       "SELECT * FROM TrainingDayMuscleGroupCrossRef WHERE date BETWEEN :lowerDate AND :upperDate")
   public List<TrainingDayMuscleGroupCrossRef> getInterval(Date lowerDate, Date upperDate);
 
