@@ -97,40 +97,40 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/next_date_textview"
         style="@style/icon_style"
-        android:layout_width="55dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/primary"
         android:fontFamily="@font/roboto_bold"
         android:padding="10dp"
+        android:text="/"
         android:textAlignment="center"
         android:textColor="@color/icons"
-        android:textSize="20dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.355" />
+        app:layout_constraintVertical_bias="0.345" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/next_workout_label_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="nächster Trainingstag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.309" />
+        app:layout_constraintVertical_bias="0.281" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/number_exercises_textview"
         android:layout_width="135dp"
         android:layout_height="43dp"
-        android:layout_marginStart="14dp"
         android:layout_marginTop="6dp"
         android:fontFamily="@font/roboto_bold"
         android:padding="5dp"
@@ -140,9 +140,8 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_workout_label_textview"
         app:layout_constraintVertical_bias="0.0" />
 
     <View
@@ -151,7 +150,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="17dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintBottom_toTopOf="@+id/next_workout_label_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -163,7 +162,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/number_exercises_textview"
         app:layout_constraintVertical_bias="0.1" />
 
     <ImageButton
@@ -177,9 +176,9 @@
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
         app:layout_constraintBottom_toBottomOf="@+id/divider11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toEndOf="@+id/number_exercises_textview"
         app:layout_constraintTop_toBottomOf="@+id/divider10"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.145" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

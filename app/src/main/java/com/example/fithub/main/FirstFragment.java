@@ -1,6 +1,8 @@
 package com.example.fithub.main;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,172 +25,184 @@ import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 public class FirstFragment extends Fragment {
 
+  private ProgressBar progressBar;
+  private TextView levelLabel, progressLabel;
+  private ExperienceBar experienceBar;
+  private TrainingDay nextTrainingDay;
 
-    private ProgressBar progressBar;
-    private TextView levelLabel, progressLabel;
-    private ExperienceBar experienceBar;
-    private TrainingDay nextTrainingDay;
+  @Nullable
+  @Override
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    final View view = inflater.inflate(R.layout.fragment_first, container, false);
 
-    @Nullable
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_first, container, false);
-        // TODO: only for test purpose
-        DatabaseManager.initDatabase(getActivity());
-        //DatabaseManager.addTemplates(getActivity());
+    DatabaseManager.initDatabase(getActivity());
 
-        //Nächsten Trainingstag anzeigen
-        // today
-        Calendar d = new GregorianCalendar();
-// reset hour, minutes, seconds and millis
-        d.set(Calendar.HOUR_OF_DAY, 0);
-        d.set(Calendar.MINUTE, 0);
-        d.set(Calendar.SECOND, 0);
-        d.set(Calendar.MILLISECOND, 0);
+    final SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getActivity());
+    if (!preferences.getBoolean("firstTime", false)) {
+      DatabaseManager.addTemplates(getActivity());
 
-        nextTrainingDay = DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(d.getTime());
-        if (nextTrainingDay != null) {
-            TextView dateText = view.findViewById(R.id.textView10);
-            TextView amountEx = view.findViewById(R.id.textView13);
-
-            String date = new SimpleDateFormat("dd.MM.").format(nextTrainingDay.getDate());
-            dateText.setText(date);
-            TrainingPlan trainingPlan = DatabaseManager.appDatabase.trainingPlanDao().getById(nextTrainingDay.getTrainingPlanId());
-            List<PlanEntry> planEntrys = DatabaseManager.appDatabase.planEntryDao().getPlanEntryListByPlanId(trainingPlan.getTrainingPlanId());
-            String s = Integer.toString(planEntrys.size());
-            amountEx.setText(s);
-
-        }
-        initComponents(view);
-
-
-        return view;
+      final SharedPreferences.Editor editor = preferences.edit();
+      editor.putBoolean("firstTime", true);
+      editor.commit();
     }
 
-    /**
-     * Initialize components and add them to the fragment so they can be accessed in code.
-     *
-     * @param view the components where added into layout xml
-     */
-    private void initComponents(View view) {
+    final Calendar calendar = new GregorianCalendar();
 
-        this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
-        this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
+    calendar.set(Calendar.HOUR_OF_DAY, 0);
+    calendar.set(Calendar.MINUTE, 0);
+    calendar.set(Calendar.SECOND, 0);
+    calendar.set(Calendar.MILLISECOND, 0);
 
-        createOnClickListeners(view);
+    nextTrainingDay =
+        DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(calendar.getTime());
 
-        initExperienceBar();
+    if (nextTrainingDay != null) {
+      TextView dateText = view.findViewById(R.id.next_date_textview);
+      TextView amountExercises = view.findViewById(R.id.number_exercises_textview);
+
+      final String date = new SimpleDateFormat("dd MMMM").format(nextTrainingDay.getDate());
+      dateText.setText(date.toString().replace(" ", "\n"));
+
+      final TrainingPlan trainingPlan =
+          DatabaseManager.appDatabase
+              .trainingPlanDao()
+              .getById(nextTrainingDay.getTrainingPlanId());
+
+      final List<PlanEntry> planEntries =
+          DatabaseManager.appDatabase
+              .planEntryDao()
+              .getPlanEntryListByPlanId(trainingPlan.getTrainingPlanId());
+
+      final String exerciseNumber = Integer.toString(planEntries.size());
+      amountExercises.setText(exerciseNumber + " Übungen");
     }
 
-    /**
-     * Creates onClick listeners for buttons and initializes them.
-     *
-     * @param view the buttons where added into layout xml
-     */
-    private void createOnClickListeners(View view) {
+    initComponents(view);
 
-        // Buttons are not initialized in initComponents() to reduce redundant code
-        final ImageButton calendarButton = view.findViewById(R.id.button_calendar);
-        calendarButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        NavHostFragment.findNavController(FirstFragment.this)
-                                .navigate(R.id.action_FirstFragment_to_calenderOverviewFragment);
-                    }
-                });
+    return view;
+  }
 
-        if (nextTrainingDay != null) {
-            final ImageButton imageButton = view.findViewById(R.id.imageButton);
-            imageButton.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle args = new Bundle();
-                            args.putSerializable("date", nextTrainingDay.getDate());
-                            NavHostFragment.findNavController(FirstFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_trainingDayFragment, args);
-                        }
-                    });
-        }
+  /**
+   * Initialize components and add them to the fragment so they can be accessed in code.
+   *
+   * @param view the components where added into layout xml
+   */
+  private void initComponents(View view) {
 
-        final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
-        analysisButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        NavHostFragment.findNavController(FirstFragment.this)
-                                .navigate(R.id.action_FirstFragment_to_PieChartFragment);
-                    }
-                });
+    this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
+    this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
 
-        final ImageButton trainingPlanButton = view.findViewById(R.id.training_plans_button);
-        trainingPlanButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        NavHostFragment.findNavController(FirstFragment.this)
-                                .navigate(R.id.action_FirstFragment_to_trainingPlanOverviewFragment);
-                    }
-                });
+    createOnClickListeners(view);
+
+    initExperienceBar();
+  }
+
+  /**
+   * Creates onClick listeners for buttons and initializes them.
+   *
+   * @param view the buttons where added into layout xml
+   */
+  private void createOnClickListeners(View view) {
+
+    // Buttons are not initialized in initComponents() to reduce redundant code
+    final ImageButton calendarButton = view.findViewById(R.id.button_calendar);
+    calendarButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_calenderOverviewFragment);
+          }
+        });
+
+    if (nextTrainingDay != null) {
+      final ImageButton imageButton = view.findViewById(R.id.imageButton);
+      imageButton.setOnClickListener(
+          new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Bundle args = new Bundle();
+              args.putSerializable("date", nextTrainingDay.getDate());
+              NavHostFragment.findNavController(FirstFragment.this)
+                  .navigate(R.id.action_FirstFragment_to_trainingDayFragment, args);
+            }
+          });
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
+    analysisButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+          }
+        });
+
+    final ImageButton trainingPlanButton = view.findViewById(R.id.training_plans_button);
+    trainingPlanButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            NavHostFragment.findNavController(FirstFragment.this)
+                .navigate(R.id.action_FirstFragment_to_trainingPlanOverviewFragment);
+          }
+        });
+  }
+
+  public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+  }
+
+  /** initializes the experience bar with saved values. */
+  private void initExperienceBar() {
+    final Serializer serializer = new Serializer();
+    this.experienceBar =
+        (ExperienceBar)
+            serializer.deserialize(
+                getActivity(), ExperienceBar.class, Savefile.EXPERIENCE_BAR_SAVEFILE);
+
+    // if file cant be serialized from a new exp bar needs to be created
+    if (this.experienceBar == null) {
+      resetExperienceBar();
     }
+    updateExperienceBar();
+  }
 
-    /**
-     * initializes the experience bar with saved values.
-     */
-    private void initExperienceBar() {
-        final Serializer serializer = new Serializer();
-        this.experienceBar =
-                (ExperienceBar)
-                        serializer.deserialize(
-                                getActivity(), ExperienceBar.class, Savefile.EXPERIENCE_BAR_SAVEFILE);
+  /**
+   * reset experience bar values. Useful when app is started the first time or save files have been
+   * deleted or corrupted.
+   */
+  private void resetExperienceBar() {
+    this.experienceBar = new ExperienceBar(100, 0, 0);
+  }
 
-        // if file cant be serialized from a new exp bar needs to be created
-        if (this.experienceBar == null) {
-            resetExperienceBar();
-        }
-        updateExperienceBar();
-    }
+  /**
+   * Updates the experience bar graphic component. Should be called after values have been changed.
+   */
+  private void updateExperienceBar() {
+    this.progressBar.setMax(this.experienceBar.getMax());
+    this.progressBar.setProgress(this.experienceBar.getProgress());
 
-    /**
-     * reset experience bar values. Useful when app is started the first time or save files have been
-     * deleted or corrupted.
-     */
-    private void resetExperienceBar() {
-        this.experienceBar = new ExperienceBar(100, 0, 0);
-    }
+    this.levelLabel.setText("Level " + this.experienceBar.getLevel());
+    this.progressLabel.setText(
+        this.experienceBar.getProgress() + "/" + this.experienceBar.getMAX_EXPERIENCE());
 
-    /**
-     * Updates the experience bar graphic component. Should be called after values have been changed.
-     */
-    private void updateExperienceBar() {
-        this.progressBar.setMax(this.experienceBar.getMax());
-        this.progressBar.setProgress(this.experienceBar.getProgress());
+    Serializer serializer = new Serializer();
+    serializer.serialize(getActivity(), this.experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
+  }
 
-        this.levelLabel.setText("Level " + this.experienceBar.getLevel());
-        this.progressLabel.setText(
-                this.experienceBar.getProgress() + "/" + this.experienceBar.getMAX_EXPERIENCE());
-
-        Serializer serializer = new Serializer();
-        serializer.serialize(getActivity(), this.experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+  }
 }
