@@ -23,5 +23,8 @@ public interface MuscleGroupDao {
   void update(MuscleGroup muscleGroup);
 
   @Query("SELECT * FROM musclegroup")
-  List<MuscleGroup> getAll();
+  public List<MuscleGroup> getAll();
+
+  @Query("SELECT * FROM musclegroup WHERE muscleGroupId = :id")
+  public MuscleGroup getById(int id);
 }
