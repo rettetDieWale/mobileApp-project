@@ -162,6 +162,7 @@ public class TrainingDayFragment extends Fragment {
             public void onClick(View view) {
               grayOutImageButton(archiveButton);
               isArchived = true;
+              saveTrainingDayData();
               Toast.makeText(getActivity(), "Trainingstag Archiviert!", Toast.LENGTH_SHORT).show();
             }
           });
@@ -185,31 +186,33 @@ public class TrainingDayFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-
-            final String dateString = dateTextView.getText().toString();
-            final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
-
-            final Spinner spinner =
-                trainingPlanFragment.getView().findViewById(R.id.spinner_training_plan);
-            final Item item = (Item) spinner.getSelectedItem();
-            final int id = item.getId();
-
-            Date trainingDayDate = DateConverter.parseStringToDate(dateString);
-
-            DatabaseManager.appDatabase
-                .trainingDayDao()
-                .insert(new TrainingDay(trainingDayDate, id, wellBeing, isArchived));
-
-            for (int i = 0; i < muscleGroupList.size(); i++) {
-              DatabaseManager.appDatabase
-                  .trainingDayMuscleGroupCrossRefDao()
-                  .insert(
-                      new TrainingDayMuscleGroupCrossRef(trainingDayDate, muscleGroupList.get(i)));
-            }
-
-            revertGrayOutForDeleteButton(trainingDayDate);
+            saveTrainingDayData();
           }
         });
+  }
+
+  /** Save training day data into storage. */
+  private void saveTrainingDayData() {
+    final String dateString = dateTextView.getText().toString();
+    final int wellBeing = Integer.parseInt(wellBeingView.getText().toString());
+
+    final Spinner spinner = trainingPlanFragment.getView().findViewById(R.id.spinner_training_plan);
+    final Item item = (Item) spinner.getSelectedItem();
+    final int id = item.getId();
+
+    Date trainingDayDate = DateConverter.parseStringToDate(dateString);
+
+    DatabaseManager.appDatabase
+        .trainingDayDao()
+        .insert(new TrainingDay(trainingDayDate, id, wellBeing, isArchived));
+
+    for (int i = 0; i < muscleGroupList.size(); i++) {
+      DatabaseManager.appDatabase
+          .trainingDayMuscleGroupCrossRefDao()
+          .insert(new TrainingDayMuscleGroupCrossRef(trainingDayDate, muscleGroupList.get(i)));
+    }
+
+    revertGrayOutForDeleteButton(trainingDayDate);
   }
 
   /**
