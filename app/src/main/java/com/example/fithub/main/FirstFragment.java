@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,11 +44,13 @@ public class FirstFragment extends Fragment {
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
 
     DatabaseManager.initDatabase(getActivity());
+    // DatabaseManager.addTemplates(getActivity());
 
     final SharedPreferences preferences =
         PreferenceManager.getDefaultSharedPreferences(getActivity());
     if (!preferences.getBoolean("firstTime", false)) {
       DatabaseManager.addTemplates(getActivity());
+      Toast.makeText(getActivity(), " Wilkommen bei Fithub!", Toast.LENGTH_SHORT).show();
 
       final SharedPreferences.Editor editor = preferences.edit();
       editor.putBoolean("firstTime", true);

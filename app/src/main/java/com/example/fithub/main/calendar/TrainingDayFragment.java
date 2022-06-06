@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -41,6 +43,7 @@ public class TrainingDayFragment extends Fragment {
   private EditText wellBeingView;
   private Fragment trainingPlanFragment;
   private TextView muscleGroupView;
+  private boolean isArchived = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -59,9 +62,6 @@ public class TrainingDayFragment extends Fragment {
     muscleGroupView = view.findViewById(R.id.muscle_group_view);
     selectedMuscleGroups = new boolean[muscleGroupArray.length];
     muscleGroupList = new ArrayList<>();
-
-    // :TODO test
-    // get muscle group data
 
     Date trainingDayDate = DateConverter.parseStringToDate(dateTextView.getText().toString());
 
@@ -149,7 +149,27 @@ public class TrainingDayFragment extends Fragment {
           }
         });
 
+    final ImageButton archiveButton = view.findViewById(R.id.archive_button);
+    if (isArchived) {
+      grayOutImageButton(archiveButton);
+    } else {
+      archiveButton.setOnClickListener(
+          new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              grayOutImageButton(archiveButton);
+              isArchived = true;
+              Toast.makeText(getActivity(), "Trainingstag Archiviert!", Toast.LENGTH_SHORT).show();
+            }
+          });
+    }
+
     return view;
+  }
+
+  private void grayOutImageButton(ImageButton imageButton) {
+    imageButton.setAlpha(.5f);
+    imageButton.setClickable(false);
   }
 
   /**
@@ -175,7 +195,7 @@ public class TrainingDayFragment extends Fragment {
 
             DatabaseManager.appDatabase
                 .trainingDayDao()
-                .insert(new TrainingDay(trainingDayDate, id, wellBeing));
+                .insert(new TrainingDay(trainingDayDate, id, wellBeing, isArchived));
 
             for (int i = 0; i < muscleGroupList.size(); i++) {
               DatabaseManager.appDatabase
@@ -216,10 +236,11 @@ public class TrainingDayFragment extends Fragment {
     // possibility of training day not existing
     TrainingDay trainingDay = DatabaseManager.appDatabase.trainingDayDao().getByDate(date);
     if (trainingDay == null) {
-      trainingDay = new TrainingDay(date, 1, 1);
+      trainingDay = new TrainingDay(date, 1, 1, isArchived);
     }
 
     this.wellBeingView.setText(String.valueOf(trainingDay.getWellBeing()));
+    this.isArchived = trainingDay.isArchived();
 
     setupTrainingPlanFragment(trainingDay);
   }
