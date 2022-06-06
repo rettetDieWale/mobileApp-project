@@ -44,6 +44,7 @@ public class TrainingDayFragment extends Fragment {
   private Fragment trainingPlanFragment;
   private TextView muscleGroupView;
   private boolean isArchived = false;
+  private ImageButton deleteTrainingDayButton;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
+    deleteTrainingDayButton = this.view.findViewById(R.id.delete_training_day);
+
     loadTrainingDayData();
     addSaveButtonListener();
 
@@ -63,9 +66,9 @@ public class TrainingDayFragment extends Fragment {
     selectedMuscleGroups = new boolean[muscleGroupArray.length];
     muscleGroupList = new ArrayList<>();
 
-    Date trainingDayDate = DateConverter.parseStringToDate(dateTextView.getText().toString());
+    final Date trainingDayDate = DateConverter.parseStringToDate(dateTextView.getText().toString());
 
-    List<TrainingDayWithMuscleGroups> trainingDayWithMuscleGroups =
+    final List<TrainingDayWithMuscleGroups> trainingDayWithMuscleGroups =
         DatabaseManager.appDatabase
             .trainingDayDao()
             .getTrainingDaysWithMuscleGroupsByDate(trainingDayDate);
@@ -203,6 +206,8 @@ public class TrainingDayFragment extends Fragment {
                   .insert(
                       new TrainingDayMuscleGroupCrossRef(trainingDayDate, muscleGroupList.get(i)));
             }
+
+            revertGrayOutForDeleteButton(trainingDayDate);
           }
         });
   }
@@ -233,16 +238,36 @@ public class TrainingDayFragment extends Fragment {
     final TextView dateTextView = this.view.findViewById(R.id.dateText);
     final Date date = DateConverter.parseStringToDate(dateTextView.getText().toString());
 
+    final ImageButton deleteButton = this.view.findViewById(R.id.delete_training_day);
+
     // possibility of training day not existing
     TrainingDay trainingDay = DatabaseManager.appDatabase.trainingDayDao().getByDate(date);
     if (trainingDay == null) {
       trainingDay = new TrainingDay(date, 1, 1, isArchived);
+      grayOutImageButton(deleteButton);
+    } else {
+      final TrainingDay finalTrainingDay = trainingDay;
+      revertGrayOutForDeleteButton(date);
     }
 
     this.wellBeingView.setText(String.valueOf(trainingDay.getWellBeing()));
     this.isArchived = trainingDay.isArchived();
 
     setupTrainingPlanFragment(trainingDay);
+  }
+
+  private void revertGrayOutForDeleteButton(Date trainingDayDate) {
+
+    deleteTrainingDayButton.setAlpha(1f);
+    deleteTrainingDayButton.setClickable(true);
+    deleteTrainingDayButton.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            DatabaseManager.appDatabase.trainingDayDao().deleteById(trainingDayDate);
+            getActivity().onBackPressed();
+          }
+        });
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

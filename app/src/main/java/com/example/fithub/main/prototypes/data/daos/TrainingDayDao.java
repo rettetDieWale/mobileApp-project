@@ -32,6 +32,9 @@ public interface TrainingDayDao {
   @Query("SELECT * FROM TRAINING_DAY WHERE date = :date")
   TrainingDay getByDate(Date date);
 
+  @Query("DELETE FROM TRAINING_DAY WHERE date = :date")
+  void deleteById(Date date);
+
   @Transaction
   @Query("SELECT * FROM training_day")
   public List<TrainingDayWithMuscleGroups> getTrainingDaysWithMuscleGroups();
@@ -44,5 +47,4 @@ public interface TrainingDayDao {
   @Transaction
   @Query("SELECT * FROM training_day WHERE date >= :now ORDER BY date ASC LIMIT 1")
   public TrainingDay getNextTrainingDay(Date now);
-
 }

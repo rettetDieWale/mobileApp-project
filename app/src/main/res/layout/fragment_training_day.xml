@@ -28,6 +28,13 @@
                 android:layout_marginLeft="330dp"
                 android:text="Befinden:" />
 
+            <ImageButton
+                android:id="@+id/delete_training_day"
+                style="@style/icon_style"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@android:drawable/ic_menu_delete" />
+
             <EditText
                 android:id="@+id/well_being_value"
                 android:layout_width="wrap_content"
