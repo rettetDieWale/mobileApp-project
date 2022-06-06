@@ -195,12 +195,27 @@ public class Templates {
     final List<ExerciseData> exerciseDataList = createExerciseDataTemplates();
 
     planEntryList.add(
-        new PlanEntry(1, "0kg", "0x0", exerciseDataList.get(1).getExerciseDataId(), 1));
+        new PlanEntry(0, "20kg", "3x5", exerciseDataList.get(3).getExerciseDataId(), 1));
     planEntryList.add(
-        new PlanEntry(2, "5kg", "3x12", exerciseDataList.get(1).getExerciseDataId(), 1));
+        new PlanEntry(0, "5kg", "3x12", exerciseDataList.get(1).getExerciseDataId(), 1));
     planEntryList.add(
-        new PlanEntry(3, "5kg", "3x15", exerciseDataList.get(2).getExerciseDataId(), 1));
+        new PlanEntry(0, "5kg", "3x15", exerciseDataList.get(2).getExerciseDataId(), 1));
 
+    planEntryList.add(new PlanEntry(0, "2.5kg", "3x15", 3, 2));
+    planEntryList.add(new PlanEntry(0, "5kg", "3x15", 7, 2));
+    planEntryList.add(new PlanEntry(0, "5kg", "3x15", 8, 2));
+    planEntryList.add(new PlanEntry(0, "2.5kg", "3x15", 9, 2));
+    planEntryList.add(new PlanEntry(0, "5kg", "3x15", 10, 2));
+    planEntryList.add(new PlanEntry(0, "2.5kg", "3x15", 5, 2));
+
+    planEntryList.add(new PlanEntry(0, "Körpergewicht", "3x15", 2, 3));
+    planEntryList.add(new PlanEntry(0, "25kg", "5x10", 3, 3));
+    planEntryList.add(new PlanEntry(0, "20kg", "3x15", 4, 3));
+    planEntryList.add(new PlanEntry(0, "30kg", "5x10", 5, 3));
+    planEntryList.add(new PlanEntry(0, "20kg", "5x10", 6, 3));
+    planEntryList.add(new PlanEntry(0, "20kg", "5x10", 7, 3));
+    planEntryList.add(new PlanEntry(0, "10kg", "3x15", 8, 3));
+    planEntryList.add(new PlanEntry(0, "60kg", "3x12", 10, 3));
     return planEntryList;
   }
 
@@ -215,8 +230,11 @@ public class Templates {
     TrainingPlan trainingPlanTemplate1 = new TrainingPlan(1, "Trainingsplan 1");
     trainingPlanList.add(trainingPlanTemplate1);
 
-    TrainingPlan trainingPlanTemplate2 = new TrainingPlan(2, "Trainingsplan 2");
+    TrainingPlan trainingPlanTemplate2 = new TrainingPlan(2, "Muskelaufbau Anfänger");
     trainingPlanList.add(trainingPlanTemplate2);
+
+    TrainingPlan trainingPlanTemplate3 = new TrainingPlan(3, "Muskelaufbau Fortgeschrittene");
+    trainingPlanList.add(trainingPlanTemplate3);
 
     return trainingPlanList;
   }
