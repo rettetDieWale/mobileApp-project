@@ -1,6 +1,8 @@
 package com.example.fithub.main;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +41,18 @@ public class FirstFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
-    // TODO: only for test purpose
+
     DatabaseManager.initDatabase(getActivity());
-    // DatabaseManager.addTemplates(getActivity());
+
+    final SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getActivity());
+    if (!preferences.getBoolean("firstTime", false)) {
+      DatabaseManager.addTemplates(getActivity());
+
+      final SharedPreferences.Editor editor = preferences.edit();
+      editor.putBoolean("firstTime", true);
+      editor.commit();
+    }
 
     final Calendar calendar = new GregorianCalendar();
 
