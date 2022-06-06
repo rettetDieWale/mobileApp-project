@@ -22,10 +22,21 @@ public class TrainingDay {
 
   private int wellBeing;
 
-  public TrainingDay(Date date, int trainingPlanId, int wellBeing) {
+  private boolean isArchived;
+
+  public TrainingDay(Date date, int trainingPlanId, int wellBeing, boolean isArchived) {
     this.date = date;
     this.trainingPlanId = trainingPlanId;
     this.wellBeing = wellBeing;
+    this.isArchived = isArchived;
+  }
+
+  public boolean isArchived() {
+    return isArchived;
+  }
+
+  public void setArchived(boolean archived) {
+    isArchived = archived;
   }
 
   public int getWellBeing() {

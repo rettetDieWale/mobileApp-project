@@ -321,7 +321,7 @@ public class ExerciseFragment extends Fragment {
       Toast.makeText(
               getActivity(),
               " Übungsdaten werden noch in einem Trainingsplan benötigt!",
-              Toast.LENGTH_LONG)
+              Toast.LENGTH_SHORT)
           .show();
     }
   }

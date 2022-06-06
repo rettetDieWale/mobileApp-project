@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,11 +44,13 @@ public class FirstFragment extends Fragment {
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
 
     DatabaseManager.initDatabase(getActivity());
+    // DatabaseManager.addTemplates(getActivity());
 
     final SharedPreferences preferences =
         PreferenceManager.getDefaultSharedPreferences(getActivity());
     if (!preferences.getBoolean("firstTime", false)) {
       DatabaseManager.addTemplates(getActivity());
+      Toast.makeText(getActivity(), " Wilkommen bei Fithub!", Toast.LENGTH_SHORT).show();
 
       final SharedPreferences.Editor editor = preferences.edit();
       editor.putBoolean("firstTime", true);
@@ -102,7 +105,6 @@ public class FirstFragment extends Fragment {
     this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
 
     createOnClickListeners(view);
-
     initExperienceBar();
   }
 
@@ -191,11 +193,18 @@ public class FirstFragment extends Fragment {
    */
   private void updateExperienceBar() {
     this.progressBar.setMax(this.experienceBar.getMax());
-    this.progressBar.setProgress(this.experienceBar.getProgress());
 
     this.levelLabel.setText("Level " + this.experienceBar.getLevel());
     this.progressLabel.setText(
         this.experienceBar.getProgress() + "/" + this.experienceBar.getMAX_EXPERIENCE());
+
+    this.progressBar.post(
+        new Runnable() {
+          @Override
+          public void run() {
+            progressBar.setProgress(experienceBar.getProgress());
+          }
+        });
 
     Serializer serializer = new Serializer();
     serializer.serialize(getActivity(), this.experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);

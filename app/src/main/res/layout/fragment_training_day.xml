@@ -28,6 +28,13 @@
                 android:layout_marginLeft="330dp"
                 android:text="Befinden:" />
 
+            <ImageButton
+                android:id="@+id/delete_training_day"
+                style="@style/icon_style"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@android:drawable/ic_menu_delete" />
+
             <EditText
                 android:id="@+id/well_being_value"
                 android:layout_width="wrap_content"
@@ -68,6 +75,14 @@
                 android:layout_marginStart="128dp"
                 android:layout_marginTop="20dp"
                 android:text="Tag speichern" />
+
+            <ImageButton
+                android:id="@+id/archive_button"
+                style="@style/icon_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_baseline_archive_24" />
 
         </LinearLayout>
     </ScrollView>
