@@ -267,7 +267,7 @@ public class ExerciseFragment extends Fragment {
   private void loadExerciseImage(final String url) {
 
     final ImageView imageView = this.view.findViewById(R.id.exercise_image);
-    Picasso.get().load(url).placeholder(R.drawable.klimmzug).into(imageView);
+    Picasso.get().load(url).placeholder(R.drawable.placeholder).into(imageView);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

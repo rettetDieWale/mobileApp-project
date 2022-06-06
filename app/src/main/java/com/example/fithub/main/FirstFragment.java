@@ -43,7 +43,6 @@ public class FirstFragment extends Fragment {
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
 
     DatabaseManager.initDatabase(getActivity());
-    DatabaseManager.addTemplates(getActivity());
 
     final SharedPreferences preferences =
         PreferenceManager.getDefaultSharedPreferences(getActivity());
