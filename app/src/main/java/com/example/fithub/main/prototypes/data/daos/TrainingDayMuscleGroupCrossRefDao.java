@@ -10,6 +10,8 @@ import androidx.room.Update;
 import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
 
 import java.util.Date;
+import java.util.List;
+
 
 @Dao
 public interface TrainingDayMuscleGroupCrossRefDao {
@@ -23,6 +25,9 @@ public interface TrainingDayMuscleGroupCrossRefDao {
   @Delete
   public void delete(TrainingDayMuscleGroupCrossRef trainingDayMuscleGroupCrossRef);
 
+  @Query("SELECT * from TrainingDayMuscleGroupCrossRef WHERE date = :date")
+  public List<TrainingDayMuscleGroupCrossRef> getByDate(Date date);
+
   @Query(
       "SELECT COUNT (muscleGroupId) FROM TrainingDayMuscleGroupCrossRef WHERE muscleGroupId = :muscleGroupId")
   public int countByMuscleGroupId(int muscleGroupId);
@@ -31,4 +36,11 @@ public interface TrainingDayMuscleGroupCrossRefDao {
           "SELECT COUNT (muscleGroupId) FROM TrainingDayMuscleGroupCrossRef WHERE muscleGroupId = :muscleGroupId " +
                   "AND date < :now AND date > :limit")
   public int countPastDays(int muscleGroupId, Date now, Date limit);
+
+      "SELECT * FROM TrainingDayMuscleGroupCrossRef WHERE date BETWEEN :lowerDate AND :upperDate")
+  public List<TrainingDayMuscleGroupCrossRef> getInterval(Date lowerDate, Date upperDate);
+
+  @Query("DELETE FROM TrainingDayMuscleGroupCrossRef WHERE date = :date")
+  public void deleteAllByDate(Date date);
+
 }
