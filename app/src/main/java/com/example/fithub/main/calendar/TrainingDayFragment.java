@@ -292,6 +292,9 @@ public class TrainingDayFragment extends Fragment {
           @Override
           public void onClick(View view) {
             DatabaseManager.appDatabase.trainingDayDao().deleteById(trainingDayDate);
+            DatabaseManager.appDatabase
+                .trainingDayMuscleGroupCrossRefDao()
+                .deleteAllByDate(trainingDayDate);
             changeExperience(false);
             getActivity().onBackPressed();
           }

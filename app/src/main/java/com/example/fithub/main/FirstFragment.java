@@ -19,16 +19,21 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.fithub.R;
 import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
+import com.example.fithub.main.prototypes.data.MuscleGroup;
 import com.example.fithub.main.prototypes.data.PlanEntry;
 import com.example.fithub.main.prototypes.data.TrainingDay;
+import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
 import com.example.fithub.main.storage.Savefile;
 import com.example.fithub.main.storage.Serializer;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FirstFragment extends Fragment {
 
@@ -86,6 +91,8 @@ public class FirstFragment extends Fragment {
 
       final String exerciseNumber = Integer.toString(planEntries.size());
       amountExercises.setText(exerciseNumber + " Übungen");
+
+      checkForMuscleRepetition(nextTrainingDay);
     }
 
     initComponents(view);
@@ -106,6 +113,70 @@ public class FirstFragment extends Fragment {
 
     createOnClickListeners(view);
     initExperienceBar();
+  }
+
+  /**
+   * Check if the next training day muscle groups are conflicting with the workouts in the last 48h
+   *
+   * @param nextTrainingDay to be checked
+   */
+  private void checkForMuscleRepetition(TrainingDay nextTrainingDay) {
+    final List<TrainingDayMuscleGroupCrossRef> nextTrainingDayMuscleGroups =
+        DatabaseManager.appDatabase
+            .trainingDayMuscleGroupCrossRefDao()
+            .getByDate(nextTrainingDay.getDate());
+
+    if (nextTrainingDay == null) return;
+
+    final int MUSCLE_SORENESS_DURATION = 2;
+
+    final Date nextTrainingDate = nextTrainingDay.getDate();
+    final Calendar calendar = Calendar.getInstance();
+
+    calendar.setTime(nextTrainingDate);
+    calendar.add(Calendar.DATE, -MUSCLE_SORENESS_DURATION);
+    Date lowerDateInterval = calendar.getTime();
+
+    calendar.add(Calendar.DATE, 1);
+    Date upperDateInterval = calendar.getTime();
+
+    final List<TrainingDayMuscleGroupCrossRef> lastTrainingDaysMuscleGroups =
+        DatabaseManager.appDatabase
+            .trainingDayMuscleGroupCrossRefDao()
+            .getInterval(lowerDateInterval, upperDateInterval);
+
+    // use set to filter out duplicates
+    final Set<String> stringSet = new HashSet<>();
+
+    boolean conflictFound = false;
+
+    for (int i = 0; i < nextTrainingDayMuscleGroups.size(); i++) {
+      for (int j = 0; j < lastTrainingDaysMuscleGroups.size(); j++) {
+
+        if (nextTrainingDayMuscleGroups.get(i).getMuscleGroupId()
+            == lastTrainingDaysMuscleGroups.get(j).getMuscleGroupId()) {
+          conflictFound = true;
+          final MuscleGroup muscleGroup =
+              DatabaseManager.appDatabase
+                  .muscleGroupDao()
+                  .getById(nextTrainingDayMuscleGroups.get(i).muscleGroupId);
+          stringSet.add(muscleGroup.muscleGroupName);
+        }
+      }
+    }
+
+    if (conflictFound) {
+      final StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.append("WARNUNG: die Muskelgruppen: \n");
+      stringBuilder.append(stringSet);
+      stringBuilder.append("\nbereits in den letzten 48h trainiert");
+
+      String overtrainedMessage = stringBuilder.toString();
+      overtrainedMessage = overtrainedMessage.replace("[", "");
+      overtrainedMessage = overtrainedMessage.replace("]", " ");
+
+      Toast.makeText(getActivity(), overtrainedMessage, Toast.LENGTH_LONG).show();
+    }
   }
 
   /**
