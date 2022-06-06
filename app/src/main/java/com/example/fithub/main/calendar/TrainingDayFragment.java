@@ -20,11 +20,14 @@ import androidx.fragment.app.FragmentManager;
 import com.example.fithub.R;
 import com.example.fithub.databinding.FragmentTrainingDayBinding;
 import com.example.fithub.main.components.Item;
+import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.MuscleGroup;
 import com.example.fithub.main.prototypes.data.TrainingDay;
 import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
 import com.example.fithub.main.prototypes.data.relations.TrainingDayWithMuscleGroups;
+import com.example.fithub.main.storage.Savefile;
+import com.example.fithub.main.storage.Serializer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -164,11 +167,32 @@ public class TrainingDayFragment extends Fragment {
               isArchived = true;
               saveTrainingDayData();
               Toast.makeText(getActivity(), "Trainingstag Archiviert!", Toast.LENGTH_SHORT).show();
+
+              changeExperience(true);
             }
           });
     }
 
     return view;
+  }
+
+  /**
+   * Remove or add experience.
+   *
+   * @param addExperience if true add if false subtract.
+   */
+  private void changeExperience(boolean addExperience) {
+    final Serializer serializer = new Serializer();
+    final ExperienceBar experienceBar =
+        (ExperienceBar)
+            serializer.deserialize(
+                getActivity(), ExperienceBar.class, Savefile.EXPERIENCE_BAR_SAVEFILE);
+
+    if (addExperience) {
+      experienceBar.addExperience(40);
+    } else experienceBar.subtractExperience(40);
+
+    serializer.serialize(getActivity(), experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
   }
 
   private void grayOutImageButton(ImageButton imageButton) {
@@ -268,6 +292,7 @@ public class TrainingDayFragment extends Fragment {
           @Override
           public void onClick(View view) {
             DatabaseManager.appDatabase.trainingDayDao().deleteById(trainingDayDate);
+            changeExperience(false);
             getActivity().onBackPressed();
           }
         });

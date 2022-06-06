@@ -105,7 +105,6 @@ public class FirstFragment extends Fragment {
     this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
 
     createOnClickListeners(view);
-
     initExperienceBar();
   }
 
@@ -194,11 +193,18 @@ public class FirstFragment extends Fragment {
    */
   private void updateExperienceBar() {
     this.progressBar.setMax(this.experienceBar.getMax());
-    this.progressBar.setProgress(this.experienceBar.getProgress());
 
     this.levelLabel.setText("Level " + this.experienceBar.getLevel());
     this.progressLabel.setText(
         this.experienceBar.getProgress() + "/" + this.experienceBar.getMAX_EXPERIENCE());
+
+    this.progressBar.post(
+        new Runnable() {
+          @Override
+          public void run() {
+            progressBar.setProgress(experienceBar.getProgress());
+          }
+        });
 
     Serializer serializer = new Serializer();
     serializer.serialize(getActivity(), this.experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
