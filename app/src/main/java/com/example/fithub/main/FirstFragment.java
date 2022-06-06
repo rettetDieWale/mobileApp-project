@@ -91,11 +91,11 @@ public class FirstFragment extends Fragment {
 
       final String exerciseNumber = Integer.toString(planEntries.size());
       amountExercises.setText(exerciseNumber + " Übungen");
+
+      checkForMuscleRepetition(nextTrainingDay);
     }
 
     initComponents(view);
-
-    checkForMuscleRepetition(nextTrainingDay);
 
     return view;
   }
@@ -126,19 +126,24 @@ public class FirstFragment extends Fragment {
             .trainingDayMuscleGroupCrossRefDao()
             .getByDate(nextTrainingDay.getDate());
 
-    final int MUSCLE_SORENESS_DURATION = 48;
+    if (nextTrainingDay == null) return;
+
+    final int MUSCLE_SORENESS_DURATION = 2;
 
     final Date nextTrainingDate = nextTrainingDay.getDate();
     final Calendar calendar = Calendar.getInstance();
 
     calendar.setTime(nextTrainingDate);
-    calendar.add(Calendar.DATE, -2);
-    Date dateBeforeDays = calendar.getTime();
+    calendar.add(Calendar.DATE, -MUSCLE_SORENESS_DURATION);
+    Date lowerDateInterval = calendar.getTime();
+
+    calendar.add(Calendar.DATE, 1);
+    Date upperDateInterval = calendar.getTime();
 
     final List<TrainingDayMuscleGroupCrossRef> lastTrainingDaysMuscleGroups =
         DatabaseManager.appDatabase
             .trainingDayMuscleGroupCrossRefDao()
-            .getInterval(dateBeforeDays, nextTrainingDay.getDate());
+            .getInterval(lowerDateInterval, upperDateInterval);
 
     // use set to filter out duplicates
     final Set<String> stringSet = new HashSet<>();

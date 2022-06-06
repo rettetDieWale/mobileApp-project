@@ -34,4 +34,7 @@ public interface TrainingDayMuscleGroupCrossRefDao {
   @Query(
       "SELECT * FROM TrainingDayMuscleGroupCrossRef WHERE date BETWEEN :lowerDate AND :upperDate")
   public List<TrainingDayMuscleGroupCrossRef> getInterval(Date lowerDate, Date upperDate);
+
+  @Query("DELETE FROM TrainingDayMuscleGroupCrossRef WHERE date = :date")
+  public void deleteAllByDate(Date date);
 }
