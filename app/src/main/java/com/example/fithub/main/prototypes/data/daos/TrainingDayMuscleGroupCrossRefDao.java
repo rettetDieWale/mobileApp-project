@@ -12,6 +12,7 @@ import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
 import java.util.Date;
 import java.util.List;
 
+
 @Dao
 public interface TrainingDayMuscleGroupCrossRefDao {
 
@@ -32,9 +33,15 @@ public interface TrainingDayMuscleGroupCrossRefDao {
   public int countByMuscleGroupId(int muscleGroupId);
 
   @Query(
+          "SELECT COUNT (muscleGroupId) FROM TrainingDayMuscleGroupCrossRef WHERE muscleGroupId = :muscleGroupId " +
+                  "AND date < :now AND date > :limit")
+  public int countPastDays(int muscleGroupId, Date now, Date limit);
+
+  @Query(
       "SELECT * FROM TrainingDayMuscleGroupCrossRef WHERE date BETWEEN :lowerDate AND :upperDate")
   public List<TrainingDayMuscleGroupCrossRef> getInterval(Date lowerDate, Date upperDate);
 
   @Query("DELETE FROM TrainingDayMuscleGroupCrossRef WHERE date = :date")
   public void deleteAllByDate(Date date);
+
 }

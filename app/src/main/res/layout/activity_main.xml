@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+
         <include
             android:id="@+id/include_first"
             layout="@layout/content_main"
@@ -41,6 +42,5 @@
                 app:titleTextColor="@color/icons"></com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
