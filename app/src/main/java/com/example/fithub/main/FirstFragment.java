@@ -65,8 +65,8 @@ public class FirstFragment extends Fragment {
         DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(calendar.getTime());
 
     if (nextTrainingDay != null) {
-      TextView dateText = view.findViewById(R.id.textView10);
-      TextView amountExercises = view.findViewById(R.id.textView13);
+      TextView dateText = view.findViewById(R.id.next_date_textview);
+      TextView amountExercises = view.findViewById(R.id.number_exercises_textview);
 
       final String date = new SimpleDateFormat("dd MMMM").format(nextTrainingDay.getDate());
       dateText.setText(date.toString().replace(" ", "\n"));
