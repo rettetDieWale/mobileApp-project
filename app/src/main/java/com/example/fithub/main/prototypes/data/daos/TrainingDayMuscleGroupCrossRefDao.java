@@ -9,6 +9,8 @@ import androidx.room.Update;
 
 import com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef;
 
+import java.util.Date;
+
 @Dao
 public interface TrainingDayMuscleGroupCrossRefDao {
 
@@ -24,4 +26,9 @@ public interface TrainingDayMuscleGroupCrossRefDao {
   @Query(
       "SELECT COUNT (muscleGroupId) FROM TrainingDayMuscleGroupCrossRef WHERE muscleGroupId = :muscleGroupId")
   public int countByMuscleGroupId(int muscleGroupId);
+
+  @Query(
+          "SELECT COUNT (muscleGroupId) FROM TrainingDayMuscleGroupCrossRef WHERE muscleGroupId = :muscleGroupId " +
+                  "AND date < :now AND date > :limit")
+  public int countPastDays(int muscleGroupId, Date now, Date limit);
 }

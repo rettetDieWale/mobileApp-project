@@ -27,6 +27,7 @@ import com.example.fithub.main.storage.Serializer;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -57,15 +58,10 @@ public class FirstFragment extends Fragment {
       editor.commit();
     }
 
-    final Calendar calendar = new GregorianCalendar();
 
-    calendar.set(Calendar.HOUR_OF_DAY, 0);
-    calendar.set(Calendar.MINUTE, 0);
-    calendar.set(Calendar.SECOND, 0);
-    calendar.set(Calendar.MILLISECOND, 0);
 
     nextTrainingDay =
-        DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(calendar.getTime());
+        DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(getToday());
 
     if (nextTrainingDay != null) {
       TextView dateText = view.findViewById(R.id.next_date_textview);
@@ -213,5 +209,16 @@ public class FirstFragment extends Fragment {
   @Override
   public void onDestroyView() {
     super.onDestroyView();
+  }
+
+  private Date getToday(){
+    final Calendar calendar = new GregorianCalendar();
+
+    calendar.set(Calendar.HOUR_OF_DAY, 0);
+    calendar.set(Calendar.MINUTE, 0);
+    calendar.set(Calendar.SECOND, 0);
+    calendar.set(Calendar.MILLISECOND, 0);
+
+    return calendar.getTime();
   }
 }
