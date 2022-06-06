@@ -10,22 +10,32 @@
         android:id="@+id/chart1"
         android:layout_width="339dp"
         android:layout_height="504dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="193dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/piechart_title_textview"
+        app:layout_constraintVertical_bias="0.0">
+
+    </com.github.mikephil.charting.charts.PieChart>
 
     <TextView
         android:id="@+id/piechart_title_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="260dp"
-        android:layout_marginBottom="13dp"
         android:text="Muskelgruppen trainiert:"
-        app:layout_constraintBottom_toTopOf="@+id/chart1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009" /><![CDATA[
+
+
+
+
+
+
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -33,133 +43,15 @@
     android:layout_height="match_parent"
     tools:context=".main.PieChartFragment">
 
-    <ImageView
-        android:id="@+id/test"
-        android:layout_width="430dp"
-        android:layout_height="811dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="79dp"
-        android:src="@drawable/human2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/arm3"
-        android:layout_width="133dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="3dp"
-        android:src="@drawable/arme_beine"
-        app:layout_constraintBottom_toTopOf="@+id/bein1"
-        app:layout_constraintEnd_toStartOf="@+id/rücken"
-        app:layout_constraintStart_toEndOf="@+id/arm2"
-        app:layout_constraintTop_toBottomOf="@+id/Brust" />
-
-    <ImageView
-        android:id="@+id/arm2"
-        android:layout_width="127dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginEnd="12dp"
-        android:src="@drawable/arme_beine"
-        app:layout_constraintBottom_toTopOf="@+id/bein1"
-        app:layout_constraintEnd_toStartOf="@+id/rücken"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/arm1"
-        app:layout_constraintTop_toBottomOf="@+id/bauch"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/arm1"
-        android:layout_width="131dp"
-        android:layout_height="112dp"
-        android:src="@drawable/arme_beine"
-        app:layout_constraintBottom_toTopOf="@+id/bein1"
-        app:layout_constraintEnd_toStartOf="@+id/bauch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Brust" />
-
-    <ImageView
-        android:id="@+id/bein1"
-        android:layout_width="218dp"
-        android:layout_height="203dp"
-        android:src="@drawable/arme_beine"
-        app:layout_constraintBottom_toBottomOf="@+id/test"
-        app:layout_constraintEnd_toStartOf="@+id/bein2"
-        app:layout_constraintTop_toTopOf="@+id/test"
-        app:layout_constraintVertical_bias="0.685" />
-
-    <ImageView
-        android:id="@+id/bein2"
-        android:layout_width="218dp"
-        android:layout_height="203dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginBottom="192dp"
-        android:src="@drawable/arme_beine"
-        app:layout_constraintBottom_toBottomOf="@+id/test"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/arm4"
-        android:layout_width="129dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="208dp"
-        android:src="@drawable/arme_beine"
-        app:layout_constraintBottom_toBottomOf="@+id/bein2"
-        app:layout_constraintStart_toEndOf="@+id/arm3" />
-
-    <ImageView
-        android:id="@+id/bauch"
-        android:layout_width="119dp"
-        android:layout_height="112dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="208dp"
-        android:src="@drawable/bauch_ruecken"
-        app:layout_constraintBottom_toBottomOf="@+id/bein1"
-        app:layout_constraintEnd_toStartOf="@+id/rücken" />
-
-    <ImageView
-        android:id="@+id/rücken"
-        android:layout_width="119dp"
-        android:layout_height="112dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="204dp"
-        android:src="@drawable/bauch_ruecken"
-        app:layout_constraintBottom_toBottomOf="@+id/bein2"
-        app:layout_constraintEnd_toEndOf="@+id/test" />
-
-    <ImageView
-        android:id="@+id/Brust"
-        android:layout_width="156dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="112dp"
-        android:src="@drawable/brust"
-        app:layout_constraintBottom_toTopOf="@+id/bein1"
-        app:layout_constraintEnd_toEndOf="@+id/arm2" />
-
-    <ImageView
-        android:id="@+id/Schultern"
-        android:layout_width="156dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="248dp"
-        android:layout_marginEnd="56dp"
-        android:src="@drawable/brust"
-        app:layout_constraintEnd_toStartOf="@+id/schultern2"
-        app:layout_constraintTop_toTopOf="@+id/test" />
-
-    <ImageView
-        android:id="@+id/schultern2"
-        android:layout_width="156dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="140dp"
-        android:src="@drawable/brust"
-        app:layout_constraintBottom_toTopOf="@+id/bein2"
-        app:layout_constraintStart_toEndOf="@+id/Brust" />
 
 
+
+
+
+
+
+
+]]>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -11,9 +11,6 @@
         android:label="@string/appbar_title_home"
         tools:layout="@layout/fragment_first">
         <action
-            android:id="@+id/action_FirstFragment_to_PieChartFragment"
-            app:destination="@id/PieChartFragment" />
-        <action
             android:id="@+id/action_FirstFragment_to_trainingPlanOverviewFragment"
             app:destination="@id/trainingPlanOverviewFragment" />
         <action
@@ -22,11 +19,10 @@
         <action
             android:id="@+id/action_FirstFragment_to_trainingDayFragment"
             app:destination="@id/trainingDayFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_statisticFragment"
+            app:destination="@id/statisticFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/PieChartFragment"
-        android:name="com.example.fithub.main.PieChartFragment"
-        android:label="@string/appbar_title_analysis" />
     <fragment
         android:id="@+id/trainingPlanOverviewFragment"
         android:name="com.example.fithub.main.trainingplan.TrainingPlanOverviewFragment"
@@ -68,4 +64,9 @@
             android:id="@+id/action_trainingDayFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.fithub.main.StatisticFragment"
+        android:label="Statistik"
+        tools:layout="@layout/fragment_statistic" />
 </navigation>

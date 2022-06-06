@@ -62,10 +62,7 @@ public class FirstFragment extends Fragment {
       editor.commit();
     }
 
-
-
-    nextTrainingDay =
-        DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(getToday());
+    nextTrainingDay = DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(getToday());
 
     if (nextTrainingDay != null) {
       TextView dateText = view.findViewById(R.id.next_date_textview);
@@ -212,7 +209,7 @@ public class FirstFragment extends Fragment {
           @Override
           public void onClick(View view) {
             NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+                .navigate(R.id.action_FirstFragment_to_statisticFragment);
           }
         });
 
@@ -281,7 +278,7 @@ public class FirstFragment extends Fragment {
     super.onDestroyView();
   }
 
-  private Date getToday(){
+  private Date getToday() {
     final Calendar calendar = new GregorianCalendar();
 
     calendar.set(Calendar.HOUR_OF_DAY, 0);
