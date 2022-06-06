@@ -33,7 +33,15 @@ public class Templates {
         new ExerciseData(
             2,
             "Klimmzug",
-            "Klimmzüge Instruktionen hier einfügen ...",
+            "Wichtigste Grundregel beim Klimmzug: Er sollte immer im vollen Bewegungsradius ausgeführt werden.\n"
+                + "\n"
+                + "Das bedeutet für die Ausführung:\n"
+                + "\n"
+                + "- Im kompletten passiven Hang starten, die Muskulatur ist entspannt.\n"
+                + "- Schulterblätter fixieren, indem sie nach hinten unten gezogen werden, und so in den aktiven Hang wechseln.\n"
+                + "- Bauch anspannen und aus der Kraft der Arme und des oberen Rückens nach oben ziehen, bis die Stange vor dem Brustbein ist.\n"
+                + "- Kurz halten und kontrolliert wieder ablassen.\n"
+                + "- Aus dem passiven Hang erneut starten.",
             "https://www.uebungen.ws/wp-content/uploads/2011/07/klimmzuege.jpg",
             "https://youtu.be/T78xCiw_R6g");
     exerciseData.add(chinupsExerciseDataTemplate);
