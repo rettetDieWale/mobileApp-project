@@ -50,6 +50,19 @@
                 android:hint="@string/training_plan"
                 android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notizen:" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/notice_textEdit"
+                android:layout_width="400dp"
+                android:layout_height="50dp"
+                android:hint="@string/notice_text"
+                android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
+
             <Button
                 android:id="@+id/buttonChangeName"
                 android:layout_width="match_parent"
@@ -58,13 +71,14 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginBottom="15dp"
-                android:text="Namen aktualisieren" />
+                android:text="Aktualisieren" />
 
             <include
                 android:id="@+id/table_layout_include"
                 layout="@layout/table"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 

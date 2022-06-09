@@ -130,11 +130,11 @@ public class TrainingPlanFragment extends Fragment {
     final List<TrainingPlan> trainingPlanList =
         DatabaseManager.appDatabase.trainingPlanDao().getAll();
 
-    ArrayList<Item> items = new ArrayList<Item>();
+    final ArrayList<Item> items = new ArrayList<>();
 
     for (int i = 0; i < trainingPlanList.size(); i++) {
       int trainingPlanId = trainingPlanList.get(i).getTrainingPlanId();
-      String trainingPlanName = trainingPlanList.get(i).getName();
+      final String trainingPlanName = trainingPlanList.get(i).getName();
       items.add(new Item(trainingPlanId, trainingPlanName));
     }
 
@@ -186,6 +186,7 @@ public class TrainingPlanFragment extends Fragment {
   private void updateTrainingPlanTable() {
 
     final String trainingPlanName = this.currentTrainingPlan.getName();
+    final String notice = this.currentTrainingPlan.getNotice();
 
     final List<PlanEntry> planEntryList =
         DatabaseManager.appDatabase
@@ -195,6 +196,9 @@ public class TrainingPlanFragment extends Fragment {
     final TextInputEditText inputPlanName = view.findViewById(R.id.inputPlanName);
     inputPlanName.setText(trainingPlanName);
 
+    final TextInputEditText noticeEditText = view.findViewById(R.id.notice_textEdit);
+    noticeEditText.setText(notice);
+
     final Button changePlanNameButton = view.findViewById(R.id.buttonChangeName);
 
     changePlanNameButton.setOnClickListener(
@@ -203,6 +207,8 @@ public class TrainingPlanFragment extends Fragment {
           public void onClick(View view) {
 
             currentTrainingPlan.setName(inputPlanName.getEditableText().toString());
+            currentTrainingPlan.setNotice(noticeEditText.getEditableText().toString());
+
             DatabaseManager.appDatabase.trainingPlanDao().update(currentTrainingPlan);
           }
         });
