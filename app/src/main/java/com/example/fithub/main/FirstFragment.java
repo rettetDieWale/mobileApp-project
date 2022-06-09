@@ -48,6 +48,7 @@ public class FirstFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     final View view = inflater.inflate(R.layout.fragment_first, container, false);
 
+    // TODO !!!!
     DatabaseManager.initDatabase(getActivity());
     // DatabaseManager.addTemplates(getActivity());
 

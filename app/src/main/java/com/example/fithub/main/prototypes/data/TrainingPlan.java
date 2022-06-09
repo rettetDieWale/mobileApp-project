@@ -10,6 +10,8 @@ public class TrainingPlan {
 
   private String name;
 
+  private String notice = "";
+
   public TrainingPlan(int trainingPlanId, String name) {
     this.trainingPlanId = trainingPlanId;
     this.name = name;
@@ -29,5 +31,13 @@ public class TrainingPlan {
 
   public void setTrainingPlanId(int trainingPlanId) {
     this.trainingPlanId = trainingPlanId;
+  }
+
+  public String getNotice() {
+    return notice;
+  }
+
+  public void setNotice(String notice) {
+    this.notice = notice;
   }
 }
