@@ -10,4 +10,5 @@
     <color name="divider">#BDBDBD</color>
     <color name="heading">#FFFFFF</color>
     <color name="primary_icon">#FFFFFF</color>
+    <color name="table_header">#292929</color>
 </resources>
