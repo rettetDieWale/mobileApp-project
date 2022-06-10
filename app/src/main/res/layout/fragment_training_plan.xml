@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/seetrough_button"
                 android:src="@android:drawable/ic_menu_add"
-                android:tint="@color/primary_icon" />
+                app:tint="@color/primary_icon" />
 
         </LinearLayout>
     </ScrollView>
