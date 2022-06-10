@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".main.calendar.CalenderOverviewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <include
         android:id="@+id/include"
         layout="@layout/calender"
@@ -22,10 +20,13 @@
 
     <TextView
         android:id="@+id/month"
-        android:layout_width="412dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
         android:text="TextView"
+        android:textColor="@color/primary_icon"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
