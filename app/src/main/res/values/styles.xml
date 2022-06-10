@@ -24,7 +24,7 @@
 
     <style name="small_buttons" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">@drawable/seetrough_button</item>
-        <item name="android:tint">@android:color/white</item>
+        <item name="android:tint">@color/primary_icon</item>
     </style>
 
     <style name="spinner_style">

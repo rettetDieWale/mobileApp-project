@@ -79,6 +79,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <ImageButton
+                android:id="@+id/add_entry_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/seetrough_button"
+                android:src="@android:drawable/ic_menu_add"
+                android:tint="@color/primary_icon" />
+
         </LinearLayout>
     </ScrollView>
 
