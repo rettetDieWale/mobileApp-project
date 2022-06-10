@@ -26,28 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Spinner
-                    android:id="@+id/exercise_spinner"
-                    style="@style/spinner_style"
-                    android:layout_width="400dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="5dp"
-                    android:contentDescription="@string/loading"
-                    android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_delete"
-                    app:layout_constraintVertical_bias="0.0" />
-
                 <ImageButton
                     android:id="@+id/button_delete"
                     style="@style/icon_style"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/seetrough_button"
                     android:contentDescription="@string/delete"
                     android:src="@android:drawable/ic_menu_delete"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -55,9 +40,20 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"
+                    app:tint="@color/primary_icon" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/exercise_spinner"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/loading"
+                android:gravity="center"
+                android:minHeight="48dp" />
 
             <ViewSwitcher
                 android:id="@+id/viewSwitcherImage"
@@ -69,7 +65,8 @@
                     android:id="@+id/exercise_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="31dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
                     tools:src="@tools:sample/avatars" />
 
                 <include
@@ -87,13 +84,13 @@
 
                 <TextView
                     android:id="@+id/exercise_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="@string/loading"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/primary_icon"
                     android:textSize="40dp" />
 
                 <include
@@ -107,7 +104,9 @@
                 android:id="@+id/exercise_instruction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/instruction"
+                android:textColor="@color/primary_icon"
                 android:textSize="30sp" />
 
             <ViewSwitcher
@@ -119,6 +118,7 @@
                     android:id="@+id/exercise_text_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/loading" />
 
                 <include
@@ -144,6 +144,7 @@
                     android:id="@+id/videoUrl_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:minHeight="48dp"
                     android:text="@string/loading" />
 

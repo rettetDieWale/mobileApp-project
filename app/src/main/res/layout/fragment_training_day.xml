@@ -28,19 +28,31 @@
                 android:layout_marginLeft="330dp"
                 android:text="Befinden:" />
 
-            <ImageButton
-                android:id="@+id/delete_training_day"
-                style="@style/icon_style"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@android:drawable/ic_menu_delete" />
-
             <EditText
                 android:id="@+id/well_being_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="350dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 android:text="1"></EditText>
+
+            <ImageButton
+                android:id="@+id/delete_training_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/seetrough_button"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_cancel_24"
+                app:tint="@color/primary_icon" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="Trainningstag absagen" />
 
             <TextView
                 android:id="@+id/dateText"
@@ -70,19 +82,22 @@
 
             <Button
                 android:id="@+id/save_training_day"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="128dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="125dp"
+                android:gravity="center"
+
                 android:text="Tag speichern" />
 
             <ImageButton
                 android:id="@+id/archive_button"
-                style="@style/icon_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_baseline_archive_24" />
+                android:background="@drawable/seetrough_button"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_archive_24"
+                app:tint="@color/primary_icon" />
 
         </LinearLayout>
     </ScrollView>
