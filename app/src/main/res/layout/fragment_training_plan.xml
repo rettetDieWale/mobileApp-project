@@ -27,31 +27,38 @@
                 style="@style/icon_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="295dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="0dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/seetrough_button"
                 android:contentDescription="@string/delete"
                 android:minHeight="48dp"
                 android:src="@android:drawable/ic_menu_delete"
-                app:tint="@color/icons" />
+                app:tint="@color/primary_icon" />
 
             <Spinner
                 android:id="@+id/spinner_training_plan"
                 style="@style/spinner_style"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
                 android:contentDescription="@string/appbar_title_exercise"
                 android:minHeight="48dp" />
+
+            <TextView
+                android:id="@+id/label_trainingsplan_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trainingplan Name:" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputPlanName"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
                 android:hint="@string/training_plan"
                 android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/label_notizen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Notizen:" />
