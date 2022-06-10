@@ -7,9 +7,11 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/list_element_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,7 +33,7 @@
                 android:fontFamily="@font/roboto_black"
                 android:padding="20dp"
                 android:text="TextView"
-                android:textColor="@color/primary_dark"
+                android:textColor="@color/heading"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/plan_button"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -64,7 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
-                app:tint="@color/primary" />
+                app:tint="@color/primary_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
