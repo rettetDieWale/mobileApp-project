@@ -10,6 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <include
+        android:id="@+id/include"
         layout="@layout/calender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,8 +24,11 @@
         android:id="@+id/month"
         android:layout_width="412dp"
         android:layout_height="62dp"
+        android:layout_marginBottom="2dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
