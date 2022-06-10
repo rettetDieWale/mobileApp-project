@@ -52,10 +52,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.424" />
+        app:layout_constraintTop_toBottomOf="@+id/calendar_text"
+        app:layout_constraintVertical_bias="0.119" />
 
     <TextView
         android:id="@+id/calendar_text"
@@ -101,7 +100,6 @@
         style="@style/icon_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
         android:fontFamily="@font/roboto_bold"
         android:padding="10dp"
         android:text="/"
@@ -136,7 +134,7 @@
         android:padding="5dp"
         android:text="/"
         android:textAlignment="center"
-        android:textColor="@color/primary"
+        android:textColor="?android:textColorPrimary"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,15 +168,12 @@
         style="@style/icon_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="36dp"
         android:contentDescription="@string/appbar_title_training_day"
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
         app:layout_constraintBottom_toBottomOf="@+id/divider11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintHorizontal_bias="0.736"
         app:layout_constraintStart_toEndOf="@+id/number_exercises_textview"
-        app:layout_constraintTop_toBottomOf="@+id/divider10"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintTop_toBottomOf="@+id/divider10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
