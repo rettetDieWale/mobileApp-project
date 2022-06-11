@@ -16,16 +16,12 @@ import com.example.fithub.main.components.Item;
 import com.example.fithub.main.components.ListAdapter;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPlanOverviewFragment extends Fragment {
-
-  private List<String> names;
   private View view;
-  private TextInputEditText planNameInput;
 
   @Override
   public View onCreateView(
