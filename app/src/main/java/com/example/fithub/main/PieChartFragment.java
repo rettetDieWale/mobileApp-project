@@ -90,7 +90,6 @@ public class PieChartFragment extends Fragment {
 
     // raw test data for testing purposes only
     final ArrayMap<String, String> muscleData = parseMuscleGroupData();
-
     this.muscleGroupChart = new MuscleGroupChart();
     this.muscleGroupChart.addDataAll(muscleData);
   }
@@ -113,9 +112,16 @@ public class PieChartFragment extends Fragment {
       Color.rgb(247, 79, 79)
     };
 
+    final int backgroundColor = getResources().getColor(R.color.background_color);
+
     set.setColors(Colors);
     final PieData data = new PieData(set);
     this.chart.setData(data);
+    this.chart.getLegend().setEnabled(false);
+    this.chart.setTransparentCircleRadius(52);
+    this.chart.setTransparentCircleColor(backgroundColor);
+    this.chart.setHoleColor(backgroundColor);
+    this.chart.getDescription().setEnabled(false);
     this.chart.invalidate(); // refresh data - no idea why its called invalidate in lib
   }
 

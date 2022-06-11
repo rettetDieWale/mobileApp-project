@@ -11,4 +11,5 @@
     <color name="heading">#FFFFFF</color>
     <color name="primary_icon">#FFFFFF</color>
     <color name="table_header">#292929</color>
+    <color name="background_color">#121212</color>
 </resources>
