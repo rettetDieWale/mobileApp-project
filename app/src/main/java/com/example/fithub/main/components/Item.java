@@ -8,7 +8,7 @@ public class Item {
   private int id;
   private String name;
 
-  public Item(int id, String name) {
+  public Item(final int id, final String name) {
     this.id = id;
     this.name = name;
   }
