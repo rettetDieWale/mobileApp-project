@@ -4,12 +4,11 @@ package com.example.fithub.main.storage;
 public enum Savefile {
   EXPERIENCE_BAR_SAVEFILE("experience_bar.json"),
   MUSCLE_GROUP_CHART_SAVEFILE("muscle_group_chart.json"),
-  TEST_FILE1("Person1.json"),
-  EXERCISE_SAVEFILE("exercise_templates.json");
+  TEST_FILE1("Person1.json");
 
   private String file;
 
-  private Savefile(String file) {
+  Savefile(String file) {
     this.file = file;
   }
 
