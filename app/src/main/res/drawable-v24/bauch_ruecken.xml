@@ -4,3 +4,5 @@
     <path android:fillAlpha="0.5" android:fillColor="#5b39c6"
         android:pathData="M0,0h500v500h-500z" android:strokeAlpha="0.5"/>
 </vector>
+
+
