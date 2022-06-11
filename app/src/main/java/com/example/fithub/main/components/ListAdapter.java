@@ -75,13 +75,29 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
   static class MyViewHolder extends RecyclerView.ViewHolder {
 
-    TextView planName;
-    TextView entryNumberView;
+    private TextView planName;
+    private TextView entryNumberView;
 
-    public MyViewHolder(@NonNull View itemView) {
+    public MyViewHolder(@NonNull final View itemView) {
       super(itemView);
       planName = itemView.findViewById(R.id.plan_name);
       entryNumberView = itemView.findViewById(R.id.entry_number);
+    }
+
+    public TextView getPlanName() {
+      return planName;
+    }
+
+    public void setPlanName(TextView planName) {
+      this.planName = planName;
+    }
+
+    public TextView getEntryNumberView() {
+      return entryNumberView;
+    }
+
+    public void setEntryNumberView(TextView entryNumberView) {
+      this.entryNumberView = entryNumberView;
     }
   }
 }
