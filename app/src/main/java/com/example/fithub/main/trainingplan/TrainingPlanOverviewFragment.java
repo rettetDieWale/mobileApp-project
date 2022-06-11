@@ -49,8 +49,9 @@ public class TrainingPlanOverviewFragment extends Fragment {
   /** Updates the recycler view /list view with all training plans from storage. */
   public void updateListView() {
 
-    List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();
-    List<Item> trainingPlanItems = new ArrayList<>();
+    final List<TrainingPlan> trainingPlanList =
+        DatabaseManager.appDatabase.trainingPlanDao().getAll();
+    final List<Item> trainingPlanItems = new ArrayList<>();
 
     for (int i = 0; i < trainingPlanList.size(); i++) {
       trainingPlanItems.add(
