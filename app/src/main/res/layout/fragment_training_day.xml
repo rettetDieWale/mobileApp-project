@@ -22,6 +22,48 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="266dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <ImageButton
+                    android:id="@+id/delete_training_day"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/seetrough_button"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_baseline_cancel_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.016"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:tint="@color/primary_icon" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="Trainningstag absagen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/delete_training_day"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
                 android:id="@+id/wellBeingLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,30 +78,6 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:text="1"></EditText>
-
-            <ImageButton
-                android:id="@+id/delete_training_day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/seetrough_button"
-                android:minHeight="48dp"
-                android:src="@drawable/ic_baseline_cancel_24"
-                app:tint="@color/primary_icon" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="Trainningstag absagen" />
-
-            <TextView
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="266dp" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
@@ -78,7 +96,8 @@
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:drawablePadding="16dp"
                 android:hint="Muskelgruppe(n) auswählen"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:textColor="@color/primary" />
 
             <Button
                 android:id="@+id/save_training_day"
