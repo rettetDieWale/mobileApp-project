@@ -22,8 +22,8 @@ public class DatabaseManager {
    *
    * @param context of application
    */
-  public static void initDatabase(Context context) {
-    RoomDatabase.Builder appDatabaseBuilder =
+  public static void initDatabase(final Context context) {
+    final RoomDatabase.Builder appDatabaseBuilder =
         Room.databaseBuilder(context, AppDatabase.class, "fitHub-database");
     appDatabaseBuilder.allowMainThreadQueries();
     appDatabase = (AppDatabase) appDatabaseBuilder.build();
@@ -50,10 +50,10 @@ public class DatabaseManager {
 
     appDatabase.clearAllTables();
 
-    Templates templates = new Templates();
-    List<PlanEntry> planEntryList = templates.createPlanEntryTemplates();
+    final Templates templates = new Templates();
+    final List<PlanEntry> planEntryList = templates.createPlanEntryTemplates();
 
-    List<ExerciseData> exerciseDataList = templates.createExerciseDataTemplates();
+    final List<ExerciseData> exerciseDataList = templates.createExerciseDataTemplates();
     for (int i = 0; i < exerciseDataList.size(); i++) {
       appDatabase.exerciseDataDao().insert(exerciseDataList.get(i));
     }
@@ -62,7 +62,7 @@ public class DatabaseManager {
       appDatabase.planEntryDao().insert(planEntryList.get(i));
     }
 
-    List<TrainingPlan> trainingPlanList = templates.createTrainingPlanTemplates();
+    final List<TrainingPlan> trainingPlanList = templates.createTrainingPlanTemplates();
 
     for (int i = 0; i < trainingPlanList.size(); i++) {
       appDatabase.trainingPlanDao().insert(trainingPlanList.get(i));
