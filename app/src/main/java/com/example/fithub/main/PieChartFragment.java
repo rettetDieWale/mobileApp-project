@@ -6,7 +6,6 @@ import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,10 +22,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -50,10 +46,7 @@ public class PieChartFragment extends Fragment {
     }
 
     sortChart(pieEntries);
-
     renderChart(pieEntries);
-
-    final ImageView humanBackgroundImage = this.view.findViewById(R.id.human_background_image);
 
     return view;
   }
@@ -88,7 +81,6 @@ public class PieChartFragment extends Fragment {
   /** Fills the pie chart with initial data. Useful when files are corrupted or not existing. */
   private void resetChart() {
 
-    // raw test data for testing purposes only
     final ArrayMap<String, String> muscleData = parseMuscleGroupData();
     this.muscleGroupChart = new MuscleGroupChart();
     this.muscleGroupChart.addDataAll(muscleData);
@@ -160,35 +152,5 @@ public class PieChartFragment extends Fragment {
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-  }
-
-  private int checkColor(int amount) {
-    if (amount >= 4) {
-      return Color.RED;
-    } else if (amount == 3) {
-      return Color.YELLOW;
-    } else if (amount <= 2 && amount > 0) {
-      return Color.GREEN;
-    } else {
-      return Color.WHITE;
-    }
-  }
-
-  private Date[] getTodayAndLimit(int limit) {
-    Date[] dates = new Date[2];
-
-    final Calendar calendar = new GregorianCalendar();
-
-    calendar.set(Calendar.HOUR_OF_DAY, 0);
-    calendar.set(Calendar.MINUTE, 0);
-    calendar.set(Calendar.SECOND, 0);
-    calendar.set(Calendar.MILLISECOND, 0);
-
-    dates[0] = calendar.getTime();
-
-    calendar.add(Calendar.DAY_OF_YEAR, -limit);
-    dates[1] = calendar.getTime();
-
-    return dates;
   }
 }

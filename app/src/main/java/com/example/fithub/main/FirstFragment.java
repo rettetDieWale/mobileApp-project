@@ -41,33 +41,33 @@ public class FirstFragment extends Fragment {
   private TextView levelLabel, progressLabel;
   private ExperienceBar experienceBar;
   private TrainingDay nextTrainingDay;
+  private View view;
 
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    final View view = inflater.inflate(R.layout.fragment_first, container, false);
+    this.view = inflater.inflate(R.layout.fragment_first, container, false);
 
-    // TODO !!!!
     DatabaseManager.initDatabase(getActivity());
-    //DatabaseManager.addTemplates(getActivity());
+    // For Test Purpose only: use this to clear database and load templates new
+    // DatabaseManager.addTemplates(getActivity());
 
-    final SharedPreferences preferences =
-        PreferenceManager.getDefaultSharedPreferences(getActivity());
-    if (!preferences.getBoolean("firstTime", false)) {
-      DatabaseManager.addTemplates(getActivity());
-      Toast.makeText(getActivity(), " Wilkommen bei Fithub!", Toast.LENGTH_SHORT).show();
+    checkForFirstStartup();
+    setNextTrainingDayView();
+    initComponents();
 
-      final SharedPreferences.Editor editor = preferences.edit();
-      editor.putBoolean("firstTime", true);
-      editor.commit();
-    }
+    return view;
+  }
 
-    nextTrainingDay = DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(getToday());
+  /** Sets the preview of the next training day from storage. */
+  private void setNextTrainingDayView() {
+    this.nextTrainingDay =
+        DatabaseManager.appDatabase.trainingDayDao().getNextTrainingDay(getToday());
 
-    if (nextTrainingDay != null) {
-      TextView dateText = view.findViewById(R.id.next_date_textview);
-      TextView amountExercises = view.findViewById(R.id.number_exercises_textview);
+    if (this.nextTrainingDay != null) {
+      final TextView dateText = this.view.findViewById(R.id.next_date_textview);
+      final TextView amountExercises = this.view.findViewById(R.id.number_exercises_textview);
 
       final String date = new SimpleDateFormat("dd MMMM").format(nextTrainingDay.getDate());
       dateText.setText(date.toString().replace(" ", "\n"));
@@ -85,26 +85,35 @@ public class FirstFragment extends Fragment {
       final String exerciseNumber = Integer.toString(planEntries.size());
       amountExercises.setText(exerciseNumber + " Übungen");
 
-      checkForMuscleRepetition(nextTrainingDay);
+      checkForMuscleRepetition(this.nextTrainingDay);
     }
-
-    initComponents(view);
-
-    return view;
   }
 
   /**
-   * Initialize components and add them to the fragment so they can be accessed in code.
-   *
-   * @param view the components where added into layout xml
+   * Check if the apps has been started before and if not init templates and setup shared
+   * preferences.
    */
-  private void initComponents(View view) {
+  private void checkForFirstStartup() {
+    final SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getActivity());
+    if (!preferences.getBoolean("firstTime", false)) {
+      DatabaseManager.addTemplates(getActivity());
+      Toast.makeText(getActivity(), " Wilkommen bei Fithub!", Toast.LENGTH_SHORT).show();
 
-    this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-    this.levelLabel = (TextView) view.findViewById(R.id.text_view_level);
-    this.progressLabel = (TextView) view.findViewById(R.id.text_view_progress);
+      final SharedPreferences.Editor editor = preferences.edit();
+      editor.putBoolean("firstTime", true);
+      editor.commit();
+    }
+  }
 
-    createOnClickListeners(view);
+  /** Initialize components and add them to the fragment so they can be accessed in code. */
+  private void initComponents() {
+
+    this.progressBar = (ProgressBar) this.view.findViewById(R.id.progressBar);
+    this.levelLabel = (TextView) this.view.findViewById(R.id.text_view_level);
+    this.progressLabel = (TextView) this.view.findViewById(R.id.text_view_progress);
+
+    createOnClickListeners();
     initExperienceBar();
   }
 
@@ -113,7 +122,7 @@ public class FirstFragment extends Fragment {
    *
    * @param nextTrainingDay to be checked
    */
-  private void checkForMuscleRepetition(TrainingDay nextTrainingDay) {
+  private void checkForMuscleRepetition(final TrainingDay nextTrainingDay) {
     final List<TrainingDayMuscleGroupCrossRef> nextTrainingDayMuscleGroups =
         DatabaseManager.appDatabase
             .trainingDayMuscleGroupCrossRefDao()
@@ -172,15 +181,11 @@ public class FirstFragment extends Fragment {
     }
   }
 
-  /**
-   * Creates onClick listeners for buttons and initializes them.
-   *
-   * @param view the buttons where added into layout xml
-   */
-  private void createOnClickListeners(View view) {
+  /** Creates onClick listeners for buttons and initializes them. */
+  private void createOnClickListeners() {
 
     // Buttons are not initialized in initComponents() to reduce redundant code
-    final ImageButton calendarButton = view.findViewById(R.id.button_calendar);
+    final ImageButton calendarButton = this.view.findViewById(R.id.button_calendar);
     calendarButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -204,7 +209,7 @@ public class FirstFragment extends Fragment {
           });
     }
 
-    final ImageButton analysisButton = view.findViewById(R.id.button_analysis);
+    final ImageButton analysisButton = this.view.findViewById(R.id.button_analysis);
     analysisButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -214,7 +219,7 @@ public class FirstFragment extends Fragment {
           }
         });
 
-    final ImageButton trainingPlanButton = view.findViewById(R.id.training_plans_button);
+    final ImageButton trainingPlanButton = this.view.findViewById(R.id.training_plans_button);
     trainingPlanButton.setOnClickListener(
         new View.OnClickListener() {
           @Override

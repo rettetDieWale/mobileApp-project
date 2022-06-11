@@ -12,7 +12,7 @@ public class ExperienceBar {
   /** Current user level * */
   private int level;
 
-  public ExperienceBar(int max, int progress, int level) {
+  public ExperienceBar(final int max, final int progress, final int level) {
     this.max = max;
     this.progress = progress;
     this.level = level;

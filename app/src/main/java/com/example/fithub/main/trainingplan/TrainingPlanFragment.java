@@ -60,6 +60,18 @@ public class TrainingPlanFragment extends Fragment {
     setCurrentPlanObject(trainingPlanId);
     updateTrainingPlanTable();
 
+    addDeletePlanFunction();
+
+    initPlanSpinner();
+
+    return view;
+  }
+
+  /**
+   * Add function to delete the current plan on button pressed. Deletion removed all entries from
+   * storage as well and is only possible if the plan is not longer needed by any training day.
+   */
+  private void addDeletePlanFunction() {
     final ImageButton deletePlanButton = view.findViewById(R.id.deletePlanButton);
     deletePlanButton.setOnClickListener(
         new View.OnClickListener() {
@@ -105,10 +117,6 @@ public class TrainingPlanFragment extends Fragment {
             }
           }
         });
-
-    initPlanSpinner();
-
-    return view;
   }
 
   /**

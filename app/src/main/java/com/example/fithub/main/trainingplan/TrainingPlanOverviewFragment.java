@@ -16,16 +16,12 @@ import com.example.fithub.main.components.Item;
 import com.example.fithub.main.components.ListAdapter;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
 import com.example.fithub.main.prototypes.data.TrainingPlan;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPlanOverviewFragment extends Fragment {
-
-  private List<String> names;
   private View view;
-  private TextInputEditText planNameInput;
 
   @Override
   public View onCreateView(
@@ -53,8 +49,9 @@ public class TrainingPlanOverviewFragment extends Fragment {
   /** Updates the recycler view /list view with all training plans from storage. */
   public void updateListView() {
 
-    List<TrainingPlan> trainingPlanList = DatabaseManager.appDatabase.trainingPlanDao().getAll();
-    List<Item> trainingPlanItems = new ArrayList<>();
+    final List<TrainingPlan> trainingPlanList =
+        DatabaseManager.appDatabase.trainingPlanDao().getAll();
+    final List<Item> trainingPlanItems = new ArrayList<>();
 
     for (int i = 0; i < trainingPlanList.size(); i++) {
       trainingPlanItems.add(

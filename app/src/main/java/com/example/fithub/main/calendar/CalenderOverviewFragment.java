@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,56 +25,79 @@ import java.util.List;
 
 public class CalenderOverviewFragment extends Fragment {
 
-  private CalendarView simpleCalendarView;
+  private CompactCalendarView compactCalendarView;
+  private View view;
+  private Calendar calendar;
+  private SimpleDateFormat monthDateFormat;
 
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    final View view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
+    this.view = inflater.inflate(R.layout.fragment_calender_overview, container, false);
 
-    CompactCalendarView compactCalendarView = view.findViewById(R.id.compactcalendar_view);
-    compactCalendarView.setUseThreeLetterAbbreviation(true);
-    TextView currentMonthTextView = view.findViewById(R.id.month);
-    Calendar cal = Calendar.getInstance();
-    SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-    String month_name = month_date.format(cal.getTime());
+    this.compactCalendarView = view.findViewById(R.id.compactcalendar_view);
+    this.compactCalendarView.setUseThreeLetterAbbreviation(true);
 
-    currentMonthTextView.setText(month_name);
+    this.calendar = Calendar.getInstance();
+    this.monthDateFormat = new SimpleDateFormat("MMMM");
 
-    // set events
-    List<TrainingDay> trainingDays = DatabaseManager.appDatabase.trainingDayDao().getAll();
+    setMonthView();
+    setCalenderEvents();
 
-    for (int i = 0; i < trainingDays.size(); i++) {
-      Date trainingDayDate = trainingDays.get(i).getDate();
+    setCalenderListeners();
 
-      Event event = new Event(Color.WHITE, trainingDayDate.getTime(), "training_day");
-      compactCalendarView.addEvent(event, true);
-    }
+    return view;
+  }
 
-    compactCalendarView.setListener(
+  /** Add onClick and onMonthScroll Even listener actions for the calendar. */
+  private void setCalenderListeners() {
+    this.compactCalendarView.setListener(
         new CompactCalendarView.CompactCalendarViewListener() {
           @Override
           public void onDayClick(Date dateClicked) {
-            Bundle args = new Bundle();
-            args.putSerializable("date", dateClicked);
-            NavHostFragment.findNavController(CalenderOverviewFragment.this)
-                .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
+            navigateToTrainingDay(dateClicked);
           }
 
           @Override
           public void onMonthScroll(Date firstDayOfNewMonth) {
-            TextView currentMonthTextView = view.findViewById(R.id.month);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(compactCalendarView.getFirstDayOfCurrentMonth());
-            SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-            String month_name = month_date.format(cal.getTime());
-            currentMonthTextView.setText(month_name);
+            calendar.setTime(compactCalendarView.getFirstDayOfCurrentMonth());
+            setMonthView();
           }
         });
+  }
 
-    return view;
+  /**
+   * Navigate to the selected Training Day that got clicked on calendar.
+   *
+   * @param dateClicked in calendar.
+   */
+  private void navigateToTrainingDay(final Date dateClicked) {
+    final Bundle args = new Bundle();
+    args.putSerializable("date", dateClicked);
+    NavHostFragment.findNavController(CalenderOverviewFragment.this)
+        .navigate(R.id.action_calenderOverviewFragment_to_trainingDayFragment, args);
+  }
+
+  /** Get training days from storage and add them to calendar events. */
+  private void setCalenderEvents() {
+    final List<TrainingDay> trainingDays = DatabaseManager.appDatabase.trainingDayDao().getAll();
+
+    for (int i = 0; i < trainingDays.size(); i++) {
+      Date trainingDayDate = trainingDays.get(i).getDate();
+
+      final Event event = new Event(Color.WHITE, trainingDayDate.getTime(), "training_day");
+      compactCalendarView.addEvent(event, true);
+    }
+  }
+
+  /** Set the current month for the text view. */
+  private void setMonthView() {
+    final TextView currentMonthTextView = view.findViewById(R.id.month);
+    final String monthName = monthDateFormat.format(calendar.getTime());
+
+    currentMonthTextView.setText(monthName);
   }
 
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

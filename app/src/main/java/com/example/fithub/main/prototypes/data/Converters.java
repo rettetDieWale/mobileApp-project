@@ -4,6 +4,7 @@ import androidx.room.TypeConverter;
 
 import java.util.Date;
 
+/** Converters needed to store java objects data into sqlite database. */
 public class Converters {
   @TypeConverter
   public static Date fromTimestamp(Long value) {
