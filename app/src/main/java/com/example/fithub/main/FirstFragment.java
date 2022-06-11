@@ -50,7 +50,7 @@ public class FirstFragment extends Fragment {
 
     // TODO !!!!
     DatabaseManager.initDatabase(getActivity());
-    // DatabaseManager.addTemplates(getActivity());
+    //DatabaseManager.addTemplates(getActivity());
 
     final SharedPreferences preferences =
         PreferenceManager.getDefaultSharedPreferences(getActivity());
