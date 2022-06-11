@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.fithub.R;
-import com.example.fithub.databinding.FragmentTrainingDayBinding;
 import com.example.fithub.main.components.Item;
 import com.example.fithub.main.prototypes.ExperienceBar;
 import com.example.fithub.main.prototypes.data.DatabaseManager;
@@ -36,11 +35,11 @@ import java.util.List;
 
 public class TrainingDayFragment extends Fragment {
 
-  boolean[] selectedMuscleGroups;
-  ArrayList<Integer> muscleGroupList;
-  String[] muscleGroupArray = {"Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"};
-
-  private FragmentTrainingDayBinding binding;
+  private final String[] muscleGroupArray = {
+    "Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"
+  };
+  private boolean[] selectedMuscleGroups;
+  private ArrayList<Integer> muscleGroupList;
   private View view;
   private TextView dateTextView;
   private EditText wellBeingView;
@@ -60,14 +59,42 @@ public class TrainingDayFragment extends Fragment {
     // Inflate the layout for this fragment
     this.view = inflater.inflate(R.layout.fragment_training_day, container, false);
 
-    deleteTrainingDayButton = this.view.findViewById(R.id.delete_training_day);
+    this.deleteTrainingDayButton = this.view.findViewById(R.id.delete_training_day);
 
     loadTrainingDayData();
     addSaveButtonListener();
+    setupMuscleGroupViewer();
+    addArchiveFunction();
 
-    muscleGroupView = view.findViewById(R.id.muscle_group_view);
-    selectedMuscleGroups = new boolean[muscleGroupArray.length];
-    muscleGroupList = new ArrayList<>();
+    return view;
+  }
+
+  /** Add functionality to archive button so exp can be gained by archiving a training day. */
+  private void addArchiveFunction() {
+    final ImageButton archiveButton = view.findViewById(R.id.archive_button);
+    if (isArchived) {
+      grayOutImageButton(archiveButton);
+    } else {
+      archiveButton.setOnClickListener(
+          new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              grayOutImageButton(archiveButton);
+              isArchived = true;
+              saveTrainingDayData();
+              Toast.makeText(getActivity(), "Trainingstag Archiviert!", Toast.LENGTH_SHORT).show();
+
+              changeExperience(true);
+            }
+          });
+    }
+  }
+
+  /** initialize the muscle group viewer with muscle groups from storage. */
+  private void setupMuscleGroupViewer() {
+    this.muscleGroupView = view.findViewById(R.id.muscle_group_view);
+    this.selectedMuscleGroups = new boolean[muscleGroupArray.length];
+    this.muscleGroupList = new ArrayList<>();
 
     final Date trainingDayDate = DateConverter.parseStringToDate(dateTextView.getText().toString());
 
@@ -77,23 +104,29 @@ public class TrainingDayFragment extends Fragment {
             .getTrainingDaysWithMuscleGroupsByDate(trainingDayDate);
 
     if (trainingDayWithMuscleGroups.size() != 0) {
-      List<MuscleGroup> storedMuscleGroupData = trainingDayWithMuscleGroups.get(0).muscleGroupList;
+      final List<MuscleGroup> storedMuscleGroupData =
+          trainingDayWithMuscleGroups.get(0).muscleGroupList;
 
       final StringBuilder stringBuilder = new StringBuilder();
       for (int i = 0; i < storedMuscleGroupData.size(); i++) {
         final int muscleGroupId = storedMuscleGroupData.get(i).muscleGroupId;
         final String muscleGroupName = storedMuscleGroupData.get(i).getMuscleGroupName();
 
-        selectedMuscleGroups[muscleGroupId] = true;
-        muscleGroupList.add(muscleGroupId);
+        this.selectedMuscleGroups[muscleGroupId] = true;
+        this.muscleGroupList.add(muscleGroupId);
 
         stringBuilder.append(muscleGroupName);
         if (i != storedMuscleGroupData.size() - 1) stringBuilder.append(", ");
       }
-      muscleGroupView.setText(stringBuilder.toString());
+      this.muscleGroupView.setText(stringBuilder.toString());
     }
 
-    muscleGroupView.setOnClickListener(
+    setViewerDialogActions();
+  }
+
+  /** Add dialogue actions for the muscle group viewer. */
+  private void setViewerDialogActions() {
+    this.muscleGroupView.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -121,7 +154,7 @@ public class TrainingDayFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface dialogInterface, int i) {
-                    StringBuilder stringBuilder = new StringBuilder();
+                    final StringBuilder stringBuilder = new StringBuilder();
                     for (int j = 0; j < muscleGroupList.size(); j++) {
                       stringBuilder.append(muscleGroupArray[muscleGroupList.get(j)]);
                       if (j != muscleGroupList.size() - 1) stringBuilder.append(", ");
@@ -154,26 +187,6 @@ public class TrainingDayFragment extends Fragment {
             builder.show();
           }
         });
-
-    final ImageButton archiveButton = view.findViewById(R.id.archive_button);
-    if (isArchived) {
-      grayOutImageButton(archiveButton);
-    } else {
-      archiveButton.setOnClickListener(
-          new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              grayOutImageButton(archiveButton);
-              isArchived = true;
-              saveTrainingDayData();
-              Toast.makeText(getActivity(), "Trainingstag Archiviert!", Toast.LENGTH_SHORT).show();
-
-              changeExperience(true);
-            }
-          });
-    }
-
-    return view;
   }
 
   /**
@@ -181,7 +194,7 @@ public class TrainingDayFragment extends Fragment {
    *
    * @param addExperience if true add if false subtract.
    */
-  private void changeExperience(boolean addExperience) {
+  private void changeExperience(final boolean addExperience) {
     final Serializer serializer = new Serializer();
     final ExperienceBar experienceBar =
         (ExperienceBar)
@@ -195,7 +208,7 @@ public class TrainingDayFragment extends Fragment {
     serializer.serialize(getActivity(), experienceBar, Savefile.EXPERIENCE_BAR_SAVEFILE);
   }
 
-  private void grayOutImageButton(ImageButton imageButton) {
+  private void grayOutImageButton(final ImageButton imageButton) {
     imageButton.setAlpha(.5f);
     imageButton.setClickable(false);
   }
@@ -224,7 +237,7 @@ public class TrainingDayFragment extends Fragment {
     final Item item = (Item) spinner.getSelectedItem();
     final int id = item.getId();
 
-    Date trainingDayDate = DateConverter.parseStringToDate(dateString);
+    final Date trainingDayDate = DateConverter.parseStringToDate(dateString);
 
     DatabaseManager.appDatabase
         .trainingDayDao()
@@ -244,15 +257,15 @@ public class TrainingDayFragment extends Fragment {
    *
    * @param trainingDay which plan data should be used
    */
-  private void setupTrainingPlanFragment(TrainingDay trainingDay) {
+  private void setupTrainingPlanFragment(final TrainingDay trainingDay) {
     final FragmentManager fragmentManager = getChildFragmentManager();
     final List<Fragment> fragmentList = fragmentManager.getFragments();
 
-    final Bundle b = new Bundle();
-    b.putInt("trainingPlanId", trainingDay.getTrainingPlanId());
-    b.putInt("actionId", 1);
+    final Bundle bundle = new Bundle();
+    bundle.putInt("trainingPlanId", trainingDay.getTrainingPlanId());
+    bundle.putInt("actionId", 1);
 
-    fragmentList.get(0).setArguments(b);
+    fragmentList.get(0).setArguments(bundle);
     this.trainingPlanFragment = fragmentList.get(0);
   }
 
@@ -283,11 +296,11 @@ public class TrainingDayFragment extends Fragment {
     setupTrainingPlanFragment(trainingDay);
   }
 
-  private void revertGrayOutForDeleteButton(Date trainingDayDate) {
+  private void revertGrayOutForDeleteButton(final Date trainingDayDate) {
 
-    deleteTrainingDayButton.setAlpha(1f);
-    deleteTrainingDayButton.setClickable(true);
-    deleteTrainingDayButton.setOnClickListener(
+    this.deleteTrainingDayButton.setAlpha(1f);
+    this.deleteTrainingDayButton.setClickable(true);
+    this.deleteTrainingDayButton.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {

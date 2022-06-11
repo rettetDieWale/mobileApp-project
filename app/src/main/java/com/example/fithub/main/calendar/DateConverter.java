@@ -36,7 +36,7 @@ public class DateConverter {
    * @return date string
    */
   public static String parseDateToString(final Date date) {
-    String stringDate = dateFormat.format(date);
+    final String stringDate = dateFormat.format(date);
     return stringDate;
   }
 }

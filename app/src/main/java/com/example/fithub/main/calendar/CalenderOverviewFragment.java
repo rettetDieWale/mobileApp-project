@@ -73,7 +73,7 @@ public class CalenderOverviewFragment extends Fragment {
    *
    * @param dateClicked in calendar.
    */
-  private void navigateToTrainingDay(Date dateClicked) {
+  private void navigateToTrainingDay(final Date dateClicked) {
     final Bundle args = new Bundle();
     args.putSerializable("date", dateClicked);
     NavHostFragment.findNavController(CalenderOverviewFragment.this)
