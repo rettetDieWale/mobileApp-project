@@ -240,7 +240,7 @@ public class Templates {
   }
 
   public void addMuscleGroups() {
-    String[] muscleGroupArray = {"Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"};
+    final String[] muscleGroupArray = {"Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"};
 
     for (int i = 0; i < muscleGroupArray.length; i++) {
       DatabaseManager.appDatabase.muscleGroupDao().insert(new MuscleGroup(i, muscleGroupArray[i]));

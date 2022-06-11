@@ -18,7 +18,7 @@ public class MuscleGroupChart {
    * @param key to find data
    * @param data that should be saved
    */
-  public void addData(String key, float data) {
+  public void addData(final String key, final float data) {
     muscleGroupData.put(key, String.valueOf(data));
   }
 
@@ -27,7 +27,7 @@ public class MuscleGroupChart {
    *
    * @param data that replaces list.
    */
-  public void addDataAll(ArrayMap<String, String> data) {
+  public void addDataAll(final ArrayMap<String, String> data) {
     muscleGroupData = data;
   }
 
@@ -37,7 +37,7 @@ public class MuscleGroupChart {
    * @param key data is saved under
    * @return data for given key
    */
-  public float getData(String key) {
+  public float getData(final String key) {
     return Float.parseFloat(muscleGroupData.get(key));
   }
 
