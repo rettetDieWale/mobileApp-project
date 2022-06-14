@@ -1,0 +1,397 @@
+@startuml
+class com.example.fithub.main.prototypes.data.TrainingDay {
+- Date date
+- int trainingPlanId
+- int wellBeing
+- boolean isArchived
++ boolean isArchived()
++ void setArchived(boolean)
++ int getWellBeing()
++ void setWellBeing(int)
++ Date getDate()
++ void setDate(Date)
++ int getTrainingPlanId()
++ void setTrainingPlanId(int)
+}
+class com.example.fithub.main.storage.Storage {
++ void storeData(Context,String,String)
++ String loadData(Context,String)
+}
+interface com.example.fithub.main.prototypes.data.daos.ExerciseDataDao {
+~ ExerciseData getExerciseData(int)
+~ List<ExerciseData> getAll()
+~ void insert(ExerciseData)
+~ void update(ExerciseData)
+~ void delete(ExerciseData)
+}
+class com.example.fithub.main.prototypes.data.Converters {
++ {static} Date fromTimestamp(Long)
++ {static} Long dateToTimestamp(Date)
+}
+class com.example.fithub.main.components.TemplateSpinner {
+- Spinner spinner
+- ArrayAdapter<Item> adapter
++ void setItemSelected(Item)
++ Spinner getSpinner()
+}
+interface com.example.fithub.main.prototypes.data.daos.MuscleGroupDao {
+~ void insert(MuscleGroup)
+~ void delete(MuscleGroup)
+~ void update(MuscleGroup)
++ List<MuscleGroup> getAll()
++ MuscleGroup getById(int)
+}
+class com.example.fithub.main.prototypes.data.TrainingDayMuscleGroupCrossRef {
++ Date date
++ int muscleGroupId
++ Date getDate()
++ void setDate(Date)
++ int getMuscleGroupId()
++ void setMuscleGroupId(int)
+}
+class com.example.fithub.main.trainingplan.ExerciseFragment {
+- TextView InstructionTextArea
+- View view
+- ExerciseData exerciseData
+- int entryId
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setImageViewSwitcher()
+- void setVideoViewSwitcher()
+- void configureTextViewSwitcher(int,int,int,int)
+- void setExerciseContent(ExerciseData)
+- void updateExerciseDataFromTextViews()
+- void updateExerciseStorage()
+- void updateEntryId()
+- void loadExerciseImage(String)
++ void onViewCreated(View,Bundle)
+- void loadExerciseVideo(String)
+- String parseVideoUrl(String)
+- void deleteExerciseData()
+- ArrayList<Item> createItems()
+- void setItemSelectionListener(TemplateSpinner)
+- void initSpinner()
++ void onDestroyView()
+}
+enum com.example.fithub.main.storage.Savefile {
++  EXPERIENCE_BAR_SAVEFILE
++  MUSCLE_GROUP_CHART_SAVEFILE
++  TEST_FILE1
+- String file
++ String toString()
++ String getFile()
++ void setFile(String)
+}
+class com.example.fithub.main.HumanChartFragment {
+- View view
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setHumanImageMuscleGroupImages()
++ void onViewCreated(View,Bundle)
++ void onDestroyView()
+- int checkColor(int)
+- Date[] getTodayAndLimit(int)
+}
+class com.example.fithub.main.calendar.DateConverter {
+~ {static} SimpleDateFormat dateFormat
++ {static} Date parseStringToDate(String)
++ {static} String parseDateToString(Date)
+}
+class com.example.fithub.main.storage.Serializer {
+- Gson gson
++ void serialize(Context,Object,Savefile)
++ Object deserialize(Context,Type,Savefile)
+}
+class com.example.fithub.main.components.ListAdapter {
+- List<Item> items
+- Fragment fragment
++ MyViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyViewHolder,int)
++ int getItemCount()
+}
+class com.example.fithub.main.components.ListAdapter.MyViewHolder {
+- TextView planName
+- TextView entryNumberView
++ TextView getPlanName()
++ void setPlanName(TextView)
++ TextView getEntryNumberView()
++ void setEntryNumberView(TextView)
+}
+interface com.example.fithub.main.prototypes.data.daos.PlanEntryDao {
+~ List<PlanEntry> getAll()
+~ List<PlanEntry> getPlanEntryListByPlanId(int)
+~ PlanEntry getPlanEntryById(int)
+~ int getCountByPlanId(int)
+~ void insert(PlanEntry)
+~ void update(PlanEntry)
+~ void delete(PlanEntry)
+}
+class com.example.fithub.main.prototypes.data.TrainingPlan {
+- int trainingPlanId
+- String name
+- String notice
++ String getName()
++ void setName(String)
++ int getTrainingPlanId()
++ void setTrainingPlanId(int)
++ String getNotice()
++ void setNotice(String)
+}
+class com.example.fithub.main.calendar.TrainingDayFragment {
+- String[] muscleGroupArray
+- boolean[] selectedMuscleGroups
+- ArrayList<Integer> muscleGroupList
+- View view
+- TextView dateTextView
+- EditText wellBeingView
+- Fragment trainingPlanFragment
+- TextView muscleGroupView
+- boolean isArchived
+- ImageButton deleteTrainingDayButton
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void addArchiveFunction()
+- void setupMuscleGroupViewer()
+- void setViewerDialogActions()
+- void changeExperience(boolean)
+- void grayOutImageButton(ImageButton)
+- void addSaveButtonListener()
+- void saveTrainingDayData()
+- void setupTrainingPlanFragment(TrainingDay)
+- void loadTrainingDayData()
+- void revertGrayOutForDeleteButton(Date)
++ void onViewCreated(View,Bundle)
+- void setDate()
+}
+class com.example.fithub.main.prototypes.ExperienceBar {
+- int MAX_EXPERIENCE
+- int max
+- int progress
+- int level
++ int getMax()
++ void setMax(int)
++ int getProgress()
++ void setProgress(int)
++ int getLevel()
++ void setLevel(int)
++ int getMAX_EXPERIENCE()
++ void addExperience(int)
++ void subtractExperience(int)
+}
+class com.example.fithub.main.FirstFragment {
+- ProgressBar progressBar
+- TextView levelLabel
+- ExperienceBar experienceBar
+- TrainingDay nextTrainingDay
+- View view
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setNextTrainingDayView()
+- void checkForFirstStartup()
+- void initComponents()
+- void checkForMuscleRepetition(TrainingDay)
+- void createOnClickListeners()
++ void onViewCreated(View,Bundle)
+- void initExperienceBar()
+- void resetExperienceBar()
+- void updateExperienceBar()
++ void onDestroyView()
+- Date getToday()
+}
+class com.example.fithub.main.StatisticFragment {
+- View view
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+class com.example.fithub.main.PieChartFragment {
+- PieChart chart
+- MuscleGroupChart muscleGroupChart
+- View view
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onViewCreated(View,Bundle)
+- ArrayMap<String,String> parseMuscleGroupData()
+- void resetChart()
+- void renderChart(List<PieEntry>)
+- void sortChart(List<PieEntry>)
+- void initChart()
++ void onDestroyView()
+}
+class com.example.fithub.main.components.Item {
+- int id
+- String name
++ int getId()
++ void setId(int)
++ String getName()
++ void setName(String)
++ String toString()
+}
+class com.example.fithub.main.prototypes.MuscleGroupChart {
+- ArrayMap<String,String> muscleGroupData
++ void addData(String,float)
++ void addDataAll(ArrayMap<String,String>)
++ float getData(String)
++ Map<String,String> getAllData()
+}
+class com.example.fithub.main.trainingplan.TrainingPlanFragment {
+- int STANDARD_TEMPLATE_ID
+- View view
+- TrainingPlan currentTrainingPlan
+- TableLayout tableLayout
+- int actionId
+- TemplateSpinner templateSpinner
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void addDeletePlanFunction()
+- void setCurrentPlanObject(int)
+- ArrayList<Item> createItemList()
+- void setItemSelectionListener(TemplateSpinner)
+- void initPlanSpinner()
+- void updateTrainingPlanTable()
+- void initTable(List<PlanEntry>)
+- void attachAddButton()
+- void addTableRow(PlanEntry)
+- void resetTableRows()
++ void onViewCreated(View,Bundle)
++ void onDestroyView()
++ TrainingPlan getCurrentTrainingPlan()
+}
+class com.example.fithub.main.prototypes.Templates {
++ List<ExerciseData> createExerciseDataTemplates()
++ List<PlanEntry> createPlanEntryTemplates()
++ List<TrainingPlan> createTrainingPlanTemplates()
++ void addMuscleGroups()
+}
+interface com.example.fithub.main.prototypes.data.daos.TrainingPlanDao {
+~ void insert(TrainingPlan)
+~ void delete(TrainingPlan)
+~ void update(TrainingPlan)
+~ List<TrainingPlan> getAll()
+~ TrainingPlan getById(int)
+}
+class com.example.fithub.main.MainActivity {
+- AppBarConfiguration appBarConfiguration
+- ActivityMainBinding binding
+# void onCreate(Bundle)
++ void renderAppBar()
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ boolean onSupportNavigateUp()
+}
+interface com.example.fithub.main.prototypes.data.daos.TrainingDayMuscleGroupCrossRefDao {
++ void insert(TrainingDayMuscleGroupCrossRef)
++ void update(TrainingDayMuscleGroupCrossRef)
++ void delete(TrainingDayMuscleGroupCrossRef)
++ List<TrainingDayMuscleGroupCrossRef> getByDate(Date)
++ int countByMuscleGroupId(int)
++ int countPastDays(int,Date,Date)
++ List<TrainingDayMuscleGroupCrossRef> getInterval(Date,Date)
++ void deleteAllByDate(Date)
+}
+class com.example.fithub.main.prototypes.data.ExerciseData {
++ int exerciseDataId
+- String instruction
+- String name
+- String imageUrl
+- String videoUrl
++ int getExerciseDataId()
++ void setExerciseDataId(int)
++ String getName()
++ void setName(String)
++ String getInstruction()
++ void setInstruction(String)
++ String getImageUrl()
++ void setImageUrl(String)
++ String getVideoUrl()
++ void setVideoUrl(String)
+}
+class com.example.fithub.main.prototypes.data.DatabaseManager {
++ {static} AppDatabase appDatabase
++ {static} Serializer serializer
++ {static} void initDatabase(Context)
++ {static} void clearDatabase()
++ {static} void addTemplates(Context)
+}
+class com.example.fithub.main.calendar.CalenderOverviewFragment {
+- CompactCalendarView compactCalendarView
+- View view
+- Calendar calendar
+- SimpleDateFormat monthDateFormat
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setCalenderListeners()
+- void navigateToTrainingDay(Date)
+- void setCalenderEvents()
+- void setMonthView()
++ void onViewCreated(View,Bundle)
++ void onDestroyView()
+}
+interface com.example.fithub.main.prototypes.data.daos.TrainingDayDao {
+~ void insert(TrainingDay)
+~ void delete(TrainingDay)
+~ void update(TrainingDay)
+~ List<TrainingDay> getAll()
+~ TrainingDay getByDate(Date)
+~ void deleteById(Date)
++ List<TrainingDayWithMuscleGroups> getTrainingDaysWithMuscleGroups()
++ List<TrainingDayWithMuscleGroups> getTrainingDaysWithMuscleGroupsByDate(Date)
++ TrainingDay getNextTrainingDay(Date)
+}
+class com.example.fithub.main.prototypes.data.relations.TrainingDayWithMuscleGroups {
++ TrainingDay trainingDay
++ List<MuscleGroup> muscleGroupList
+}
+abstract class com.example.fithub.main.prototypes.data.AppDatabase {
++ {abstract}TrainingPlanDao trainingPlanDao()
++ {abstract}ExerciseDataDao exerciseDataDao()
++ {abstract}PlanEntryDao planEntryDao()
++ {abstract}TrainingDayDao trainingDayDao()
++ {abstract}MuscleGroupDao muscleGroupDao()
++ {abstract}TrainingDayMuscleGroupCrossRefDao trainingDayMuscleGroupCrossRefDao()
+}
+class com.example.fithub.main.prototypes.data.PlanEntry {
++ int entryId
+- String weight
+- String repeats
+- int exerciseDataId
+- int trainingPlanId
++ int getTrainingPlanId()
++ void setTrainingPlanId(int)
++ int getExerciseDataId()
++ void setExerciseDataId(int)
++ int getEntryId()
++ void setEntryId(int)
++ String getWeight()
++ void setWeight(String)
++ String getRepeats()
++ void setRepeats(String)
+}
+class com.example.fithub.main.trainingplan.TrainingPlanOverviewFragment {
+- View view
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void updateListView()
++ void onViewCreated(View,Bundle)
++ void onDestroyView()
+}
+class com.example.fithub.main.prototypes.data.MuscleGroup {
++ int muscleGroupId
++ String muscleGroupName
++ int getMuscleGroupId()
++ void setMuscleGroupId(int)
++ String getMuscleGroupName()
++ void setMuscleGroupName(String)
+}
+
+
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.trainingplan.ExerciseFragment
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.HumanChartFragment
+com.example.fithub.main.components.Adapter <|-- com.example.fithub.main.components.ListAdapter
+com.example.fithub.main.components.ListAdapter +.. com.example.fithub.main.components.ListAdapter.MyViewHolder
+com.example.fithub.main.components.ViewHolder <|-- com.example.fithub.main.components.ListAdapter.MyViewHolder
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.calendar.TrainingDayFragment
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.FirstFragment
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.StatisticFragment
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.PieChartFragment
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.trainingplan.TrainingPlanFragment
+androidx.appcompat.app.AppCompatActivity <|-- com.example.fithub.main.MainActivity
+java.io.Serializable <|.. com.example.fithub.main.prototypes.data.ExerciseData
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.calendar.CalenderOverviewFragment
+androidx.room.RoomDatabase <|-- com.example.fithub.main.prototypes.data.AppDatabase
+androidx.fragment.app.Fragment <|-- com.example.fithub.main.trainingplan.TrainingPlanOverviewFragment
+@enduml
