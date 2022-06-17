@@ -289,9 +289,11 @@ public class ExerciseFragment extends Fragment {
           }
         });
 
-    embeddedVideoView.setInitialScale(220);
+    // embeddedVideoView.setInitialScale(220);
     final WebSettings webSettings = embeddedVideoView.getSettings();
     webSettings.setJavaScriptEnabled(true);
+    webSettings.setLoadWithOverviewMode(true);
+
     embeddedVideoView.loadData(frameVideo, "text/html", "utf-8");
   }
 
@@ -304,8 +306,13 @@ public class ExerciseFragment extends Fragment {
   private String parseVideoUrl(final String url) {
     final String[] separatedUrl = url.split("/");
     final String youtubeId = separatedUrl[separatedUrl.length - 1];
+
     final String fullUrl =
-        "<html><body><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/"
+        "<html><body><iframe width=\""
+            + 375
+            + "\" height=\""
+            + 215
+            + "\" src=\"https://www.youtube.com/embed/"
             + youtubeId
             + "\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
     return fullUrl;

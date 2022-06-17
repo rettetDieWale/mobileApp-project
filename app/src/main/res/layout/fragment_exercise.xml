@@ -130,9 +130,9 @@
 
             <WebView
                 android:id="@+id/exercise_webview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="25dp" />
+                android:layout_width="375dp"
+                android:layout_height="215dp"
+                android:layout_gravity="center" />
 
             <ViewSwitcher
                 android:id="@+id/viewSwitcherVideo"
