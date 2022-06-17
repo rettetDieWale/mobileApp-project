@@ -27,6 +27,7 @@
                 style="@style/icon_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:background="@drawable/seetrough_button"
                 android:contentDescription="@string/delete"
@@ -37,36 +38,41 @@
             <Spinner
                 android:id="@+id/spinner_training_plan"
                 style="@style/spinner_style"
-                android:layout_width="400dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
                 android:contentDescription="@string/appbar_title_exercise"
                 android:minHeight="48dp" />
 
             <TextView
                 android:id="@+id/label_trainingsplan_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Trainingplan Name:" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputPlanName"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:hint="@string/training_plan"
                 android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
 
             <TextView
                 android:id="@+id/label_notizen"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Notizen:" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/notice_textEdit"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:hint="@string/notice_text"
                 android:minHeight="48dp"></com.google.android.material.textfield.TextInputEditText>
 
