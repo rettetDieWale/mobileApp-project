@@ -11,11 +11,62 @@
         android:label="@string/appbar_title_home"
         tools:layout="@layout/fragment_first">
         <action
-            android:id="@+id/action_FirstFragment_to_PieChartFragment"
-            app:destination="@id/PieChartFragment" />
+            android:id="@+id/action_FirstFragment_to_trainingPlanOverviewFragment"
+            app:destination="@id/trainingPlanOverviewFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_calenderOverviewFragment"
+            app:destination="@id/calenderOverviewFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_trainingDayFragment"
+            app:destination="@id/trainingDayFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_statisticFragment"
+            app:destination="@id/statisticFragment" />
     </fragment>
     <fragment
-        android:id="@+id/PieChartFragment"
-        android:name="com.example.fithub.main.PieChartFragment"
-        android:label="@string/appbar_title_analysis" />
+        android:id="@+id/trainingPlanOverviewFragment"
+        android:name="com.example.fithub.main.trainingplan.TrainingPlanOverviewFragment"
+        android:label="@string/appbar_title_training_plan_overview"
+        tools:layout="@layout/fragment_training_plan_overview">
+        <action
+            android:id="@+id/action_trainingPlanOverviewFragment_to_trainingPlanFragment"
+            app:destination="@id/trainingPlanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingPlanFragment"
+        android:name="com.example.fithub.main.trainingplan.TrainingPlanFragment"
+        android:label="@string/appbar_title_training_plan"
+        tools:layout="@layout/fragment_training_plan">
+        <action
+            android:id="@+id/action_trainingPlanFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.fithub.main.trainingplan.ExerciseFragment"
+        android:label="@string/appbar_title_exercise"
+        tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/calenderOverviewFragment"
+        android:name="com.example.fithub.main.calendar.CalenderOverviewFragment"
+        android:label="@string/appbar_title_calender"
+        tools:layout="@layout/fragment_calender_overview">
+        <action
+            android:id="@+id/action_calenderOverviewFragment_to_trainingDayFragment"
+            app:destination="@id/trainingDayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingDayFragment"
+        android:name="com.example.fithub.main.calendar.TrainingDayFragment"
+        android:label="@string/appbar_title_training_day"
+        tools:layout="@layout/fragment_training_day">
+        <action
+            android:id="@+id/action_trainingDayFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.fithub.main.StatisticFragment"
+        android:label="Statistik"
+        tools:layout="@layout/fragment_statistic" />
 </navigation>

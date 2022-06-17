@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="icon_style" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/rounded_corner_button</item>
+        <item name="android:tint">@color/icons</item>
+    </style>
+
+    <style name="icon_text" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="toolbar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_appbar</item>
+    </style>
+
+    <style name="list_item" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/list_item_box</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+    <style name="small_buttons" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/seetrough_button</item>
+        <item name="android:tint">@color/primary_icon</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:tint">@color/icons</item>
+    </style>
+</resources>

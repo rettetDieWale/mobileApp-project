@@ -2,52 +2,178 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text_view_storage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.FirstFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="307dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_home"
+    <ImageButton
+        android:id="@+id/button_analysis"
+        style="@style/icon_style"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/analysis_speakable"
+        android:src="@drawable/analytics_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.634"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_home"
+    <TextView
+        android:id="@+id/analysis_text"
+        style="@style/icon_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appbar_title_analysis"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_analysis"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/button_calendar"
+        style="@style/icon_style"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/calendar_speakable"
+        android:src="@drawable/calendar_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/experience_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_text"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <TextView
+        android:id="@+id/calendar_text"
+        style="@style/icon_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/appbar_title_calender"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_calendar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/training_plans_button"
+        style="@style/icon_style"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/training_plan_speakable"
+        android:src="@drawable/fitness_plan_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_level"
+        android:id="@+id/textView4"
+        style="@style/icon_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Level 2"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        android:text="@string/appbar_title_training_plan_overview"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.916"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintTop_toBottomOf="@+id/training_plans_button"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView_progress"
+        android:id="@+id/next_date_textview"
+        style="@style/icon_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="50/100"
-        app:layout_constraintBottom_toBottomOf="@+id/button_home"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="10dp"
+        android:text="/"
+        android:textAlignment="center"
+        android:textColor="@color/icons"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintVertical_bias="0.345" />
+
+    <TextView
+        android:id="@+id/next_workout_label_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nächster Trainingstag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintVertical_bias="0.281" />
+
+    <TextView
+        android:id="@+id/number_exercises_textview"
+        android:layout_width="135dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="5dp"
+        android:text="/"
+        android:textAlignment="center"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_workout_label_textview"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/divider10"
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="17dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/next_workout_label_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider11"
+        android:layout_width="390dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number_exercises_textview"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        style="@style/icon_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/appbar_title_training_day"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/divider11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintStart_toEndOf="@+id/number_exercises_textview"
+        app:layout_constraintTop_toBottomOf="@+id/divider10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
