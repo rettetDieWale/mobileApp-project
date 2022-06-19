@@ -1,0 +1,11 @@
+com.example.fithub
+com.example.fithub.databinding
+com.example.fithub.main
+com.example.fithub.main.calendar
+com.example.fithub.main.components
+com.example.fithub.main.prototypes
+com.example.fithub.main.prototypes.data
+com.example.fithub.main.prototypes.data.daos
+com.example.fithub.main.prototypes.data.relations
+com.example.fithub.main.storage
+com.example.fithub.main.trainingplan

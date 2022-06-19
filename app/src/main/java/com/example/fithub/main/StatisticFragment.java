@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.fithub.R;
 
+/**
+ * The type Statistic fragment.
+ */
 public class StatisticFragment extends Fragment {
   private View view;
 

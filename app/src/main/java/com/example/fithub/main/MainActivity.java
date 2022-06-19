@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.fithub.R;
 import com.example.fithub.databinding.ActivityMainBinding;
 
+/** The type Main activity. */
 public class MainActivity extends AppCompatActivity {
 
   private AppBarConfiguration appBarConfiguration;

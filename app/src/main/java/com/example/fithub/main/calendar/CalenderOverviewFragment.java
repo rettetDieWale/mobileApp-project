@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/** The type Calender overview fragment. */
 public class CalenderOverviewFragment extends Fragment {
 
   private CompactCalendarView compactCalendarView;

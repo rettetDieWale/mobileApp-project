@@ -35,6 +35,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The type First fragment.
+ */
 public class FirstFragment extends Fragment {
 
   private ProgressBar progressBar;

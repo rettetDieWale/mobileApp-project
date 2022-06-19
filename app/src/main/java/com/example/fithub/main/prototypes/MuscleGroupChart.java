@@ -8,6 +8,7 @@ import java.util.Map;
 public class MuscleGroupChart {
   private ArrayMap<String, String> muscleGroupData;
 
+  /** Instantiates a new Muscle group chart. */
   public MuscleGroupChart() {
     muscleGroupData = new ArrayMap<>();
   }

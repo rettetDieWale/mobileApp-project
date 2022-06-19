@@ -10,12 +10,13 @@ import java.util.Date;
  */
 public class DateConverter {
 
+  /** The Date format. */
   static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
   /**
    * Convert a string into a date object with the format: dd-mm-yyyy
    *
-   * @param dateString
+   * @param dateString the date string
    * @return date as object.
    */
   public static Date parseStringToDate(final String dateString) {

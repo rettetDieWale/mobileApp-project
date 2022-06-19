@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+/** The type Training day fragment. */
 public class TrainingDayFragment extends Fragment {
 
   private final String[] muscleGroupArray = {
