@@ -26,6 +26,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Pie chart fragment.
+ */
 public class PieChartFragment extends Fragment {
 
   private PieChart chart;

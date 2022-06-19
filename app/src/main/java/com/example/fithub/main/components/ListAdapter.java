@@ -23,6 +23,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
   private Fragment fragment;
 
   /**
+   * Instantiates a new List adapter.
+   *
    * @param items for the list
    * @param fragment current fragment
    */
@@ -73,29 +75,55 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
     return items.size();
   }
 
+  /** The type My view holder. */
   static class MyViewHolder extends RecyclerView.ViewHolder {
 
     private TextView planName;
     private TextView entryNumberView;
 
+    /**
+     * Instantiates a new My view holder.
+     *
+     * @param itemView the item view
+     */
     public MyViewHolder(@NonNull final View itemView) {
       super(itemView);
       planName = itemView.findViewById(R.id.plan_name);
       entryNumberView = itemView.findViewById(R.id.entry_number);
     }
 
+    /**
+     * Gets plan name.
+     *
+     * @return the plan name
+     */
     public TextView getPlanName() {
       return planName;
     }
 
+    /**
+     * Sets plan name.
+     *
+     * @param planName the plan name
+     */
     public void setPlanName(TextView planName) {
       this.planName = planName;
     }
 
+    /**
+     * Gets entry number view.
+     *
+     * @return the entry number view
+     */
     public TextView getEntryNumberView() {
       return entryNumberView;
     }
 
+    /**
+     * Sets entry number view.
+     *
+     * @param entryNumberView the entry number view
+     */
     public void setEntryNumberView(TextView entryNumberView) {
       this.entryNumberView = entryNumberView;
     }

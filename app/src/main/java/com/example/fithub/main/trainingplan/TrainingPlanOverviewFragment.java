@@ -20,6 +20,7 @@ import com.example.fithub.main.prototypes.data.TrainingPlan;
 import java.util.ArrayList;
 import java.util.List;
 
+/** The type Training plan overview fragment. */
 public class TrainingPlanOverviewFragment extends Fragment {
   private View view;
 

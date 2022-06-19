@@ -32,6 +32,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+/** The type Training plan fragment. */
 public class TrainingPlanFragment extends Fragment {
   private final int STANDARD_TEMPLATE_ID = 1;
   private View view;
@@ -394,6 +395,11 @@ public class TrainingPlanFragment extends Fragment {
     super.onDestroyView();
   }
 
+  /**
+   * Gets current training plan.
+   *
+   * @return the current training plan
+   */
   public TrainingPlan getCurrentTrainingPlan() {
     return this.currentTrainingPlan;
   }

@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/** The type Human chart fragment. */
 public class HumanChartFragment extends Fragment {
 
   private View view;

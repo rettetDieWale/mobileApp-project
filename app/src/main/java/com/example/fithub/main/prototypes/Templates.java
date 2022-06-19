@@ -239,6 +239,7 @@ public class Templates {
     return trainingPlanList;
   }
 
+  /** Add muscle groups. */
   public void addMuscleGroups() {
     final String[] muscleGroupArray = {"Beine", "Brust", "Arme", "Schultern", "Bauch", "Rücken"};
 

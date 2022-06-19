@@ -14,7 +14,9 @@ import java.util.List;
 /** Access API for database object over the whole app. */
 public class DatabaseManager {
 
+  /** The constant appDatabase. */
   public static AppDatabase appDatabase;
+  /** The constant serializer. */
   public static Serializer serializer;
 
   /**

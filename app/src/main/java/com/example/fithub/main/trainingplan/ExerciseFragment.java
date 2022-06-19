@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+/** The type Exercise fragment. */
 public class ExerciseFragment extends Fragment {
   private TextView InstructionTextArea, exerciseTitle;
 

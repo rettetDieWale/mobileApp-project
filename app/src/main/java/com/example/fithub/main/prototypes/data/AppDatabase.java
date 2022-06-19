@@ -24,15 +24,45 @@ import com.example.fithub.main.prototypes.data.daos.TrainingPlanDao;
     version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
+  /**
+   * Training plan dao training plan dao.
+   *
+   * @return the training plan dao
+   */
   public abstract TrainingPlanDao trainingPlanDao();
 
+  /**
+   * Exercise data dao exercise data dao.
+   *
+   * @return the exercise data dao
+   */
   public abstract ExerciseDataDao exerciseDataDao();
 
+  /**
+   * Plan entry dao plan entry dao.
+   *
+   * @return the plan entry dao
+   */
   public abstract PlanEntryDao planEntryDao();
 
+  /**
+   * Training day dao training day dao.
+   *
+   * @return the training day dao
+   */
   public abstract TrainingDayDao trainingDayDao();
 
+  /**
+   * Muscle group dao muscle group dao.
+   *
+   * @return the muscle group dao
+   */
   public abstract MuscleGroupDao muscleGroupDao();
 
+  /**
+   * Training day muscle group cross ref dao training day muscle group cross ref dao.
+   *
+   * @return the training day muscle group cross ref dao
+   */
   public abstract TrainingDayMuscleGroupCrossRefDao trainingDayMuscleGroupCrossRefDao();
 }

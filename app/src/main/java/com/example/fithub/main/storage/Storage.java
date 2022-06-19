@@ -19,6 +19,7 @@ public class Storage {
    *
    * @param context of the current activity
    * @param fileName for destination file
+   * @param data the data
    */
   public void storeData(@NonNull final Context context, final String fileName, final String data) {
 
