@@ -1,5 +1,10 @@
+# deprecated! remake:
+https://github.com/sdresselmann/Lifting-Progress-Tracker
+
+
 # Beschreibung
 App Fitness-Planer in dem der Nutzer eigene Trainingspläne hinzufügen und konfigurieren kann.
+
 
 # Gradle
 
