@@ -1,4 +1,4 @@
-# deprecated! remake:
+# Project is deprecated! remake under:
 https://github.com/sdresselmann/Lifting-Progress-Tracker
 
 
